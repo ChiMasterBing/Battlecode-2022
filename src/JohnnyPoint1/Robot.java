@@ -1,6 +1,5 @@
 package JohnnyPoint1;
-import battlecode.common.GameActionException;
-import battlecode.common.RobotController;
+import battlecode.common.*;
 public abstract class Robot {
-	abstract void run() throws GameActionException;
+   abstract void run() throws GameActionException;
 }
