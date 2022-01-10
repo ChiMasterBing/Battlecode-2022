@@ -181,3 +181,9 @@ public strictfp class RobotPlayer {
         }
     }
 }
+
+private static class RobotInfoComparator implements Comparator<RobotInfo>{
+    public int compare(RobotInfo a, RobotInfo b){
+        return a.getHealth() - b.getHealth();
+    }
+}
