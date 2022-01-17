@@ -1,4 +1,4 @@
-package DanielProto;
+package Pathfinding;
 import java.util.*;
 import battlecode.common.*;
 

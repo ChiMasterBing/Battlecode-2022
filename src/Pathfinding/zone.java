@@ -1,4 +1,4 @@
-package DanielProto;
+package Pathfinding;
 
 public class zone {
     int lead, gold, rubble;

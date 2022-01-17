@@ -1,4 +1,4 @@
-package DanielProto;
+package Pathfinding;
 import java.util.Random;
 
 import battlecode.common.Direction;
@@ -34,7 +34,7 @@ public class Miner extends Robot{
     		rc.resign();
     	}
         Direction dir =BFSBuilder.getBestDir(rc, new MapLocation(0, 0));
-        rc.setIndicatorString(dir.toString());
+        //rc.setIndicatorString(dir.toString());
         if(dir!=null&&rc.canMove(dir)) {
         	//System.out.println(dir);
         	rc.move(dir);

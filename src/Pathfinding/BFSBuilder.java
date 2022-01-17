@@ -1,4 +1,4 @@
-package DanielProto;
+package Pathfinding;
 
 import battlecode.common.Direction;
 import battlecode.common.GameActionException;
@@ -1968,601 +1968,603 @@ public class BFSBuilder {
                 }
             }
 
-            int dx = target.x - l112.x;//KInda fricked cuz (0, 0) isnt top left
-            int dy = target.y - l112.y;
-            switch (dy) {
-            case -4:
-                switch (dx) {
-                case -2:
-                    return d50;
-                case -1:
-                    return d51;
-                case 0:
-                    return d52;
-                case 1:
-                    return d53;
-                case 2:
-                    return d54;
-                }
-                break;
-            case -3:
-                switch (dx) {
-                case -3:
-                    return d64;
-                case -2:
-                    return d65;
-                case -1:
-                    return d66;
-                case 0:
-                    return d67;
-                case 1:
-                    return d68;
-                case 2:
-                    return d69;
-                case 3:
-                    return d70;
-                }
-                break;
-            case -2:
-                switch (dx) {
-                case -4:
-                    return d78;
-                case -3:
-                    return d79;
-                case -2:
-                    return d80;
-                case -1:
-                    return d81;
-                case 0:
-                    return d82;
-                case 1:
-                    return d83;
-                case 2:
-                    return d84;
-                case 3:
-                    return d85;
-                case 4:
-                    return d86;
-                }
-                break;
-            case -1:
-                switch (dx) {
-                case -4:
-                    return d93;
-                case -3:
-                    return d94;
-                case -2:
-                    return d95;
-                case -1:
-                    return d96;
-                case 0:
-                    return d97;
-                case 1:
-                    return d98;
-                case 2:
-                    return d99;
-                case 3:
-                    return d100;
-                case 4:
-                    return d101;
-                }
-                break;
-            case 0:
-                switch (dx) {
-                case -4:
-                    return d108;
-                case -3:
-                    return d109;
-                case -2:
-                    return d110;
-                case -1:
-                    return d111;
-                case 0:
-                    return d112;
-                case 1:
-                    return d113;
-                case 2:
-                    return d114;
-                case 3:
-                    return d115;
-                case 4:
-                    return d116;
-                }
-                break;
-            case 1:
-                switch (dx) {
-                case -4:
-                    return d123;
-                case -3:
-                    return d124;
-                case -2:
-                    return d125;
-                case -1:
-                    return d126;
-                case 0:
-                    return d127;
-                case 1:
-                    return d128;
-                case 2:
-                    return d129;
-                case 3:
-                    return d130;
-                case 4:
-                    return d131;
-                }
-                break;
-            case 2:
-                switch (dx) {
-                case -4:
-                    return d138;
-                case -3:
-                    return d139;
-                case -2:
-                    return d140;
-                case -1:
-                    return d141;
-                case 0:
-                    return d142;
-                case 1:
-                    return d143;
-                case 2:
-                    return d144;
-                case 3:
-                    return d145;
-                case 4:
-                    return d146;
-                }
-                break;
-            case 3:
-                switch (dx) {
-                case -3:
-                    return d154;
-                case -2:
-                    return d155;
-                case -1:
-                    return d156;
-                case 0:
-                    return d157;
-                case 1:
-                    return d158;
-                case 2:
-                    return d159;
-                case 3:
-                    return d160;
-                }
-                break;
-            case 4:
-                switch (dx) {
-                case -2:
-                    return d170;
-                case -1:
-                    return d171;
-                case 0:
-                    return d172;
-                case 1:
-                    return d173;
-                case 2:
-                    return d174;
-                }
-                break;
-            }
+//            int dx = target.x - l112.x;//KInda fricked cuz (0, 0) isnt top left
+//            int dy = l112.y-target.y;
+//            switch (dy) {
+//            case -4:
+//                switch (dx) {
+//                case -2:
+//                    return d50;
+//                case -1:
+//                    return d51;
+//                case 0:
+//                    return d52;
+//                case 1:
+//                    return d53;
+//                case 2:
+//                    return d54;
+//                }
+//                break;
+//            case -3:
+//                switch (dx) {
+//                case -3:
+//                    return d64;
+//                case -2:
+//                    return d65;
+//                case -1:
+//                    return d66;
+//                case 0:
+//                    return d67;
+//                case 1:
+//                    return d68;
+//                case 2:
+//                    return d69;
+//                case 3:
+//                    return d70;
+//                }
+//                break;
+//            case -2:
+//                switch (dx) {
+//                case -4:
+//                    return d78;
+//                case -3:
+//                    return d79;
+//                case -2:
+//                    return d80;
+//                case -1:
+//                    return d81;
+//                case 0:
+//                    return d82;
+//                case 1:
+//                    return d83;
+//                case 2:
+//                    return d84;
+//                case 3:
+//                    return d85;
+//                case 4:
+//                    return d86;
+//                }
+//                break;
+//            case -1:
+//                switch (dx) {
+//                case -4:
+//                    return d93;
+//                case -3:
+//                    return d94;
+//                case -2:
+//                    return d95;
+//                case -1:
+//                    return d96;
+//                case 0:
+//                    return d97;
+//                case 1:
+//                    return d98;
+//                case 2:
+//                    return d99;
+//                case 3:
+//                    return d100;
+//                case 4:
+//                    return d101;
+//                }
+//                break;
+//            case 0:
+//                switch (dx) {
+//                case -4:
+//                    return d108;
+//                case -3:
+//                    return d109;
+//                case -2:
+//                    return d110;
+//                case -1:
+//                    return d111;
+//                case 0:
+//                    return d112;
+//                case 1:
+//                    return d113;
+//                case 2:
+//                    return d114;
+//                case 3:
+//                    return d115;
+//                case 4:
+//                    return d116;
+//                }
+//                break;
+//            case 1:
+//                switch (dx) {
+//                case -4:
+//                    return d123;
+//                case -3:
+//                    return d124;
+//                case -2:
+//                    return d125;
+//                case -1:
+//                    return d126;
+//                case 0:
+//                    return d127;
+//                case 1:
+//                    return d128;
+//                case 2:
+//                    return d129;
+//                case 3:
+//                    return d130;
+//                case 4:
+//                    return d131;
+//                }
+//                break;
+//            case 2:
+//                switch (dx) {
+//                case -4:
+//                    return d138;
+//                case -3:
+//                    return d139;
+//                case -2:
+//                    return d140;
+//                case -1:
+//                    return d141;
+//                case 0:
+//                    return d142;
+//                case 1:
+//                    return d143;
+//                case 2:
+//                    return d144;
+//                case 3:
+//                    return d145;
+//                case 4:
+//                    return d146;
+//                }
+//                break;
+//            case 3:
+//                switch (dx) {
+//                case -3:
+//                    return d154;
+//                case -2:
+//                    return d155;
+//                case -1:
+//                    return d156;
+//                case 0:
+//                    return d157;
+//                case 1:
+//                    return d158;
+//                case 2:
+//                    return d159;
+//                case 3:
+//                    return d160;
+//                }
+//                break;
+//            case 4:
+//                switch (dx) {
+//                case -2:
+//                    return d170;
+//                case -1:
+//                    return d171;
+//                case 0:
+//                    return d172;
+//                case 1:
+//                    return d173;
+//                case 2:
+//                    return d174;
+//                }
+//                break;
+//            }
+            ans = Direction.SOUTH;//CHANGE
             int cx = l112.x - 7 - target.x; //also kinda fricked cuz (0, 0) isnt top left
-            int cy = l112.y - 7 - target.y;
-            int nomove = Math.max(Math.abs(cx + 7) * 50, Math.abs(cy + 7) * 50); //make it <=
-            int dist50 = Math.max(Math.abs(cx + 5) * 50 + c50, Math.abs(cy + 3) * 50 + c50);
+            int cy = l112.y + 7 - target.y;
+            int nomove = Math.max(Math.abs(cx + 7) * 50, Math.abs(cy - 7) * 50); //make it <=
             int cmin = Integer.MAX_VALUE;
+
+            int dist50 = Math.max(Math.abs(cx + 5) * 50 + c50, Math.abs(cy - 3) * 50 + c50);
             if (dist50 <= cmin) {
                 cmin = dist50;
                 ans = d50;
             }
 
-            int dist51 = Math.max(Math.abs(cx + 6) * 50 + c51, Math.abs(cy + 3) * 50 + c51);
+            int dist51 = Math.max(Math.abs(cx + 6) * 50 + c51, Math.abs(cy - 3) * 50 + c51);
             if (dist51 <= cmin) {
                 cmin = dist51;
                 ans = d51;
             }
 
-            int dist52 = Math.max(Math.abs(cx + 7) * 50 + c52, Math.abs(cy + 3) * 50 + c52);
+            int dist52 = Math.max(Math.abs(cx + 7) * 50 + c52, Math.abs(cy - 3) * 50 + c52);
             if (dist52 <= cmin) {
                 cmin = dist52;
                 ans = d52;
             }
 
-            int dist53 = Math.max(Math.abs(cx + 8) * 50 + c53, Math.abs(cy + 3) * 50 + c53);
+            int dist53 = Math.max(Math.abs(cx + 8) * 50 + c53, Math.abs(cy - 3) * 50 + c53);
             if (dist53 <= cmin) {
                 cmin = dist53;
                 ans = d53;
             }
 
-            int dist54 = Math.max(Math.abs(cx + 9) * 50 + c54, Math.abs(cy + 3) * 50 + c54);
+            int dist54 = Math.max(Math.abs(cx + 9) * 50 + c54, Math.abs(cy - 3) * 50 + c54);
             if (dist54 <= cmin) {
                 cmin = dist54;
                 ans = d54;
             }
 
-            int dist64 = Math.max(Math.abs(cx + 4) * 50 + c64, Math.abs(cy + 4) * 50 + c64);
+            int dist64 = Math.max(Math.abs(cx + 4) * 50 + c64, Math.abs(cy - 4) * 50 + c64);
             if (dist64 <= cmin) {
                 cmin = dist64;
                 ans = d64;
             }
 
-            int dist65 = Math.max(Math.abs(cx + 5) * 50 + c65, Math.abs(cy + 4) * 50 + c65);
+            int dist65 = Math.max(Math.abs(cx + 5) * 50 + c65, Math.abs(cy - 4) * 50 + c65);
             if (dist65 <= cmin) {
                 cmin = dist65;
                 ans = d65;
             }
 
-            int dist69 = Math.max(Math.abs(cx + 9) * 50 + c69, Math.abs(cy + 4) * 50 + c69);
+            int dist69 = Math.max(Math.abs(cx + 9) * 50 + c69, Math.abs(cy - 4) * 50 + c69);
             if (dist69 <= cmin) {
                 cmin = dist69;
                 ans = d69;
             }
 
-            int dist70 = Math.max(Math.abs(cx + 10) * 50 + c70, Math.abs(cy + 4) * 50 + c70);
+            int dist70 = Math.max(Math.abs(cx + 10) * 50 + c70, Math.abs(cy - 4) * 50 + c70);
             if (dist70 <= cmin) {
                 cmin = dist70;
                 ans = d70;
             }
 
-            int dist78 = Math.max(Math.abs(cx + 3) * 50 + c78, Math.abs(cy + 5) * 50 + c78);
+            int dist78 = Math.max(Math.abs(cx + 3) * 50 + c78, Math.abs(cy - 5) * 50 + c78);
             if (dist78 <= cmin) {
                 cmin = dist78;
                 ans = d78;
             }
 
-            int dist79 = Math.max(Math.abs(cx + 4) * 50 + c79, Math.abs(cy + 5) * 50 + c79);
+            int dist79 = Math.max(Math.abs(cx + 4) * 50 + c79, Math.abs(cy - 5) * 50 + c79);
             if (dist79 <= cmin) {
                 cmin = dist79;
                 ans = d79;
             }
 
-            int dist85 = Math.max(Math.abs(cx + 10) * 50 + c85, Math.abs(cy + 5) * 50 + c85);
+            int dist85 = Math.max(Math.abs(cx + 10) * 50 + c85, Math.abs(cy - 5) * 50 + c85);
             if (dist85 <= cmin) {
                 cmin = dist85;
                 ans = d85;
             }
 
-            int dist86 = Math.max(Math.abs(cx + 11) * 50 + c86, Math.abs(cy + 5) * 50 + c86);
+            int dist86 = Math.max(Math.abs(cx + 11) * 50 + c86, Math.abs(cy - 5) * 50 + c86);
             if (dist86 <= cmin) {
                 cmin = dist86;
                 ans = d86;
             }
 
-            int dist93 = Math.max(Math.abs(cx + 3) * 50 + c93, Math.abs(cy + 6) * 50 + c93);
+            int dist93 = Math.max(Math.abs(cx + 3) * 50 + c93, Math.abs(cy - 6) * 50 + c93);
             if (dist93 <= cmin) {
                 cmin = dist93;
                 ans = d93;
             }
 
-            int dist101 = Math.max(Math.abs(cx + 11) * 50 + c101, Math.abs(cy + 6) * 50 + c101);
+            int dist101 = Math.max(Math.abs(cx + 11) * 50 + c101, Math.abs(cy - 6) * 50 + c101);
             if (dist101 <= cmin) {
                 cmin = dist101;
                 ans = d101;
             }
 
-            int dist108 = Math.max(Math.abs(cx + 3) * 50 + c108, Math.abs(cy + 7) * 50 + c108);
+            int dist108 = Math.max(Math.abs(cx + 3) * 50 + c108, Math.abs(cy - 7) * 50 + c108);
             if (dist108 <= cmin) {
                 cmin = dist108;
                 ans = d108;
             }
 
-            int dist116 = Math.max(Math.abs(cx + 11) * 50 + c116, Math.abs(cy + 7) * 50 + c116);
+            int dist116 = Math.max(Math.abs(cx + 11) * 50 + c116, Math.abs(cy - 7) * 50 + c116);
             if (dist116 <= cmin) {
                 cmin = dist116;
                 ans = d116;
             }
 
-            int dist123 = Math.max(Math.abs(cx + 3) * 50 + c123, Math.abs(cy + 8) * 50 + c123);
+            int dist123 = Math.max(Math.abs(cx + 3) * 50 + c123, Math.abs(cy - 8) * 50 + c123);
             if (dist123 <= cmin) {
                 cmin = dist123;
                 ans = d123;
             }
 
-            int dist131 = Math.max(Math.abs(cx + 11) * 50 + c131, Math.abs(cy + 8) * 50 + c131);
+            int dist131 = Math.max(Math.abs(cx + 11) * 50 + c131, Math.abs(cy - 8) * 50 + c131);
             if (dist131 <= cmin) {
                 cmin = dist131;
                 ans = d131;
             }
 
-            int dist138 = Math.max(Math.abs(cx + 3) * 50 + c138, Math.abs(cy + 9) * 50 + c138);
+            int dist138 = Math.max(Math.abs(cx + 3) * 50 + c138, Math.abs(cy - 9) * 50 + c138);
             if (dist138 <= cmin) {
                 cmin = dist138;
                 ans = d138;
             }
 
-            int dist139 = Math.max(Math.abs(cx + 4) * 50 + c139, Math.abs(cy + 9) * 50 + c139);
+            int dist139 = Math.max(Math.abs(cx + 4) * 50 + c139, Math.abs(cy - 9) * 50 + c139);
             if (dist139 <= cmin) {
                 cmin = dist139;
                 ans = d139;
             }
 
-            int dist145 = Math.max(Math.abs(cx + 10) * 50 + c145, Math.abs(cy + 9) * 50 + c145);
+            int dist145 = Math.max(Math.abs(cx + 10) * 50 + c145, Math.abs(cy - 9) * 50 + c145);
             if (dist145 <= cmin) {
                 cmin = dist145;
                 ans = d145;
             }
 
-            int dist146 = Math.max(Math.abs(cx + 11) * 50 + c146, Math.abs(cy + 9) * 50 + c146);
+            int dist146 = Math.max(Math.abs(cx + 11) * 50 + c146, Math.abs(cy - 9) * 50 + c146);
             if (dist146 <= cmin) {
                 cmin = dist146;
                 ans = d146;
             }
 
-            int dist154 = Math.max(Math.abs(cx + 4) * 50 + c154, Math.abs(cy + 10) * 50 + c154);
+            int dist154 = Math.max(Math.abs(cx + 4) * 50 + c154, Math.abs(cy - 10) * 50 + c154);
             if (dist154 <= cmin) {
                 cmin = dist154;
                 ans = d154;
             }
 
-            int dist155 = Math.max(Math.abs(cx + 5) * 50 + c155, Math.abs(cy + 10) * 50 + c155);
+            int dist155 = Math.max(Math.abs(cx + 5) * 50 + c155, Math.abs(cy - 10) * 50 + c155);
             if (dist155 <= cmin) {
                 cmin = dist155;
                 ans = d155;
             }
 
-            int dist159 = Math.max(Math.abs(cx + 9) * 50 + c159, Math.abs(cy + 10) * 50 + c159);
+            int dist159 = Math.max(Math.abs(cx + 9) * 50 + c159, Math.abs(cy - 10) * 50 + c159);
             if (dist159 <= cmin) {
                 cmin = dist159;
                 ans = d159;
             }
 
-            int dist160 = Math.max(Math.abs(cx + 10) * 50 + c160, Math.abs(cy + 10) * 50 + c160);
+            int dist160 = Math.max(Math.abs(cx + 10) * 50 + c160, Math.abs(cy - 10) * 50 + c160);
             if (dist160 <= cmin) {
                 cmin = dist160;
                 ans = d160;
             }
 
-            int dist170 = Math.max(Math.abs(cx + 5) * 50 + c170, Math.abs(cy + 11) * 50 + c170);
+            int dist170 = Math.max(Math.abs(cx + 5) * 50 + c170, Math.abs(cy - 11) * 50 + c170);
             if (dist170 <= cmin) {
                 cmin = dist170;
                 ans = d170;
             }
 
-            int dist171 = Math.max(Math.abs(cx + 6) * 50 + c171, Math.abs(cy + 11) * 50 + c171);
+            int dist171 = Math.max(Math.abs(cx + 6) * 50 + c171, Math.abs(cy - 11) * 50 + c171);
             if (dist171 <= cmin) {
                 cmin = dist171;
                 ans = d171;
             }
 
-            int dist172 = Math.max(Math.abs(cx + 7) * 50 + c172, Math.abs(cy + 11) * 50 + c172);
+            int dist172 = Math.max(Math.abs(cx + 7) * 50 + c172, Math.abs(cy - 11) * 50 + c172);
             if (dist172 <= cmin) {
                 cmin = dist172;
                 ans = d172;
             }
 
-            int dist173 = Math.max(Math.abs(cx + 8) * 50 + c173, Math.abs(cy + 11) * 50 + c173);
+            int dist173 = Math.max(Math.abs(cx + 8) * 50 + c173, Math.abs(cy - 11) * 50 + c173);
             if (dist173 <= cmin) {
                 cmin = dist173;
                 ans = d173;
             }
 
-            int dist174 = Math.max(Math.abs(cx + 9) * 50 + c174, Math.abs(cy + 11) * 50 + c174);
+            int dist174 = Math.max(Math.abs(cx + 9) * 50 + c174, Math.abs(cy - 11) * 50 + c174);
             if (dist174 <= cmin) {
                 cmin = dist174;
                 ans = d174;
             }
-
+            rc.setIndicatorString(String.valueOf(cmin));
             if (cmin <= nomove) return ans;
 
-            int dist66 = Math.max(Math.abs(cx + 6) * 50 + c66, Math.abs(cy + 4) * 50 + c66);
+            int dist66 = Math.max(Math.abs(cx + 6) * 50 + c66, Math.abs(cy - 4) * 50 + c66);
             if (dist66 <= cmin) {
                 cmin = dist66;
                 ans = d66;
             }
 
-            int dist67 = Math.max(Math.abs(cx + 7) * 50 + c67, Math.abs(cy + 4) * 50 + c67);
+            int dist67 = Math.max(Math.abs(cx + 7) * 50 + c67, Math.abs(cy - 4) * 50 + c67);
             if (dist67 <= cmin) {
                 cmin = dist67;
                 ans = d67;
             }
 
-            int dist68 = Math.max(Math.abs(cx + 8) * 50 + c68, Math.abs(cy + 4) * 50 + c68);
+            int dist68 = Math.max(Math.abs(cx + 8) * 50 + c68, Math.abs(cy - 4) * 50 + c68);
             if (dist68 <= cmin) {
                 cmin = dist68;
                 ans = d68;
             }
 
-            int dist80 = Math.max(Math.abs(cx + 5) * 50 + c80, Math.abs(cy + 5) * 50 + c80);
+            int dist80 = Math.max(Math.abs(cx + 5) * 50 + c80, Math.abs(cy - 5) * 50 + c80);
             if (dist80 <= cmin) {
                 cmin = dist80;
                 ans = d80;
             }
 
-            int dist81 = Math.max(Math.abs(cx + 6) * 50 + c81, Math.abs(cy + 5) * 50 + c81);
+            int dist81 = Math.max(Math.abs(cx + 6) * 50 + c81, Math.abs(cy - 5) * 50 + c81);
             if (dist81 <= cmin) {
                 cmin = dist81;
                 ans = d81;
             }
 
-            int dist83 = Math.max(Math.abs(cx + 8) * 50 + c83, Math.abs(cy + 5) * 50 + c83);
+            int dist83 = Math.max(Math.abs(cx + 8) * 50 + c83, Math.abs(cy - 5) * 50 + c83);
             if (dist83 <= cmin) {
                 cmin = dist83;
                 ans = d83;
             }
 
-            int dist84 = Math.max(Math.abs(cx + 9) * 50 + c84, Math.abs(cy + 5) * 50 + c84);
+            int dist84 = Math.max(Math.abs(cx + 9) * 50 + c84, Math.abs(cy - 5) * 50 + c84);
             if (dist84 <= cmin) {
                 cmin = dist84;
                 ans = d84;
             }
 
-            int dist94 = Math.max(Math.abs(cx + 4) * 50 + c94, Math.abs(cy + 6) * 50 + c94);
+            int dist94 = Math.max(Math.abs(cx + 4) * 50 + c94, Math.abs(cy - 6) * 50 + c94);
             if (dist94 <= cmin) {
                 cmin = dist94;
                 ans = d94;
             }
 
-            int dist95 = Math.max(Math.abs(cx + 5) * 50 + c95, Math.abs(cy + 6) * 50 + c95);
+            int dist95 = Math.max(Math.abs(cx + 5) * 50 + c95, Math.abs(cy - 6) * 50 + c95);
             if (dist95 <= cmin) {
                 cmin = dist95;
                 ans = d95;
             }
 
-            int dist99 = Math.max(Math.abs(cx + 9) * 50 + c99, Math.abs(cy + 6) * 50 + c99);
+            int dist99 = Math.max(Math.abs(cx + 9) * 50 + c99, Math.abs(cy - 6) * 50 + c99);
             if (dist99 <= cmin) {
                 cmin = dist99;
                 ans = d99;
             }
 
-            int dist100 = Math.max(Math.abs(cx + 10) * 50 + c100, Math.abs(cy + 6) * 50 + c100);
+            int dist100 = Math.max(Math.abs(cx + 10) * 50 + c100, Math.abs(cy - 6) * 50 + c100);
             if (dist100 <= cmin) {
                 cmin = dist100;
                 ans = d100;
             }
 
-            int dist109 = Math.max(Math.abs(cx + 4) * 50 + c109, Math.abs(cy + 7) * 50 + c109);
+            int dist109 = Math.max(Math.abs(cx + 4) * 50 + c109, Math.abs(cy - 7) * 50 + c109);
             if (dist109 <= cmin) {
                 cmin = dist109;
                 ans = d109;
             }
 
-            int dist115 = Math.max(Math.abs(cx + 10) * 50 + c115, Math.abs(cy + 7) * 50 + c115);
+            int dist115 = Math.max(Math.abs(cx + 10) * 50 + c115, Math.abs(cy - 7) * 50 + c115);
             if (dist115 <= cmin) {
                 cmin = dist115;
                 ans = d115;
             }
 
-            int dist124 = Math.max(Math.abs(cx + 4) * 50 + c124, Math.abs(cy + 8) * 50 + c124);
+            int dist124 = Math.max(Math.abs(cx + 4) * 50 + c124, Math.abs(cy - 8) * 50 + c124);
             if (dist124 <= cmin) {
                 cmin = dist124;
                 ans = d124;
             }
 
-            int dist125 = Math.max(Math.abs(cx + 5) * 50 + c125, Math.abs(cy + 8) * 50 + c125);
+            int dist125 = Math.max(Math.abs(cx + 5) * 50 + c125, Math.abs(cy - 8) * 50 + c125);
             if (dist125 <= cmin) {
                 cmin = dist125;
                 ans = d125;
             }
 
-            int dist129 = Math.max(Math.abs(cx + 9) * 50 + c129, Math.abs(cy + 8) * 50 + c129);
+            int dist129 = Math.max(Math.abs(cx + 9) * 50 + c129, Math.abs(cy - 8) * 50 + c129);
             if (dist129 <= cmin) {
                 cmin = dist129;
                 ans = d129;
             }
 
-            int dist130 = Math.max(Math.abs(cx + 10) * 50 + c130, Math.abs(cy + 8) * 50 + c130);
+            int dist130 = Math.max(Math.abs(cx + 10) * 50 + c130, Math.abs(cy - 8) * 50 + c130);
             if (dist130 <= cmin) {
                 cmin = dist130;
                 ans = d130;
             }
 
-            int dist140 = Math.max(Math.abs(cx + 5) * 50 + c140, Math.abs(cy + 9) * 50 + c140);
+            int dist140 = Math.max(Math.abs(cx + 5) * 50 + c140, Math.abs(cy - 9) * 50 + c140);
             if (dist140 <= cmin) {
                 cmin = dist140;
                 ans = d140;
             }
 
-            int dist141 = Math.max(Math.abs(cx + 6) * 50 + c141, Math.abs(cy + 9) * 50 + c141);
+            int dist141 = Math.max(Math.abs(cx + 6) * 50 + c141, Math.abs(cy - 9) * 50 + c141);
             if (dist141 <= cmin) {
                 cmin = dist141;
                 ans = d141;
             }
 
-            int dist143 = Math.max(Math.abs(cx + 8) * 50 + c143, Math.abs(cy + 9) * 50 + c143);
+            int dist143 = Math.max(Math.abs(cx + 8) * 50 + c143, Math.abs(cy - 9) * 50 + c143);
             if (dist143 <= cmin) {
                 cmin = dist143;
                 ans = d143;
             }
 
-            int dist144 = Math.max(Math.abs(cx + 9) * 50 + c144, Math.abs(cy + 9) * 50 + c144);
+            int dist144 = Math.max(Math.abs(cx + 9) * 50 + c144, Math.abs(cy - 9) * 50 + c144);
             if (dist144 <= cmin) {
                 cmin = dist144;
                 ans = d144;
             }
 
-            int dist156 = Math.max(Math.abs(cx + 6) * 50 + c156, Math.abs(cy + 10) * 50 + c156);
+            int dist156 = Math.max(Math.abs(cx + 6) * 50 + c156, Math.abs(cy - 10) * 50 + c156);
             if (dist156 <= cmin) {
                 cmin = dist156;
                 ans = d156;
             }
 
-            int dist157 = Math.max(Math.abs(cx + 7) * 50 + c157, Math.abs(cy + 10) * 50 + c157);
+            int dist157 = Math.max(Math.abs(cx + 7) * 50 + c157, Math.abs(cy - 10) * 50 + c157);
             if (dist157 <= cmin) {
                 cmin = dist157;
                 ans = d157;
             }
 
-            int dist158 = Math.max(Math.abs(cx + 8) * 50 + c158, Math.abs(cy + 10) * 50 + c158);
+            int dist158 = Math.max(Math.abs(cx + 8) * 50 + c158, Math.abs(cy - 10) * 50 + c158);
             if (dist158 <= cmin) {
                 cmin = dist158;
                 ans = d158;
             }
+            rc.setIndicatorString(String.valueOf(cmin));
 
             if (cmin <= nomove) return ans;
 
-            int dist82 = Math.max(Math.abs(cx + 7) * 50 + c82, Math.abs(cy + 5) * 50 + c82);
+            int dist82 = Math.max(Math.abs(cx + 7) * 50 + c82, Math.abs(cy - 5) * 50 + c82);
             if (dist82 <= cmin) {
                 cmin = dist82;
                 ans = d82;
             }
 
-            int dist96 = Math.max(Math.abs(cx + 6) * 50 + c96, Math.abs(cy + 6) * 50 + c96);
+            int dist96 = Math.max(Math.abs(cx + 6) * 50 + c96, Math.abs(cy - 6) * 50 + c96);
             if (dist96 <= cmin) {
                 cmin = dist96;
                 ans = d96;
             }
 
-            int dist97 = Math.max(Math.abs(cx + 7) * 50 + c97, Math.abs(cy + 6) * 50 + c97);
+            int dist97 = Math.max(Math.abs(cx + 7) * 50 + c97, Math.abs(cy - 6) * 50 + c97);
             if (dist97 <= cmin) {
                 cmin = dist97;
                 ans = d97;
             }
 
-            int dist98 = Math.max(Math.abs(cx + 8) * 50 + c98, Math.abs(cy + 6) * 50 + c98);
+            int dist98 = Math.max(Math.abs(cx + 8) * 50 + c98, Math.abs(cy - 6) * 50 + c98);
             if (dist98 <= cmin) {
                 cmin = dist98;
                 ans = d98;
             }
 
-            int dist110 = Math.max(Math.abs(cx + 5) * 50 + c110, Math.abs(cy + 7) * 50 + c110);
+            int dist110 = Math.max(Math.abs(cx + 5) * 50 + c110, Math.abs(cy - 7) * 50 + c110);
             if (dist110 <= cmin) {
                 cmin = dist110;
                 ans = d110;
             }
 
-            int dist111 = Math.max(Math.abs(cx + 6) * 50 + c111, Math.abs(cy + 7) * 50 + c111);
+            int dist111 = Math.max(Math.abs(cx + 6) * 50 + c111, Math.abs(cy - 7) * 50 + c111);
             if (dist111 <= cmin) {
                 cmin = dist111;
                 ans = d111;
             }
 
-            int dist113 = Math.max(Math.abs(cx + 8) * 50 + c113, Math.abs(cy + 7) * 50 + c113);
+            int dist113 = Math.max(Math.abs(cx + 8) * 50 + c113, Math.abs(cy - 7) * 50 + c113);
             if (dist113 <= cmin) {
                 cmin = dist113;
                 ans = d113;
             }
 
-            int dist114 = Math.max(Math.abs(cx + 9) * 50 + c114, Math.abs(cy + 7) * 50 + c114);
+            int dist114 = Math.max(Math.abs(cx + 9) * 50 + c114, Math.abs(cy - 7) * 50 + c114);
             if (dist114 <= cmin) {
                 cmin = dist114;
                 ans = d114;
             }
 
-            int dist126 = Math.max(Math.abs(cx + 6) * 50 + c126, Math.abs(cy + 8) * 50 + c126);
+            int dist126 = Math.max(Math.abs(cx + 6) * 50 + c126, Math.abs(cy - 8) * 50 + c126);
             if (dist126 <= cmin) {
                 cmin = dist126;
                 ans = d126;
             }
 
-            int dist127 = Math.max(Math.abs(cx + 7) * 50 + c127, Math.abs(cy + 8) * 50 + c127);
+            int dist127 = Math.max(Math.abs(cx + 7) * 50 + c127, Math.abs(cy - 8) * 50 + c127);
             if (dist127 <= cmin) {
                 cmin = dist127;
                 ans = d127;
             }
 
-            int dist128 = Math.max(Math.abs(cx + 8) * 50 + c128, Math.abs(cy + 8) * 50 + c128);
+            int dist128 = Math.max(Math.abs(cx + 8) * 50 + c128, Math.abs(cy - 8) * 50 + c128);
             if (dist128 <= cmin) {
                 cmin = dist128;
                 ans = d128;
             }
 
-            int dist142 = Math.max(Math.abs(cx + 7) * 50 + c142, Math.abs(cy + 9) * 50 + c142);
+            int dist142 = Math.max(Math.abs(cx + 7) * 50 + c142, Math.abs(cy - 9) * 50 + c142);
             if (dist142 <= cmin) {
                 cmin = dist142;
                 ans = d142;
             }
-
-            if (cmin <= nomove) return ans;
+            rc.setIndicatorString(String.valueOf(cmin));
 
         } catch (Exception e) {
             e.printStackTrace();

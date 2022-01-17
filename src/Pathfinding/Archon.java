@@ -1,4 +1,4 @@
-package DanielProto;
+package Pathfinding;
 import java.util.Random;
 import battlecode.common.Direction;
 import battlecode.common.GameActionException;
