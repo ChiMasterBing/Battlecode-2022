@@ -142,7 +142,7 @@ public class Comms {
 		int zx = me.x/4, zy = me.y/4;
 		int bitIndex = zx*60+zy*4;
 		int arrayIndex = 64-(bitIndex/16)-1;
-		bitIndex = bitIndex%4;
+		bitIndex = bitIndex%16;
 		//System.out.println(arrayIndex);
 		int current = rc.readSharedArray(arrayIndex);
 		String currentBits = String.format("%16s", Integer.toBinaryString(current)).replace(" ", "0");
