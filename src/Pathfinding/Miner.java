@@ -39,7 +39,7 @@ public class Miner extends Robot{
         	//System.out.println(dir);
         	rc.move(dir);
         }
-        return;
+
 //        if (init) {
 //            self = new zone[rc.getMapHeight()][rc.getMapWidth()];//4x4
 //            for (int i=0; i<self.length; i++) {

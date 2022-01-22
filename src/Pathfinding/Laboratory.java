@@ -3,9 +3,15 @@ package Pathfinding;
 import battlecode.common.GameActionException;
 import battlecode.common.RobotController;
 
-public class Laboratory {
+public class Laboratory extends Robot {
 
-	public static void run(RobotController rc) throws GameActionException {
+	private RobotController rc;
+
+	public Laboratory(RobotController rc) {
+		this.rc = rc;
+	}
+
+	public void run() throws GameActionException {
 		// TODO Auto-generated method stub
 		
 	}

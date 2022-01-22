@@ -3,11 +3,18 @@ package Pathfinding;
 import battlecode.common.GameActionException;
 import battlecode.common.RobotController;
 
-public class Sage {
+import java.io.IOException;
 
-	public static void run(RobotController rc) throws GameActionException {
-		// TODO Auto-generated method stub
-		
+public class Sage extends Robot {
+
+	private RobotController rc;
+
+	public Sage(RobotController rc) {
+		this.rc = rc;
 	}
 
+	@Override
+	void run() throws GameActionException, IOException {
+
+	}
 }

@@ -63,12 +63,18 @@ public strictfp class RobotPlayer {
 	        case SOLDIER:
 	        	thisRobot = new Soldier(rc);
 	        	break;
-	        case LABORATORY: thisRobot = new Miner(rc); break;
-	        case WATCHTOWER: thisRobot = new Miner(rc); break;
-	        case BUILDER: thisRobot = new Miner(rc); break;
-	        case SAGE: thisRobot = new Miner(rc); break;
-	        default: thisRobot = new Miner(rc); break;
-	        	
+	        case LABORATORY:
+                thisRobot = new Laboratory(rc);
+                break;
+	        case WATCHTOWER:
+                thisRobot = new WatchTower(rc);
+                break;
+	        case BUILDER:
+                thisRobot = new Builder(rc);
+                break;
+	        case SAGE:
+                thisRobot = new Sage(rc);
+                break;
         }
         
         while (true) {
@@ -82,16 +88,7 @@ public strictfp class RobotPlayer {
             // Try/catch blocks stop unhandled exceptions, which cause your robot to explode.
             try {
                 thisRobot.run();
-            } catch (GameActionException e) {
-                // Oh no! It looks like we did something illegal in the Battlecode world. You should
-                // handle GameActionExceptions judiciously, in case unexpected events occur in the game
-                // world. Remember, uncaught exceptions cause your robot to explode!
-                System.out.println(rc.getType() + " Exception");
-                e.printStackTrace();
-
             } catch (Exception e) {
-                // Oh no! It looks like our code tried to do something bad. This isn't a
-                // GameActionException, so it's more likely to be a bug in our code.
                 System.out.println(rc.getType() + " Exception");
                 e.printStackTrace();
 
@@ -101,9 +98,6 @@ public strictfp class RobotPlayer {
             	
                 Clock.yield();
             }
-            // End of loop: go back to the top. Clock.yield() has ended, so it's time for another turn!
         }
-
-        // Your code should never reach here (unless it's intentional)! Self-destruction imminent...
     }
 }

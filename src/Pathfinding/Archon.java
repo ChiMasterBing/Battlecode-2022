@@ -6,7 +6,8 @@ import battlecode.common.MapLocation;
 import battlecode.common.RobotController;
 import battlecode.common.RobotInfo;
 import battlecode.common.RobotType;
-public class Archon extends Robot{
+public class Archon extends Robot {
+
     int turnCount = 0;
     final Random rng = new Random(6147);
     final Direction[] directions = {
