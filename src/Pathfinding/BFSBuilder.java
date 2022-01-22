@@ -2146,7 +2146,6 @@ public class BFSBuilder {
 //                }
 //                break;
 //            }
-            ans = Direction.SOUTH;//CHANGE
             int cx = l112.x - 7 - target.x; //also kinda fricked cuz (0, 0) isnt top left
             int cy = l112.y + 7 - target.y;
             int nomove = Math.max(Math.abs(cx + 7) * 50, Math.abs(cy - 7) * 50); //make it <=

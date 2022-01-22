@@ -28,16 +28,49 @@ public class Miner extends Robot{
     boolean arrived = false, scan = false;
     int[][] area;
     int cnt=0;
+    static Direction dir = Direction.CENTER;
     public void run() throws GameActionException {
-    	cnt++;
+
+        cnt++;
     	if(cnt>500) {
     		rc.resign();
     	}
-        Direction dir =BFSBuilder.getBestDir(rc, new MapLocation(0, 0));
+        MapLocation targ = new MapLocation(0, 0);
+        Direction cur = rc.getLocation().directionTo(targ);
+        rc.setIndicatorString(dir.opposite().toString());
+        Direction cdir;
+
+        switch(cur){
+            case NORTH:
+                cdir=BFSNorth.gbda(rc, targ, dir.opposite());
+                break;
+            case EAST:
+                cdir=BFSEast.gbda(rc, targ, dir.opposite());
+                break;
+            case WEST:
+                cdir=BFSWest.gbda(rc, targ, dir.opposite());
+                break;
+            case SOUTH:
+                cdir=BFSSouth.gbda(rc, targ, dir.opposite());
+                break;
+            case NORTHEAST:
+                cdir=BFSNorthEast.gbda(rc, targ, dir.opposite());
+                break;
+            case NORTHWEST:
+                cdir=BFSNorthWest.gbda(rc, targ, dir.opposite());
+                break;
+            case SOUTHEAST:
+                cdir=BFSSouthEast.gbda(rc, targ, dir.opposite());
+                break;
+            default:
+                cdir=BFSSouthWest.gbda(rc, targ, dir.opposite());
+                break;
+        }
         //rc.setIndicatorString(dir.toString());
-        if(dir!=null&&rc.canMove(dir)) {
+        if(cdir!=null&&rc.canMove(cdir)) {
         	//System.out.println(dir);
-        	rc.move(dir);
+        	rc.move(cdir);
+            dir = cdir;
         }
         return;
 //        if (init) {
