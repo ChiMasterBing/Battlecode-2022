@@ -1,8 +1,8 @@
 package JesseC;
 
 import battlecode.common.*;
+
 import java.util.Random;
-import java.util.*;
 
 /**
  * RobotPlayer is the class that describes your main robot strategy.
@@ -28,14 +28,14 @@ public strictfp class RobotPlayer {
 
     /** Array containing all the possible movement directions. */
     static final Direction[] directions = {
-            Direction.NORTH,
-            Direction.NORTHEAST,
-            Direction.EAST,
-            Direction.SOUTHEAST,
-            Direction.SOUTH,
-            Direction.SOUTHWEST,
-            Direction.WEST,
-            Direction.NORTHWEST,
+        Direction.NORTH,
+        Direction.NORTHEAST,
+        Direction.EAST,
+        Direction.SOUTHEAST,
+        Direction.SOUTH,
+        Direction.SOUTHWEST,
+        Direction.WEST,
+        Direction.NORTHWEST,
     };
 
     /**
@@ -70,9 +70,9 @@ public strictfp class RobotPlayer {
                 // use different strategies on different robots. If you wish, you are free to rewrite
                 // this into a different control structure!
                 switch (rc.getType()) {
-                    case ARCHON:     runArchon(rc);  break;
-                    case MINER:      runMiner(rc);   break;
-                    case SOLDIER:    runSoldier(rc); break;
+                    case ARCHON:     Archon.run(rc); break;
+                    case MINER:      Miner.run(rc); break;
+                    case SOLDIER:    Soldier.run(rc); break;
                     case LABORATORY: // Examplefuncsplayer doesn't use any of these robot types below.
                     case WATCHTOWER: // You might want to give them a try!
                     case BUILDER:
@@ -100,90 +100,5 @@ public strictfp class RobotPlayer {
         }
 
         // Your code should never reach here (unless it's intentional)! Self-destruction imminent...
-    }
-
-    /**
-     * Run a single turn for an Archon.
-     * This code is wrapped inside the infinite loop in run(), so it is called once per turn.
-     */
-    static void runArchon(RobotController rc) throws GameActionException {
-        // Pick a direction to build in.
-        Direction dir = directions[rng.nextInt(directions.length)];
-        if (rng.nextBoolean()) {
-            // Let's try to build a miner.
-            rc.setIndicatorString("Trying to build a miner");
-            if (rc.canBuildRobot(RobotType.MINER, dir)) {
-                rc.buildRobot(RobotType.MINER, dir);
-            }
-        } else {
-            // Let's try to build a soldier.
-            rc.setIndicatorString("Trying to build a soldier");
-            if (rc.canBuildRobot(RobotType.SOLDIER, dir)) {
-                rc.buildRobot(RobotType.SOLDIER, dir);
-            }
-        }
-    }
-
-    /**
-     * Run a single turn for a Miner.
-     * This code is wrapped inside the infinite loop in run(), so it is called once per turn.
-     */
-    static void runMiner(RobotController rc) throws GameActionException {
-        // Try to mine on squares around us.
-        MapLocation me = rc.getLocation();
-        for (int dx = -1; dx <= 1; dx++) {
-            for (int dy = -1; dy <= 1; dy++) {
-                MapLocation mineLocation = new MapLocation(me.x + dx, me.y + dy);
-                // Notice that the Miner's action cooldown is very low.
-                // You can mine multiple times per turn!
-                while (rc.canMineGold(mineLocation)) {
-                    rc.mineGold(mineLocation);
-                }
-                while (rc.canMineLead(mineLocation)) {
-                    rc.mineLead(mineLocation);
-                }
-            }
-        }
-
-        // Also try to move randomly.
-        Direction dir = directions[rng.nextInt(directions.length)];
-        if (rc.canMove(dir)) {
-            rc.move(dir);
-            System.out.println("I moved!");
-        }
-    }
-
-    /**
-     * Run a single turn for a Soldier.
-     * This code is wrapped inside the infinite loop in run(), so it is called once per turn.
-     */
-
-    static void runSoldier(RobotController rc) throws GameActionException {
-        // Try to attack someone
-        int radius = rc.getType().actionRadiusSquared;
-        Team opponent = rc.getTeam().opponent();
-        RobotInfo[] enemies = rc.senseNearbyRobots(radius, opponent);
-        Arrays.sort(enemies, new RobotInfoComparator());
-        int ptr = 0;
-        while(ptr < enemies.length){
-            MapLocation cur = enemies[ptr].location;
-            while (rc.canAttack(cur)){
-                rc.attack(cur);
-            }
-            ptr++;
-        }
-
-        // Also try to move randomly.
-        Direction dir = directions[rng.nextInt(directions.length)];
-        if (rc.canMove(dir)) {
-            rc.move(dir);
-            System.out.println("I moved!");
-        }
-    }
-}
-
-class RobotInfoComparator implements Comparator<RobotInfo>{
-    public int compare(RobotInfo a, RobotInfo b){
-        return a.getHealth() - b.getHealth();
     }
 }
