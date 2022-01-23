@@ -120,7 +120,6 @@ public class Archon{
             }
         }else{
             if (rc.getActionCooldownTurns()==0) {
-                System.out.println("FFFFFFFFFFFFFFFFf");
                 if (cnt % 4 == 0) {
                     build = RobotType.MINER.buildCostLead;
                     typ = RobotType.MINER;
@@ -138,9 +137,6 @@ public class Archon{
                         ms++;
                     }
                     cnt++;
-                    System.out.println("GREEEEEEEEEEDY");
-                    System.out.println(typ);
-                    System.out.println(dir);
                     rc.buildRobot(typ, dir);
                 }else{
                     greedy = true;
@@ -149,9 +145,6 @@ public class Archon{
                 if (typ == RobotType.MINER) {
                     ms++;
                 }
-                System.out.println("HERE?????????????");
-                System.out.println(dir);
-                System.out.println(typ);
                 rc.buildRobot(typ, dir);
                 cnt++;
             }
