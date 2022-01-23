@@ -77,6 +77,14 @@ public class Comms {
 	}
 	static String encode(Information info) { //to conserve bytecode, you may want to process this yourself and store the values when doing it for later use
 		int answer = 0;
+		if (info.lead != 0) {
+			if (info.lead >= 300) {
+				answer = 2;
+			}
+			else {
+				answer = 1;
+			}
+		}
 		if (info.enemy != null) {
 			int maxThreat = 0;
 			for (int i=0; i<info.enemy.length; i++) {
@@ -102,14 +110,7 @@ public class Comms {
 			}
 			answer = maxThreat+2;
 		}
-		if (info.lead != 0) {
-			if (info.lead >= 300) {
-				answer = 2;
-			}
-			else {
-				answer = 1;
-			}
-		}
+		
 		//idk if this conserves bytecode, but I decided to hardcode the conversion of base 10 to base 2
 		if (answer == 0) {
 			return "0000";
@@ -142,7 +143,7 @@ public class Comms {
 		int zx = me.x/4, zy = me.y/4;
 		int bitIndex = zx*60+zy*4;
 		int arrayIndex = 64-(bitIndex/16)-1;
-		bitIndex = bitIndex%4;
+		bitIndex = bitIndex%16;
 		//System.out.println(arrayIndex);
 		int current = rc.readSharedArray(arrayIndex);
 		String currentBits = String.format("%16s", Integer.toBinaryString(current)).replace(" ", "0");
