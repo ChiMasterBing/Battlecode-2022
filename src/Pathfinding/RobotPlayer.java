@@ -51,26 +51,7 @@ public strictfp class RobotPlayer {
         System.out.println("I'm a " + rc.getType() + " and I just got created! I have health " + rc.getHealth());
 
         // You can also use indicators to save debug notes in replays.
-        rc.setIndicatorString("Hello world!");
-        Robot thisRobot = null;
-        switch (rc.getType()) {
-	        case ARCHON:
-	        	thisRobot = new Archon(rc);
-	        	break;
-	        case MINER:
-	        	thisRobot = new Miner(rc);
-	        	break;
-	        case SOLDIER:
-	        	thisRobot = new Soldier(rc);
-	        	break;
-	        case LABORATORY: thisRobot = new Miner(rc); break;
-	        case WATCHTOWER: thisRobot = new Miner(rc); break;
-	        case BUILDER: thisRobot = new Miner(rc); break;
-	        case SAGE: thisRobot = new Miner(rc); break;
-	        default: thisRobot = new Miner(rc); break;
-	        	
-        }
-        
+
         while (true) {
             // This code runs during the entire lifespan of the robot, which is why it is in an infinite
             // loop. If we ever leave this loop and return from run(), the robot dies! At the end of the
@@ -81,7 +62,28 @@ public strictfp class RobotPlayer {
             
             // Try/catch blocks stop unhandled exceptions, which cause your robot to explode.
             try {
-                thisRobot.run();
+                switch (rc.getType()) {
+                    case ARCHON:
+                        Archon.run(rc);
+                        break;
+                    case MINER:
+                        Miner.run(rc);
+                        break;
+                    case SOLDIER:
+                        Soldier.run(rc);
+                        break;
+                    case LABORATORY:
+                        Laboratory.run(rc);
+                        break;
+                    case WATCHTOWER:
+                        WatchTower.run(rc);
+                        break;
+                    case BUILDER:
+                        Builder.run(rc);
+                        break;
+                    default:
+                        Sage.run(rc);
+                }
             } catch (GameActionException e) {
                 // Oh no! It looks like we did something illegal in the Battlecode world. You should
                 // handle GameActionExceptions judiciously, in case unexpected events occur in the game

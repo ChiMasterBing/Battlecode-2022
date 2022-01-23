@@ -965,7 +965,7 @@ public class BFSNorth {
         int cx = l112.x - 7 - target.x; //also kinda fricked cuz (0, 0) isnt top left
         int cy = l112.y + 7 - target.y;
         int nomove = Math.max(Math.abs(cx + 7) * 49, Math.abs(cy - 7) * 49); //make it <=
-        int cmin = Integer.MAX_VALUE;
+        int cmin = rc.senseRubble(l112);
 
         int dist50 = Math.max(Math.abs(cx+5)*49 + c50, Math.abs(cy - 3)*49+c50);
         if(dist50 <= cmin){
