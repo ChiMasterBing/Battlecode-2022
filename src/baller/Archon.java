@@ -1,8 +1,6 @@
 package baller;
 import java.util.Random;
 
-import javax.sql.CommonDataSource;
-
 import java.util.*;
 import battlecode.common.Direction;
 import battlecode.common.GameActionException;
