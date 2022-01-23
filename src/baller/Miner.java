@@ -232,7 +232,7 @@ public class Miner extends Robot{
 				}
 			}
 		}
-		System.out.println(target.x + " " + target.y);
+		//System.out.println(target.x + " " + target.y);
 	}
 	double leadPerTurn(int rubble) {
 		return (50)/(10+rubble);

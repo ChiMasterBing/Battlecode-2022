@@ -110,7 +110,6 @@ public class Comms {
 			}
 			answer = maxThreat+2;
 		}
-		
 		//idk if this conserves bytecode, but I decided to hardcode the conversion of base 10 to base 2
 		if (answer == 0) {
 			return "0000";
@@ -139,8 +138,8 @@ public class Comms {
 		return "0000"; //this should never happen
 	}
 	static void write(String message, RobotController rc, MapLocation me) throws GameActionException {
-		int zx = me.x/4, zy = me.y/4;
-		int bitIndex = zx*60+zy*4;
+		int zx = me.x/5, zy = me.y/5;
+		int bitIndex = zx*48+zy*4;
 		int arrayIndex = 63-(bitIndex/16);
 		bitIndex = bitIndex%16;
 		//System.out.println(bitIndex);
@@ -159,7 +158,7 @@ public class Comms {
         rc.writeSharedArray(arrayIndex, Integer.parseInt(sb.toString(), 2));
 	}
 	static MapLocation getZonePosition(int ArrayIndex, int index) {		
-		return new MapLocation(((63-ArrayIndex) * 4)/15, ((63-ArrayIndex) * 4 + index/4)%15);
+		return new MapLocation(((63-ArrayIndex) * 4)/12, ((63-ArrayIndex) * 4 + index/4)%12);
 	}
 	static String getIndex(RobotController rc, int ArrayIndex) throws GameActionException {
 		int val = rc.readSharedArray(ArrayIndex);
