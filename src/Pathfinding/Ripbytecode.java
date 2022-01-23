@@ -1,6 +1,5 @@
 package Pathfinding;
 
-import JohnnyPoint1.Robot;
 import battlecode.common.Direction;
 import battlecode.common.GameActionException;
 import battlecode.common.MapLocation;
@@ -3816,42 +3815,42 @@ public class Ripbytecode { //finds the best place for the Archon to move
         int cmin = Integer.MAX_VALUE;
         if(r97 < cmin && !rc.isLocationOccupied(l97)){
             cmin= r97;
-            ans = d97;
+            ans = Direction.NORTH;
         }
 
         if(r127 < cmin && !rc.isLocationOccupied(l127)){
             cmin= r127;
-            ans = d127;
+            ans = Direction.SOUTH;
         }
 
         if(r113 < cmin && !rc.isLocationOccupied(l113)){
             cmin= r113;
-            ans = d113;
+            ans = Direction.EAST;
         }
 
         if(r128 < cmin && !rc.isLocationOccupied(l128)){
             cmin= r128;
-            ans = d128;
+            ans = Direction.SOUTHEAST;
         }
 
         if(r98 < cmin && !rc.isLocationOccupied(l98)){
             cmin= r98;
-            ans = d98;
+            ans = Direction.NORTHEAST;
         }
 
         if(r126 < cmin && !rc.isLocationOccupied(l126)){
             cmin= r126;
-            ans = d126;
+            ans = Direction.SOUTHWEST;
         }
 
         if(r96 < cmin && !rc.isLocationOccupied(l96)){
             cmin= r96;
-            ans = d96;
+            ans = Direction.NORTHWEST;
         }
 
         if(r111 < cmin && !rc.isLocationOccupied(l111)){
             cmin= r111;
-            ans = d111;
+            ans = Direction.WEST;
         }
 
         return ans;

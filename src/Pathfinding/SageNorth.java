@@ -5,7 +5,7 @@ import battlecode.common.GameActionException;
 import battlecode.common.MapLocation;
 import battlecode.common.RobotController;
 
-public class BFSNorth {
+public class SageNorth {
     static MapLocation l112;
     static int c112;
     static int r112;
@@ -171,6 +171,16 @@ public class BFSNorth {
     static int r50;
     static Direction d50;
 
+    static MapLocation l55;
+    static int c55;
+    static int r55;
+    static Direction d55;
+
+    static MapLocation l49;
+    static int c49;
+    static int r49;
+    static Direction d49;
+
     static MapLocation l116;
     static int c116;
     static int r116;
@@ -185,6 +195,26 @@ public class BFSNorth {
     static int c86;
     static int r86;
     static Direction d86;
+
+    static MapLocation l71;
+    static int c71;
+    static int r71;
+    static Direction d71;
+
+    static MapLocation l56;
+    static int c56;
+    static int r56;
+    static Direction d56;
+
+    static MapLocation l48;
+    static int c48;
+    static int r48;
+    static Direction d48;
+
+    static MapLocation l63;
+    static int c63;
+    static int r63;
+    static Direction d63;
 
     static MapLocation l78;
     static int c78;
@@ -201,6 +231,81 @@ public class BFSNorth {
     static int r108;
     static Direction d108;
 
+    static MapLocation l37;
+    static int c37;
+    static int r37;
+    static Direction d37;
+
+    static MapLocation l38;
+    static int c38;
+    static int r38;
+    static Direction d38;
+
+    static MapLocation l36;
+    static int c36;
+    static int r36;
+    static Direction d36;
+
+    static MapLocation l39;
+    static int c39;
+    static int r39;
+    static Direction d39;
+
+    static MapLocation l35;
+    static int c35;
+    static int r35;
+    static Direction d35;
+
+    static MapLocation l40;
+    static int c40;
+    static int r40;
+    static Direction d40;
+
+    static MapLocation l34;
+    static int c34;
+    static int r34;
+    static Direction d34;
+
+    static MapLocation l117;
+    static int c117;
+    static int r117;
+    static Direction d117;
+
+    static MapLocation l102;
+    static int c102;
+    static int r102;
+    static Direction d102;
+
+    static MapLocation l87;
+    static int c87;
+    static int r87;
+    static Direction d87;
+
+    static MapLocation l72;
+    static int c72;
+    static int r72;
+    static Direction d72;
+
+    static MapLocation l62;
+    static int c62;
+    static int r62;
+    static Direction d62;
+
+    static MapLocation l77;
+    static int c77;
+    static int r77;
+    static Direction d77;
+
+    static MapLocation l92;
+    static int c92;
+    static int r92;
+    static Direction d92;
+
+    static MapLocation l107;
+    static int c107;
+    static int r107;
+    static Direction d107;
+
     static Direction ans;
     static Direction gbda(RobotController rc, MapLocation target, Direction prev) throws GameActionException {//get best dir -all
         ans = null;
@@ -210,159 +315,302 @@ public class BFSNorth {
         l97 = l112.add(Direction.NORTH);
         c97 = 10000000;
         d97 = null;
+        r97 = 10000000;
 
         l113 = l112.add(Direction.EAST);
         c113 = 10000000;
         d113 = null;
+        r113 = 10000000;
 
         l98 = l112.add(Direction.NORTHEAST);
         c98 = 10000000;
         d98 = null;
+        r98 = 10000000;
 
         l96 = l112.add(Direction.NORTHWEST);
         c96 = 10000000;
         d96 = null;
+        r96 = 10000000;
 
         l111 = l112.add(Direction.WEST);
         c111 = 10000000;
         d111 = null;
+        r111 = 10000000;
 
         l82 = l97.add(Direction.NORTH);
         c82 = 10000000;
         d82 = null;
+        r82 = 10000000;
 
         l83 = l97.add(Direction.NORTHEAST);
         c83 = 10000000;
         d83 = null;
+        r83 = 10000000;
 
         l81 = l97.add(Direction.NORTHWEST);
         c81 = 10000000;
         d81 = null;
+        r81 = 10000000;
 
         l114 = l113.add(Direction.EAST);
         c114 = 10000000;
         d114 = null;
+        r114 = 10000000;
 
         l99 = l113.add(Direction.NORTHEAST);
         c99 = 10000000;
         d99 = null;
+        r99 = 10000000;
 
         l84 = l98.add(Direction.NORTHEAST);
         c84 = 10000000;
         d84 = null;
+        r84 = 10000000;
 
         l80 = l96.add(Direction.NORTHWEST);
         c80 = 10000000;
         d80 = null;
+        r80 = 10000000;
 
         l95 = l96.add(Direction.WEST);
         c95 = 10000000;
         d95 = null;
+        r95 = 10000000;
 
         l110 = l111.add(Direction.WEST);
         c110 = 10000000;
         d110 = null;
+        r110 = 10000000;
 
         l67 = l82.add(Direction.NORTH);
         c67 = 10000000;
         d67 = null;
+        r67 = 10000000;
 
         l68 = l82.add(Direction.NORTHEAST);
         c68 = 10000000;
         d68 = null;
+        r68 = 10000000;
 
         l66 = l82.add(Direction.NORTHWEST);
         c66 = 10000000;
         d66 = null;
+        r66 = 10000000;
 
         l69 = l83.add(Direction.NORTHEAST);
         c69 = 10000000;
         d69 = null;
+        r69 = 10000000;
 
         l65 = l81.add(Direction.NORTHWEST);
         c65 = 10000000;
         d65 = null;
+        r65 = 10000000;
 
         l115 = l114.add(Direction.EAST);
         c115 = 10000000;
         d115 = null;
+        r115 = 10000000;
 
         l100 = l114.add(Direction.NORTHEAST);
         c100 = 10000000;
         d100 = null;
+        r100 = 10000000;
 
         l85 = l99.add(Direction.NORTHEAST);
         c85 = 10000000;
         d85 = null;
+        r85 = 10000000;
 
         l70 = l84.add(Direction.NORTHEAST);
         c70 = 10000000;
         d70 = null;
+        r70 = 10000000;
 
         l64 = l80.add(Direction.NORTHWEST);
         c64 = 10000000;
         d64 = null;
+        r64 = 10000000;
 
         l79 = l80.add(Direction.WEST);
         c79 = 10000000;
         d79 = null;
+        r79 = 10000000;
 
         l94 = l95.add(Direction.WEST);
         c94 = 10000000;
         d94 = null;
+        r94 = 10000000;
 
         l109 = l110.add(Direction.WEST);
         c109 = 10000000;
         d109 = null;
+        r109 = 10000000;
 
         l52 = l67.add(Direction.NORTH);
         c52 = 10000000;
         d52 = null;
+        r52 = 10000000;
 
         l53 = l67.add(Direction.NORTHEAST);
         c53 = 10000000;
         d53 = null;
+        r53 = 10000000;
 
         l51 = l67.add(Direction.NORTHWEST);
         c51 = 10000000;
         d51 = null;
+        r51 = 10000000;
 
         l54 = l68.add(Direction.NORTHEAST);
         c54 = 10000000;
         d54 = null;
+        r54 = 10000000;
 
         l50 = l66.add(Direction.NORTHWEST);
         c50 = 10000000;
         d50 = null;
+        r50 = 10000000;
+
+        l55 = l69.add(Direction.NORTHEAST);
+        c55 = 10000000;
+        d55 = null;
+        r55 = 10000000;
+
+        l49 = l65.add(Direction.NORTHWEST);
+        c49 = 10000000;
+        d49 = null;
+        r49 = 10000000;
 
         l116 = l115.add(Direction.EAST);
         c116 = 10000000;
         d116 = null;
+        r116 = 10000000;
 
         l101 = l115.add(Direction.NORTHEAST);
         c101 = 10000000;
         d101 = null;
+        r101 = 10000000;
 
         l86 = l100.add(Direction.NORTHEAST);
         c86 = 10000000;
         d86 = null;
+        r86 = 10000000;
+
+        l71 = l85.add(Direction.NORTHEAST);
+        c71 = 10000000;
+        d71 = null;
+        r71 = 10000000;
+
+        l56 = l70.add(Direction.NORTHEAST);
+        c56 = 10000000;
+        d56 = null;
+        r56 = 10000000;
+
+        l48 = l64.add(Direction.NORTHWEST);
+        c48 = 10000000;
+        d48 = null;
+        r48 = 10000000;
+
+        l63 = l64.add(Direction.WEST);
+        c63 = 10000000;
+        d63 = null;
+        r63 = 10000000;
 
         l78 = l79.add(Direction.WEST);
         c78 = 10000000;
         d78 = null;
+        r78 = 10000000;
 
         l93 = l94.add(Direction.WEST);
         c93 = 10000000;
         d93 = null;
+        r93 = 10000000;
 
         l108 = l109.add(Direction.WEST);
         c108 = 10000000;
         d108 = null;
+        r108 = 10000000;
+
+        l37 = l52.add(Direction.NORTH);
+        c37 = 10000000;
+        d37 = null;
+        r37 = 10000000;
+
+        l38 = l52.add(Direction.NORTHEAST);
+        c38 = 10000000;
+        d38 = null;
+        r38 = 10000000;
+
+        l36 = l52.add(Direction.NORTHWEST);
+        c36 = 10000000;
+        d36 = null;
+        r36 = 10000000;
+
+        l39 = l53.add(Direction.NORTHEAST);
+        c39 = 10000000;
+        d39 = null;
+        r39 = 10000000;
+
+        l35 = l51.add(Direction.NORTHWEST);
+        c35 = 10000000;
+        d35 = null;
+        r35 = 10000000;
+
+        l40 = l54.add(Direction.NORTHEAST);
+        c40 = 10000000;
+        d40 = null;
+        r40 = 10000000;
+
+        l34 = l50.add(Direction.NORTHWEST);
+        c34 = 10000000;
+        d34 = null;
+        r34 = 10000000;
+
+        l117 = l116.add(Direction.EAST);
+        c117 = 10000000;
+        d117 = null;
+        r117 = 10000000;
+
+        l102 = l116.add(Direction.NORTHEAST);
+        c102 = 10000000;
+        d102 = null;
+        r102 = 10000000;
+
+        l87 = l101.add(Direction.NORTHEAST);
+        c87 = 10000000;
+        d87 = null;
+        r87 = 10000000;
+
+        l72 = l86.add(Direction.NORTHEAST);
+        c72 = 10000000;
+        d72 = null;
+        r72 = 10000000;
+
+        l62 = l63.add(Direction.WEST);
+        c62 = 10000000;
+        d62 = null;
+        r62 = 10000000;
+
+        l77 = l78.add(Direction.WEST);
+        c77 = 10000000;
+        d77 = null;
+        r77 = 10000000;
+
+        l92 = l93.add(Direction.WEST);
+        c92 = 10000000;
+        d92 = null;
+        r92 = 10000000;
+
+        l107 = l108.add(Direction.WEST);
+        c107 = 10000000;
+        d107 = null;
+        r107 = 10000000;
 
         if(rc.onTheMap(l97)){
             if(!rc.isLocationOccupied(l97)){
                 r97 = 10 + rc.senseRubble(l97);
-                if(c97 > c112 + r97 && prev != Direction.NORTH){
+                if(c97 > c112 + r97){
                     d97 = Direction.NORTH;
                     c97 = c112 + r97;
                 }
@@ -372,7 +620,7 @@ public class BFSNorth {
         if(rc.onTheMap(l113)){
             if(!rc.isLocationOccupied(l113)){
                 r113 = 10 + rc.senseRubble(l113);
-                if(c113 > c112 + r113 && prev != Direction.EAST){
+                if(c113 > c112 + r113){
                     d113 = Direction.EAST;
                     c113 = c112 + r113;
                 }
@@ -390,7 +638,7 @@ public class BFSNorth {
                     d98 = d97;
                     c98 = c97 + r98;
                 }
-                if(c98 > c112 + r98 && prev != Direction.NORTHEAST){
+                if(c98 > c112 + r98){
                     d98 = Direction.NORTHEAST;
                     c98 = c112 + r98;
                 }
@@ -400,7 +648,7 @@ public class BFSNorth {
         if(rc.onTheMap(l96)){
             if(!rc.isLocationOccupied(l96)){
                 r96 = 10 + rc.senseRubble(l96);
-                if(c96 > c112 + r96 && prev != Direction.NORTHWEST){
+                if(c96 > c112 + r96){
                     d96 = Direction.NORTHWEST;
                     c96 = c112 + r96;
                 }
@@ -414,7 +662,7 @@ public class BFSNorth {
         if(rc.onTheMap(l111)){
             if(!rc.isLocationOccupied(l111)){
                 r111 = 10 + rc.senseRubble(l111);
-                if(c111 > c112 + r111 && prev != Direction.WEST){
+                if(c111 > c112 + r111){
                     d111 = Direction.WEST;
                     c111 = c112 + r111;
                 }
@@ -879,6 +1127,42 @@ public class BFSNorth {
             }
         }
 
+        if(rc.onTheMap(l55)){
+            if(!rc.isLocationOccupied(l55)){
+                r55 = 10 + rc.senseRubble(l55);
+                if(c55 > c70 + r55){
+                    d55 = d70;
+                    c55 = c70 + r55;
+                }
+                if(c55 > c54 + r55){
+                    d55 = d54;
+                    c55 = c54 + r55;
+                }
+                if(c55 > c69 + r55){
+                    d55 = d69;
+                    c55 = c69 + r55;
+                }
+            }
+        }
+
+        if(rc.onTheMap(l49)){
+            if(!rc.isLocationOccupied(l49)){
+                r49 = 10 + rc.senseRubble(l49);
+                if(c49 > c64 + r49){
+                    d49 = d64;
+                    c49 = c64 + r49;
+                }
+                if(c49 > c65 + r49){
+                    d49 = d65;
+                    c49 = c65 + r49;
+                }
+                if(c49 > c50 + r49){
+                    d49 = d50;
+                    c49 = c50 + r49;
+                }
+            }
+        }
+
         if(rc.onTheMap(l116)){
             if(!rc.isLocationOccupied(l116)){
                 r116 = 10 + rc.senseRubble(l116);
@@ -925,6 +1209,70 @@ public class BFSNorth {
             }
         }
 
+        if(rc.onTheMap(l71)){
+            if(!rc.isLocationOccupied(l71)){
+                r71 = 10 + rc.senseRubble(l71);
+                if(c71 > c86 + r71){
+                    d71 = d86;
+                    c71 = c86 + r71;
+                }
+                if(c71 > c70 + r71){
+                    d71 = d70;
+                    c71 = c70 + r71;
+                }
+                if(c71 > c85 + r71){
+                    d71 = d85;
+                    c71 = c85 + r71;
+                }
+            }
+        }
+
+        if(rc.onTheMap(l56)){
+            if(!rc.isLocationOccupied(l56)){
+                r56 = 10 + rc.senseRubble(l56);
+                if(c56 > c71 + r56){
+                    d56 = d71;
+                    c56 = c71 + r56;
+                }
+                if(c56 > c55 + r56){
+                    d56 = d55;
+                    c56 = c55 + r56;
+                }
+                if(c56 > c70 + r56){
+                    d56 = d70;
+                    c56 = c70 + r56;
+                }
+            }
+        }
+
+        if(rc.onTheMap(l48)){
+            if(!rc.isLocationOccupied(l48)){
+                r48 = 10 + rc.senseRubble(l48);
+                if(c48 > c64 + r48){
+                    d48 = d64;
+                    c48 = c64 + r48;
+                }
+                if(c48 > c49 + r48){
+                    d48 = d49;
+                    c48 = c49 + r48;
+                }
+            }
+        }
+
+        if(rc.onTheMap(l63)){
+            if(!rc.isLocationOccupied(l63)){
+                r63 = 10 + rc.senseRubble(l63);
+                if(c63 > c79 + r63){
+                    d63 = d79;
+                    c63 = c79 + r63;
+                }
+                if(c63 > c64 + r63){
+                    d63 = d64;
+                    c63 = c64 + r63;
+                }
+            }
+        }
+
         if(rc.onTheMap(l78)){
             if(!rc.isLocationOccupied(l78)){
                 r78 = 10 + rc.senseRubble(l78);
@@ -953,253 +1301,281 @@ public class BFSNorth {
             }
         }
 
-        if(rc.onTheMap(l108)) {
-            if (!rc.isLocationOccupied(l108)) {
+        if(rc.onTheMap(l108)){
+            if(!rc.isLocationOccupied(l108)){
                 r108 = 10 + rc.senseRubble(l108);
-                if (c108 > c109 + r108) {
+                if(c108 > c109 + r108){
                     d108 = d109;
                     c108 = c109 + r108;
                 }
             }
         }
-        int cx = l112.x - 7 - target.x; //also kinda fricked cuz (0, 0) isnt top left
-        int cy = l112.y + 7 - target.y;
-        int nomove = Math.max(Math.abs(cx + 7) * 49, Math.abs(cy - 7) * 49); //make it <=
-        int cmin = rc.senseRubble(l112);
 
-        int dist50 = Math.max(Math.abs(cx+5)*49 + c50, Math.abs(cy - 3)*49+c50);
-        if(dist50 <= cmin){
-            cmin= dist50;
-            ans = d50;
+        if(rc.onTheMap(l37)){
+            if(!rc.isLocationOccupied(l37)){
+                r37 = 10 + rc.senseRubble(l37);
+                if(c37 > c52 + r37){
+                    d37 = d52;
+                    c37 = c52 + r37;
+                }
+                if(c37 > c51 + r37){
+                    d37 = d51;
+                    c37 = c51 + r37;
+                }
+                if(c37 > c53 + r37){
+                    d37 = d53;
+                    c37 = c53 + r37;
+                }
+            }
         }
 
-        int dist51 = Math.max(Math.abs(cx+6)*49 + c51, Math.abs(cy - 3)*49+c51);
-        if(dist51 <= cmin){
-            cmin= dist51;
-            ans = d51;
+        if(rc.onTheMap(l38)){
+            if(!rc.isLocationOccupied(l38)){
+                r38 = 10 + rc.senseRubble(l38);
+                if(c38 > c53 + r38){
+                    d38 = d53;
+                    c38 = c53 + r38;
+                }
+                if(c38 > c37 + r38){
+                    d38 = d37;
+                    c38 = c37 + r38;
+                }
+                if(c38 > c52 + r38){
+                    d38 = d52;
+                    c38 = c52 + r38;
+                }
+                if(c38 > c54 + r38){
+                    d38 = d54;
+                    c38 = c54 + r38;
+                }
+            }
         }
 
-        int dist52 = Math.max(Math.abs(cx+7)*49 + c52, Math.abs(cy - 3)*49+c52);
-        if(dist52 <= cmin){
-            cmin= dist52;
-            ans = d52;
+        if(rc.onTheMap(l36)){
+            if(!rc.isLocationOccupied(l36)){
+                r36 = 10 + rc.senseRubble(l36);
+                if(c36 > c51 + r36){
+                    d36 = d51;
+                    c36 = c51 + r36;
+                }
+                if(c36 > c50 + r36){
+                    d36 = d50;
+                    c36 = c50 + r36;
+                }
+                if(c36 > c52 + r36){
+                    d36 = d52;
+                    c36 = c52 + r36;
+                }
+                if(c36 > c37 + r36){
+                    d36 = d37;
+                    c36 = c37 + r36;
+                }
+            }
         }
 
-        int dist53 = Math.max(Math.abs(cx+8)*49 + c53, Math.abs(cy - 3)*49+c53);
-        if(dist53 <= cmin){
-            cmin= dist53;
-            ans = d53;
+        if(rc.onTheMap(l39)){
+            if(!rc.isLocationOccupied(l39)){
+                r39 = 10 + rc.senseRubble(l39);
+                if(c39 > c54 + r39){
+                    d39 = d54;
+                    c39 = c54 + r39;
+                }
+                if(c39 > c38 + r39){
+                    d39 = d38;
+                    c39 = c38 + r39;
+                }
+                if(c39 > c53 + r39){
+                    d39 = d53;
+                    c39 = c53 + r39;
+                }
+                if(c39 > c55 + r39){
+                    d39 = d55;
+                    c39 = c55 + r39;
+                }
+            }
         }
 
-        int dist54 = Math.max(Math.abs(cx+9)*49 + c54, Math.abs(cy - 3)*49+c54);
-        if(dist54 <= cmin){
-            cmin= dist54;
-            ans = d54;
+        if(rc.onTheMap(l35)){
+            if(!rc.isLocationOccupied(l35)){
+                r35 = 10 + rc.senseRubble(l35);
+                if(c35 > c50 + r35){
+                    d35 = d50;
+                    c35 = c50 + r35;
+                }
+                if(c35 > c49 + r35){
+                    d35 = d49;
+                    c35 = c49 + r35;
+                }
+                if(c35 > c51 + r35){
+                    d35 = d51;
+                    c35 = c51 + r35;
+                }
+                if(c35 > c36 + r35){
+                    d35 = d36;
+                    c35 = c36 + r35;
+                }
+            }
         }
 
-        int dist64 = Math.max(Math.abs(cx+4)*49 + c64, Math.abs(cy - 4)*49+c64);
-        if(dist64 <= cmin){
-            cmin= dist64;
-            ans = d64;
+        if(rc.onTheMap(l40)){
+            if(!rc.isLocationOccupied(l40)){
+                r40 = 10 + rc.senseRubble(l40);
+                if(c40 > c55 + r40){
+                    d40 = d55;
+                    c40 = c55 + r40;
+                }
+                if(c40 > c39 + r40){
+                    d40 = d39;
+                    c40 = c39 + r40;
+                }
+                if(c40 > c54 + r40){
+                    d40 = d54;
+                    c40 = c54 + r40;
+                }
+                if(c40 > c56 + r40){
+                    d40 = d56;
+                    c40 = c56 + r40;
+                }
+            }
         }
 
-        int dist65 = Math.max(Math.abs(cx+5)*49 + c65, Math.abs(cy - 4)*49+c65);
-        if(dist65 <= cmin){
-            cmin= dist65;
-            ans = d65;
+        if(rc.onTheMap(l34)){
+            if(!rc.isLocationOccupied(l34)){
+                r34 = 10 + rc.senseRubble(l34);
+                if(c34 > c49 + r34){
+                    d34 = d49;
+                    c34 = c49 + r34;
+                }
+                if(c34 > c48 + r34){
+                    d34 = d48;
+                    c34 = c48 + r34;
+                }
+                if(c34 > c50 + r34){
+                    d34 = d50;
+                    c34 = c50 + r34;
+                }
+                if(c34 > c35 + r34){
+                    d34 = d35;
+                    c34 = c35 + r34;
+                }
+            }
         }
 
-        int dist69 = Math.max(Math.abs(cx+9)*49 + c69, Math.abs(cy - 4)*49+c69);
-        if(dist69 <= cmin){
-            cmin= dist69;
-            ans = d69;
+        if(rc.onTheMap(l117)){
+            if(!rc.isLocationOccupied(l117)){
+                r117 = 10 + rc.senseRubble(l117);
+                if(c117 > c116 + r117){
+                    d117 = d116;
+                    c117 = c116 + r117;
+                }
+            }
         }
 
-        int dist70 = Math.max(Math.abs(cx+10)*49 + c70, Math.abs(cy - 4)*49+c70);
-        if(dist70 <= cmin){
-            cmin= dist70;
-            ans = d70;
+        if(rc.onTheMap(l102)){
+            if(!rc.isLocationOccupied(l102)){
+                r102 = 10 + rc.senseRubble(l102);
+                if(c102 > c117 + r102){
+                    d102 = d117;
+                    c102 = c117 + r102;
+                }
+                if(c102 > c101 + r102){
+                    d102 = d101;
+                    c102 = c101 + r102;
+                }
+                if(c102 > c116 + r102){
+                    d102 = d116;
+                    c102 = c116 + r102;
+                }
+            }
         }
 
-        int dist78 = Math.max(Math.abs(cx+3)*49 + c78, Math.abs(cy - 5)*49+c78);
-        if(dist78 <= cmin){
-            cmin= dist78;
-            ans = d78;
+        if(rc.onTheMap(l87)){
+            if(!rc.isLocationOccupied(l87)){
+                r87 = 10 + rc.senseRubble(l87);
+                if(c87 > c102 + r87){
+                    d87 = d102;
+                    c87 = c102 + r87;
+                }
+                if(c87 > c86 + r87){
+                    d87 = d86;
+                    c87 = c86 + r87;
+                }
+                if(c87 > c101 + r87){
+                    d87 = d101;
+                    c87 = c101 + r87;
+                }
+            }
         }
 
-        int dist79 = Math.max(Math.abs(cx+4)*49 + c79, Math.abs(cy - 5)*49+c79);
-        if(dist79 <= cmin){
-            cmin= dist79;
-            ans = d79;
+        if(rc.onTheMap(l72)){
+            if(!rc.isLocationOccupied(l72)){
+                r72 = 10 + rc.senseRubble(l72);
+                if(c72 > c87 + r72){
+                    d72 = d87;
+                    c72 = c87 + r72;
+                }
+                if(c72 > c71 + r72){
+                    d72 = d71;
+                    c72 = c71 + r72;
+                }
+                if(c72 > c86 + r72){
+                    d72 = d86;
+                    c72 = c86 + r72;
+                }
+            }
         }
 
-        int dist85 = Math.max(Math.abs(cx+10)*49 + c85, Math.abs(cy - 5)*49+c85);
-        if(dist85 <= cmin){
-            cmin= dist85;
-            ans = d85;
+        if(rc.onTheMap(l62)){
+            if(!rc.isLocationOccupied(l62)){
+                r62 = 10 + rc.senseRubble(l62);
+                if(c62 > c78 + r62){
+                    d62 = d78;
+                    c62 = c78 + r62;
+                }
+                if(c62 > c63 + r62){
+                    d62 = d63;
+                    c62 = c63 + r62;
+                }
+            }
         }
 
-        int dist86 = Math.max(Math.abs(cx+11)*49 + c86, Math.abs(cy - 5)*49+c86);
-        if(dist86 <= cmin){
-            cmin= dist86;
-            ans = d86;
+        if(rc.onTheMap(l77)){
+            if(!rc.isLocationOccupied(l77)){
+                r77 = 10 + rc.senseRubble(l77);
+                if(c77 > c93 + r77){
+                    d77 = d93;
+                    c77 = c93 + r77;
+                }
+                if(c77 > c78 + r77){
+                    d77 = d78;
+                    c77 = c78 + r77;
+                }
+            }
         }
 
-        int dist93 = Math.max(Math.abs(cx+3)*49 + c93, Math.abs(cy - 6)*49+c93);
-        if(dist93 <= cmin){
-            cmin= dist93;
-            ans = d93;
+        if(rc.onTheMap(l92)){
+            if(!rc.isLocationOccupied(l92)){
+                r92 = 10 + rc.senseRubble(l92);
+                if(c92 > c108 + r92){
+                    d92 = d108;
+                    c92 = c108 + r92;
+                }
+                if(c92 > c93 + r92){
+                    d92 = d93;
+                    c92 = c93 + r92;
+                }
+            }
         }
 
-        int dist101 = Math.max(Math.abs(cx+11)*49 + c101, Math.abs(cy - 6)*49+c101);
-        if(dist101 <= cmin){
-            cmin= dist101;
-            ans = d101;
+        if(rc.onTheMap(l107)){
+            if(!rc.isLocationOccupied(l107)){
+                r107 = 10 + rc.senseRubble(l107);
+                if(c107 > c108 + r107){
+                    d107 = d108;
+                    c107 = c108 + r107;
+                }
+            }
         }
-
-        int dist108 = Math.max(Math.abs(cx+3)*49 + c108, Math.abs(cy - 7)*49+c108);
-        if(dist108 <= cmin){
-            cmin= dist108;
-            ans = d108;
-        }
-
-        int dist116 = Math.max(Math.abs(cx+11)*49 + c116, Math.abs(cy - 7)*49+c116);
-        if(dist116 <= cmin){
-            cmin= dist116;
-            ans = d116;
-        }
-
-        if(cmin<=nomove) return ans;
-
-        int dist66 = Math.max(Math.abs(cx+6)*49 + c66, Math.abs(cy - 4)*49+c66);
-        if(dist66 <= cmin){
-            cmin= dist66;
-            ans = d66;
-        }
-
-        int dist67 = Math.max(Math.abs(cx+7)*49 + c67, Math.abs(cy - 4)*49+c67);
-        if(dist67 <= cmin){
-            cmin= dist67;
-            ans = d67;
-        }
-
-        int dist68 = Math.max(Math.abs(cx+8)*49 + c68, Math.abs(cy - 4)*49+c68);
-        if(dist68 <= cmin){
-            cmin= dist68;
-            ans = d68;
-        }
-
-        int dist80 = Math.max(Math.abs(cx+5)*49 + c80, Math.abs(cy - 5)*49+c80);
-        if(dist80 <= cmin){
-            cmin= dist80;
-            ans = d80;
-        }
-
-        int dist81 = Math.max(Math.abs(cx+6)*49 + c81, Math.abs(cy - 5)*49+c81);
-        if(dist81 <= cmin){
-            cmin= dist81;
-            ans = d81;
-        }
-
-        int dist83 = Math.max(Math.abs(cx+8)*49 + c83, Math.abs(cy - 5)*49+c83);
-        if(dist83 <= cmin){
-            cmin= dist83;
-            ans = d83;
-        }
-
-        int dist84 = Math.max(Math.abs(cx+9)*49 + c84, Math.abs(cy - 5)*49+c84);
-        if(dist84 <= cmin){
-            cmin= dist84;
-            ans = d84;
-        }
-
-        int dist94 = Math.max(Math.abs(cx+4)*49 + c94, Math.abs(cy - 6)*49+c94);
-        if(dist94 <= cmin){
-            cmin= dist94;
-            ans = d94;
-        }
-
-        int dist95 = Math.max(Math.abs(cx+5)*49 + c95, Math.abs(cy - 6)*49+c95);
-        if(dist95 <= cmin){
-            cmin= dist95;
-            ans = d95;
-        }
-
-        int dist99 = Math.max(Math.abs(cx+9)*49 + c99, Math.abs(cy - 6)*49+c99);
-        if(dist99 <= cmin){
-            cmin= dist99;
-            ans = d99;
-        }
-
-        int dist100 = Math.max(Math.abs(cx+10)*49 + c100, Math.abs(cy - 6)*49+c100);
-        if(dist100 <= cmin){
-            cmin= dist100;
-            ans = d100;
-        }
-
-        int dist109 = Math.max(Math.abs(cx+4)*49 + c109, Math.abs(cy - 7)*49+c109);
-        if(dist109 <= cmin){
-            cmin= dist109;
-            ans = d109;
-        }
-
-        int dist115 = Math.max(Math.abs(cx+10)*49 + c115, Math.abs(cy - 7)*49+c115);
-        if(dist115 <= cmin){
-            cmin= dist115;
-            ans = d115;
-        }
-
-        if(cmin<=nomove) return ans;
-
-        int dist82 = Math.max(Math.abs(cx+7)*49 + c82, Math.abs(cy - 5)*49+c82);
-        if(dist82 <= cmin){
-            cmin= dist82;
-            ans = d82;
-        }
-
-        int dist96 = Math.max(Math.abs(cx+6)*49 + c96, Math.abs(cy - 6)*49+c96);
-        if(dist96 <= cmin){
-            cmin= dist96;
-            ans = d96;
-        }
-
-        int dist97 = Math.max(Math.abs(cx+7)*49 + c97, Math.abs(cy - 6)*49+c97);
-        if(dist97 <= cmin){
-            cmin= dist97;
-            ans = d97;
-        }
-
-        int dist98 = Math.max(Math.abs(cx+8)*49 + c98, Math.abs(cy - 6)*49+c98);
-        if(dist98 <= cmin){
-            cmin= dist98;
-            ans = d98;
-        }
-
-        int dist110 = Math.max(Math.abs(cx+5)*49 + c110, Math.abs(cy - 7)*49+c110);
-        if(dist110 <= cmin){
-            cmin= dist110;
-            ans = d110;
-        }
-
-        int dist111 = Math.max(Math.abs(cx+6)*49 + c111, Math.abs(cy - 7)*49+c111);
-        if(dist111 <= cmin){
-            cmin= dist111;
-            ans = d111;
-        }
-
-        int dist113 = Math.max(Math.abs(cx+8)*49 + c113, Math.abs(cy - 7)*49+c113);
-        if(dist113 <= cmin){
-            cmin= dist113;
-            ans = d113;
-        }
-
-        int dist114 = Math.max(Math.abs(cx+9)*49 + c114, Math.abs(cy - 7)*49+c114);
-        if(dist114 <= cmin){
-            cmin= dist114;
-            ans = d114;
-        }
-
-
-        return ans;
+        
     }
 }
