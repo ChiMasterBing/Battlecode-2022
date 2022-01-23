@@ -5,10 +5,10 @@ import battlecode.common.Direction;
 import battlecode.common.GameActionException;
 import battlecode.common.MapLocation;
 import battlecode.common.RobotController;
-public class Miner extends Robot{
+public class Miner{
     int turnCount = 0;
-    final Random rng = new Random(6147);
-    final Direction[] directions = {
+    static final Random rng = new Random(6147);
+    static final Direction[] directions = {
         Direction.NORTH,
         Direction.NORTHEAST,
         Direction.EAST,
@@ -22,20 +22,14 @@ public class Miner extends Robot{
     zone[][] self; //each miner keeps 1x1 instead of 4x4
     RobotController rc;
     MapLocation me;
-    public Miner(RobotController rc) throws GameActionException {
-        this.rc = rc;
-    }
     boolean arrived = false, scan = false;
     int[][] area;
-    int cnt=0;
+    static int cnt=0;
     static Direction dir = Direction.CENTER;
-    public void run() throws GameActionException {
+    static boolean stay = false;
+    public static void run(RobotController rc) throws GameActionException {
 
-        cnt++;
-    	if(cnt>500) {
-    		rc.resign();
-    	}
-        MapLocation targ = new MapLocation(0, 0);
+        MapLocation targ = new MapLocation(rng.nextInt(rc.getMapWidth()), rng.nextInt(rc.getMapHeight()));
         Direction cur = rc.getLocation().directionTo(targ);
         rc.setIndicatorString(dir.opposite().toString());
         Direction cdir;
@@ -66,8 +60,16 @@ public class Miner extends Robot{
                 cdir=BFSSouthWest.gbda(rc, targ, dir.opposite());
                 break;
         }
+        stay = false;
+        for(Direction dir : directions){
+            MapLocation curr = rc.adjacentLocation(dir);
+            while(rc.canMineLead(curr)){
+                stay = true;
+                rc.mineLead(curr);
+            }
+        }
         //rc.setIndicatorString(dir.toString());
-        if(cdir!=null&&rc.canMove(cdir)) {
+        if(!stay&&cdir!=null&&rc.canMove(cdir)) {
         	//System.out.println(dir);
         	rc.move(cdir);
             dir = cdir;

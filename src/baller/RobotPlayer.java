@@ -1,4 +1,4 @@
-package Pathfinding;
+package baller;
 import battlecode.common.*;
 import java.util.Random;
 
@@ -48,10 +48,29 @@ public strictfp class RobotPlayer {
 
         // Hello world! Standard output is very useful for debugging.
         // Everything you say here will be directly viewable in your terminal when you run a match!
-        System.out.println("I'm a " + rc.getType() + " and I just got created! I have health " + rc.getHealth());
+        //System.out.println("I'm a " + rc.getType() + " and I just got created! I have health " + rc.getHealth());
 
         // You can also use indicators to save debug notes in replays.
-        rc.setIndicatorString("Hello world!");
+        //rc.setIndicatorString("Hello world!");
+        Robot thisRobot = null;
+        switch (rc.getType()) {
+	        case ARCHON:
+	        	thisRobot = new Archon(rc);
+	        	break;
+	        case MINER:
+	        	thisRobot = new Miner(rc);
+	        	break;
+	        case SOLDIER:
+	        	thisRobot = new Soldier(rc);
+	        	break;
+	        case LABORATORY: thisRobot = new Miner(rc); break;
+	        case WATCHTOWER: thisRobot = new Miner(rc); break;
+	        case BUILDER: thisRobot = new Miner(rc); break;
+	        case SAGE: thisRobot = new Miner(rc); break;
+	        default: thisRobot = new Miner(rc); break;
+	        	
+        }
+        
         while (true) {
             // This code runs during the entire lifespan of the robot, which is why it is in an infinite
             // loop. If we ever leave this loop and return from run(), the robot dies! At the end of the
@@ -62,44 +81,29 @@ public strictfp class RobotPlayer {
             
             // Try/catch blocks stop unhandled exceptions, which cause your robot to explode.
             try {
-                switch (rc.getType()) {
-                    case ARCHON:
-                        Archon.run(rc);
-                        break;
-                    case MINER:
-                        Miner.run(rc);
-                        break;
-                    case SOLDIER:
-                        Soldier.run(rc);
-                        break;
-                    case LABORATORY:
-                        Laboratory.run(rc);
-                        break;
-                    case WATCHTOWER:
-                        WatchTower.run(rc);
-                        break;
-                    case BUILDER:
-                        Builder.run(rc);
-                        break;
-                    default:
-                        Sage.run(rc);
-                }
+                thisRobot.run();
             } catch (GameActionException e) {
                 // Oh no! It looks like we did something illegal in the Battlecode world. You should
                 // handle GameActionExceptions judiciously, in case unexpected events occur in the game
                 // world. Remember, uncaught exceptions cause your robot to explode!
                 System.out.println(rc.getType() + " Exception");
                 e.printStackTrace();
+
             } catch (Exception e) {
+                // Oh no! It looks like our code tried to do something bad. This isn't a
+                // GameActionException, so it's more likely to be a bug in our code.
                 System.out.println(rc.getType() + " Exception");
                 e.printStackTrace();
 
             } finally {
                 // Signify we've done everything we want to do, thereby ending our turn.
                 // This will make our code wait until the next turn, and then perform this loop again.
-            	
                 Clock.yield();
             }
+            // End of loop: go back to the top. Clock.yield() has ended, so it's time for another turn!
         }
+
+        // Your code should never reach here (unless it's intentional)! Self-destruction imminent...
     }
 }
+

@@ -978,103 +978,103 @@ public class BFSSouthEast {
         int cy = l112.y + 7 - target.y;
         int nomove = Math.max(Math.abs(cx + 7) * 49, Math.abs(cy - 7) * 49); //make it <=
         int cmin = Integer.MAX_VALUE;
-        int dist70 = Math.max(Math.abs(cx+10)*49 + c70, Math.abs(cy - 4)*50+c70);
+        int dist70 = Math.max(Math.abs(cx+10)*49 + c70, Math.abs(cy - 4)*49+c70);
         if(dist70 <= cmin){
             cmin= dist70;
             ans = d70;
         }
 
-        int dist85 = Math.max(Math.abs(cx+10)*49 + c85, Math.abs(cy - 5)*50+c85);
+        int dist85 = Math.max(Math.abs(cx+10)*49 + c85, Math.abs(cy - 5)*49+c85);
         if(dist85 <= cmin){
             cmin= dist85;
             ans = d85;
         }
 
-        int dist86 = Math.max(Math.abs(cx+11)*49 + c86, Math.abs(cy - 5)*50+c86);
+        int dist86 = Math.max(Math.abs(cx+11)*49 + c86, Math.abs(cy - 5)*49+c86);
         if(dist86 <= cmin){
             cmin= dist86;
             ans = d86;
         }
 
-        int dist101 = Math.max(Math.abs(cx+11)*49 + c101, Math.abs(cy - 6)*50+c101);
+        int dist101 = Math.max(Math.abs(cx+11)*49 + c101, Math.abs(cy - 6)*49+c101);
         if(dist101 <= cmin){
             cmin= dist101;
             ans = d101;
         }
 
-        int dist116 = Math.max(Math.abs(cx+11)*49 + c116, Math.abs(cy - 7)*50+c116);
+        int dist116 = Math.max(Math.abs(cx+11)*49 + c116, Math.abs(cy - 7)*49+c116);
         if(dist116 <= cmin){
             cmin= dist116;
             ans = d116;
         }
 
-        int dist131 = Math.max(Math.abs(cx+11)*49 + c131, Math.abs(cy - 8)*50+c131);
+        int dist131 = Math.max(Math.abs(cx+11)*49 + c131, Math.abs(cy - 8)*49+c131);
         if(dist131 <= cmin){
             cmin= dist131;
             ans = d131;
         }
 
-        int dist145 = Math.max(Math.abs(cx+10)*49 + c145, Math.abs(cy - 9)*50+c145);
+        int dist145 = Math.max(Math.abs(cx+10)*49 + c145, Math.abs(cy - 9)*49+c145);
         if(dist145 <= cmin){
             cmin= dist145;
             ans = d145;
         }
 
-        int dist146 = Math.max(Math.abs(cx+11)*49 + c146, Math.abs(cy - 9)*50+c146);
+        int dist146 = Math.max(Math.abs(cx+11)*49 + c146, Math.abs(cy - 9)*49+c146);
         if(dist146 <= cmin){
             cmin= dist146;
             ans = d146;
         }
 
-        int dist154 = Math.max(Math.abs(cx+4)*49 + c154, Math.abs(cy - 10)*50+c154);
+        int dist154 = Math.max(Math.abs(cx+4)*49 + c154, Math.abs(cy - 10)*49+c154);
         if(dist154 <= cmin){
             cmin= dist154;
             ans = d154;
         }
 
-        int dist155 = Math.max(Math.abs(cx+5)*49 + c155, Math.abs(cy - 10)*50+c155);
+        int dist155 = Math.max(Math.abs(cx+5)*49 + c155, Math.abs(cy - 10)*49+c155);
         if(dist155 <= cmin){
             cmin= dist155;
             ans = d155;
         }
 
-        int dist159 = Math.max(Math.abs(cx+9)*49 + c159, Math.abs(cy - 10)*50+c159);
+        int dist159 = Math.max(Math.abs(cx+9)*49 + c159, Math.abs(cy - 10)*49+c159);
         if(dist159 <= cmin){
             cmin= dist159;
             ans = d159;
         }
 
-        int dist160 = Math.max(Math.abs(cx+10)*49 + c160, Math.abs(cy - 10)*50+c160);
+        int dist160 = Math.max(Math.abs(cx+10)*49 + c160, Math.abs(cy - 10)*49+c160);
         if(dist160 <= cmin){
             cmin= dist160;
             ans = d160;
         }
 
-        int dist170 = Math.max(Math.abs(cx+5)*49 + c170, Math.abs(cy - 11)*50+c170);
+        int dist170 = Math.max(Math.abs(cx+5)*49 + c170, Math.abs(cy - 11)*49+c170);
         if(dist170 <= cmin){
             cmin= dist170;
             ans = d170;
         }
 
-        int dist171 = Math.max(Math.abs(cx+6)*49 + c171, Math.abs(cy - 11)*50+c171);
+        int dist171 = Math.max(Math.abs(cx+6)*49 + c171, Math.abs(cy - 11)*49+c171);
         if(dist171 <= cmin){
             cmin= dist171;
             ans = d171;
         }
 
-        int dist172 = Math.max(Math.abs(cx+7)*49 + c172, Math.abs(cy - 11)*50+c172);
+        int dist172 = Math.max(Math.abs(cx+7)*49 + c172, Math.abs(cy - 11)*49+c172);
         if(dist172 <= cmin){
             cmin= dist172;
             ans = d172;
         }
 
-        int dist173 = Math.max(Math.abs(cx+8)*49 + c173, Math.abs(cy - 11)*50+c173);
+        int dist173 = Math.max(Math.abs(cx+8)*49 + c173, Math.abs(cy - 11)*49+c173);
         if(dist173 <= cmin){
             cmin= dist173;
             ans = d173;
         }
 
-        int dist174 = Math.max(Math.abs(cx+9)*49 + c174, Math.abs(cy - 11)*50+c174);
+        int dist174 = Math.max(Math.abs(cx+9)*49 + c174, Math.abs(cy - 11)*49+c174);
         if(dist174 <= cmin){
             cmin= dist174;
             ans = d174;
@@ -1082,79 +1082,79 @@ public class BFSSouthEast {
 
         if(cmin<=nomove) return ans;
 
-        int dist84 = Math.max(Math.abs(cx+9)*49 + c84, Math.abs(cy - 5)*50+c84);
+        int dist84 = Math.max(Math.abs(cx+9)*49 + c84, Math.abs(cy - 5)*49+c84);
         if(dist84 <= cmin){
             cmin= dist84;
             ans = d84;
         }
 
-        int dist99 = Math.max(Math.abs(cx+9)*49 + c99, Math.abs(cy - 6)*50+c99);
+        int dist99 = Math.max(Math.abs(cx+9)*49 + c99, Math.abs(cy - 6)*49+c99);
         if(dist99 <= cmin){
             cmin= dist99;
             ans = d99;
         }
 
-        int dist100 = Math.max(Math.abs(cx+10)*49 + c100, Math.abs(cy - 6)*50+c100);
+        int dist100 = Math.max(Math.abs(cx+10)*49 + c100, Math.abs(cy - 6)*49+c100);
         if(dist100 <= cmin){
             cmin= dist100;
             ans = d100;
         }
 
-        int dist115 = Math.max(Math.abs(cx+10)*49 + c115, Math.abs(cy - 7)*50+c115);
+        int dist115 = Math.max(Math.abs(cx+10)*49 + c115, Math.abs(cy - 7)*49+c115);
         if(dist115 <= cmin){
             cmin= dist115;
             ans = d115;
         }
 
-        int dist129 = Math.max(Math.abs(cx+9)*49 + c129, Math.abs(cy - 8)*50+c129);
+        int dist129 = Math.max(Math.abs(cx+9)*49 + c129, Math.abs(cy - 8)*49+c129);
         if(dist129 <= cmin){
             cmin= dist129;
             ans = d129;
         }
 
-        int dist130 = Math.max(Math.abs(cx+10)*49 + c130, Math.abs(cy - 8)*50+c130);
+        int dist130 = Math.max(Math.abs(cx+10)*49 + c130, Math.abs(cy - 8)*49+c130);
         if(dist130 <= cmin){
             cmin= dist130;
             ans = d130;
         }
 
-        int dist140 = Math.max(Math.abs(cx+5)*49 + c140, Math.abs(cy - 9)*50+c140);
+        int dist140 = Math.max(Math.abs(cx+5)*49 + c140, Math.abs(cy - 9)*49+c140);
         if(dist140 <= cmin){
             cmin= dist140;
             ans = d140;
         }
 
-        int dist141 = Math.max(Math.abs(cx+6)*49 + c141, Math.abs(cy - 9)*50+c141);
+        int dist141 = Math.max(Math.abs(cx+6)*49 + c141, Math.abs(cy - 9)*49+c141);
         if(dist141 <= cmin){
             cmin= dist141;
             ans = d141;
         }
 
-        int dist143 = Math.max(Math.abs(cx+8)*49 + c143, Math.abs(cy - 9)*50+c143);
+        int dist143 = Math.max(Math.abs(cx+8)*49 + c143, Math.abs(cy - 9)*49+c143);
         if(dist143 <= cmin){
             cmin= dist143;
             ans = d143;
         }
 
-        int dist144 = Math.max(Math.abs(cx+9)*49 + c144, Math.abs(cy - 9)*50+c144);
+        int dist144 = Math.max(Math.abs(cx+9)*49 + c144, Math.abs(cy - 9)*49+c144);
         if(dist144 <= cmin){
             cmin= dist144;
             ans = d144;
         }
 
-        int dist156 = Math.max(Math.abs(cx+6)*49 + c156, Math.abs(cy - 10)*50+c156);
+        int dist156 = Math.max(Math.abs(cx+6)*49 + c156, Math.abs(cy - 10)*49+c156);
         if(dist156 <= cmin){
             cmin= dist156;
             ans = d156;
         }
 
-        int dist157 = Math.max(Math.abs(cx+7)*49 + c157, Math.abs(cy - 10)*50+c157);
+        int dist157 = Math.max(Math.abs(cx+7)*49 + c157, Math.abs(cy - 10)*49+c157);
         if(dist157 <= cmin){
             cmin= dist157;
             ans = d157;
         }
 
-        int dist158 = Math.max(Math.abs(cx+8)*49 + c158, Math.abs(cy - 10)*50+c158);
+        int dist158 = Math.max(Math.abs(cx+8)*49 + c158, Math.abs(cy - 10)*49+c158);
         if(dist158 <= cmin){
             cmin= dist158;
             ans = d158;
@@ -1162,43 +1162,43 @@ public class BFSSouthEast {
 
         if(cmin<=nomove) return ans;
 
-        int dist98 = Math.max(Math.abs(cx+8)*49 + c98, Math.abs(cy - 6)*50+c98);
+        int dist98 = Math.max(Math.abs(cx+8)*49 + c98, Math.abs(cy - 6)*49+c98);
         if(dist98 <= cmin){
             cmin= dist98;
             ans = d98;
         }
 
-        int dist113 = Math.max(Math.abs(cx+8)*49 + c113, Math.abs(cy - 7)*50+c113);
+        int dist113 = Math.max(Math.abs(cx+8)*49 + c113, Math.abs(cy - 7)*49+c113);
         if(dist113 <= cmin){
             cmin= dist113;
             ans = d113;
         }
 
-        int dist114 = Math.max(Math.abs(cx+9)*49 + c114, Math.abs(cy - 7)*50+c114);
+        int dist114 = Math.max(Math.abs(cx+9)*49 + c114, Math.abs(cy - 7)*49+c114);
         if(dist114 <= cmin){
             cmin= dist114;
             ans = d114;
         }
 
-        int dist126 = Math.max(Math.abs(cx+6)*49 + c126, Math.abs(cy - 8)*50+c126);
+        int dist126 = Math.max(Math.abs(cx+6)*49 + c126, Math.abs(cy - 8)*49+c126);
         if(dist126 <= cmin){
             cmin= dist126;
             ans = d126;
         }
 
-        int dist127 = Math.max(Math.abs(cx+7)*49 + c127, Math.abs(cy - 8)*50+c127);
+        int dist127 = Math.max(Math.abs(cx+7)*49 + c127, Math.abs(cy - 8)*49+c127);
         if(dist127 <= cmin){
             cmin= dist127;
             ans = d127;
         }
 
-        int dist128 = Math.max(Math.abs(cx+8)*49 + c128, Math.abs(cy - 8)*50+c128);
+        int dist128 = Math.max(Math.abs(cx+8)*49 + c128, Math.abs(cy - 8)*49+c128);
         if(dist128 <= cmin){
             cmin= dist128;
             ans = d128;
         }
 
-        int dist142 = Math.max(Math.abs(cx+7)*49 + c142, Math.abs(cy - 9)*50+c142);
+        int dist142 = Math.max(Math.abs(cx+7)*49 + c142, Math.abs(cy - 9)*49+c142);
         if(dist142 <= cmin){
             cmin= dist142;
             ans = d142;

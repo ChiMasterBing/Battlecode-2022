@@ -1,25 +1,25 @@
-package Pathfinding;
+package baller;
 
 import battlecode.common.Direction;
 import battlecode.common.GameActionException;
 import battlecode.common.MapLocation;
 import battlecode.common.RobotController;
 
-public class BFSWest {
+public class BFSSouthWest {
     static MapLocation l112;
     static int c112;
     static int r112;
     static Direction d112;
 
-    static MapLocation l97;
-    static int c97;
-    static int r97;
-    static Direction d97;
-
     static MapLocation l127;
     static int c127;
     static int r127;
     static Direction d127;
+
+    static MapLocation l128;
+    static int c128;
+    static int r128;
+    static Direction d128;
 
     static MapLocation l126;
     static int c126;
@@ -36,25 +36,25 @@ public class BFSWest {
     static int r111;
     static Direction d111;
 
-    static MapLocation l82;
-    static int c82;
-    static int r82;
-    static Direction d82;
-
-    static MapLocation l81;
-    static int c81;
-    static int r81;
-    static Direction d81;
-
     static MapLocation l142;
     static int c142;
     static int r142;
     static Direction d142;
 
+    static MapLocation l143;
+    static int c143;
+    static int r143;
+    static Direction d143;
+
     static MapLocation l141;
     static int c141;
     static int r141;
     static Direction d141;
+
+    static MapLocation l144;
+    static int c144;
+    static int r144;
+    static Direction d144;
 
     static MapLocation l140;
     static int c140;
@@ -81,35 +81,35 @@ public class BFSWest {
     static int r95;
     static Direction d95;
 
-    static MapLocation l67;
-    static int c67;
-    static int r67;
-    static Direction d67;
-
-    static MapLocation l66;
-    static int c66;
-    static int r66;
-    static Direction d66;
-
-    static MapLocation l65;
-    static int c65;
-    static int r65;
-    static Direction d65;
-
     static MapLocation l157;
     static int c157;
     static int r157;
     static Direction d157;
+
+    static MapLocation l158;
+    static int c158;
+    static int r158;
+    static Direction d158;
 
     static MapLocation l156;
     static int c156;
     static int r156;
     static Direction d156;
 
+    static MapLocation l159;
+    static int c159;
+    static int r159;
+    static Direction d159;
+
     static MapLocation l155;
     static int c155;
     static int r155;
     static Direction d155;
+
+    static MapLocation l160;
+    static int c160;
+    static int r160;
+    static Direction d160;
 
     static MapLocation l154;
     static int c154;
@@ -146,30 +146,25 @@ public class BFSWest {
     static int r79;
     static Direction d79;
 
-    static MapLocation l52;
-    static int c52;
-    static int r52;
-    static Direction d52;
-
-    static MapLocation l51;
-    static int c51;
-    static int r51;
-    static Direction d51;
-
-    static MapLocation l50;
-    static int c50;
-    static int r50;
-    static Direction d50;
-
     static MapLocation l172;
     static int c172;
     static int r172;
     static Direction d172;
 
+    static MapLocation l173;
+    static int c173;
+    static int r173;
+    static Direction d173;
+
     static MapLocation l171;
     static int c171;
     static int r171;
     static Direction d171;
+
+    static MapLocation l174;
+    static int c174;
+    static int r174;
+    static Direction d174;
 
     static MapLocation l170;
     static int c170;
@@ -207,13 +202,13 @@ public class BFSWest {
         l112 = rc.getLocation();
         c112 = 0;
 
-        l97 = l112.add(Direction.NORTH);
-        c97 = 10000000;
-        d97 = null;
-
         l127 = l112.add(Direction.SOUTH);
         c127 = 10000000;
         d127 = null;
+
+        l128 = l112.add(Direction.SOUTHEAST);
+        c128 = 10000000;
+        d128 = null;
 
         l126 = l112.add(Direction.SOUTHWEST);
         c126 = 10000000;
@@ -227,21 +222,21 @@ public class BFSWest {
         c111 = 10000000;
         d111 = null;
 
-        l82 = l97.add(Direction.NORTH);
-        c82 = 10000000;
-        d82 = null;
-
-        l81 = l97.add(Direction.NORTHWEST);
-        c81 = 10000000;
-        d81 = null;
-
         l142 = l127.add(Direction.SOUTH);
         c142 = 10000000;
         d142 = null;
 
+        l143 = l127.add(Direction.SOUTHEAST);
+        c143 = 10000000;
+        d143 = null;
+
         l141 = l127.add(Direction.SOUTHWEST);
         c141 = 10000000;
         d141 = null;
+
+        l144 = l128.add(Direction.SOUTHEAST);
+        c144 = 10000000;
+        d144 = null;
 
         l140 = l126.add(Direction.SOUTHWEST);
         c140 = 10000000;
@@ -263,29 +258,29 @@ public class BFSWest {
         c95 = 10000000;
         d95 = null;
 
-        l67 = l82.add(Direction.NORTH);
-        c67 = 10000000;
-        d67 = null;
-
-        l66 = l82.add(Direction.NORTHWEST);
-        c66 = 10000000;
-        d66 = null;
-
-        l65 = l81.add(Direction.NORTHWEST);
-        c65 = 10000000;
-        d65 = null;
-
         l157 = l142.add(Direction.SOUTH);
         c157 = 10000000;
         d157 = null;
+
+        l158 = l142.add(Direction.SOUTHEAST);
+        c158 = 10000000;
+        d158 = null;
 
         l156 = l142.add(Direction.SOUTHWEST);
         c156 = 10000000;
         d156 = null;
 
+        l159 = l143.add(Direction.SOUTHEAST);
+        c159 = 10000000;
+        d159 = null;
+
         l155 = l141.add(Direction.SOUTHWEST);
         c155 = 10000000;
         d155 = null;
+
+        l160 = l144.add(Direction.SOUTHEAST);
+        c160 = 10000000;
+        d160 = null;
 
         l154 = l140.add(Direction.SOUTHWEST);
         c154 = 10000000;
@@ -315,25 +310,21 @@ public class BFSWest {
         c79 = 10000000;
         d79 = null;
 
-        l52 = l67.add(Direction.NORTH);
-        c52 = 10000000;
-        d52 = null;
-
-        l51 = l67.add(Direction.NORTHWEST);
-        c51 = 10000000;
-        d51 = null;
-
-        l50 = l66.add(Direction.NORTHWEST);
-        c50 = 10000000;
-        d50 = null;
-
         l172 = l157.add(Direction.SOUTH);
         c172 = 10000000;
         d172 = null;
 
+        l173 = l157.add(Direction.SOUTHEAST);
+        c173 = 10000000;
+        d173 = null;
+
         l171 = l157.add(Direction.SOUTHWEST);
         c171 = 10000000;
         d171 = null;
+
+        l174 = l158.add(Direction.SOUTHEAST);
+        c174 = 10000000;
+        d174 = null;
 
         l170 = l156.add(Direction.SOUTHWEST);
         c170 = 10000000;
@@ -359,22 +350,22 @@ public class BFSWest {
         c93 = 10000000;
         d93 = null;
 
-        if(rc.onTheMap(l97)){
-            if(!rc.isLocationOccupied(l97)){
-                r97 = 10 + rc.senseRubble(l97);
-                if(c97 > c112 + r97 && prev != Direction.NORTH){
-                    d97 = Direction.NORTH;
-                    c97 = c112 + r97;
-                }
-            }
-        }
-
         if(rc.onTheMap(l127)){
             if(!rc.isLocationOccupied(l127)){
                 r127 = 10 + rc.senseRubble(l127);
                 if(c127 > c112 + r127 && prev != Direction.SOUTH){
                     d127 = Direction.SOUTH;
                     c127 = c112 + r127;
+                }
+            }
+        }
+
+        if(rc.onTheMap(l128)){
+            if(!rc.isLocationOccupied(l128)){
+                r128 = 10 + rc.senseRubble(l128);
+                if(c128 > c112 + r128 && prev != Direction.SOUTHEAST){
+                    d128 = Direction.SOUTHEAST;
+                    c128 = c112 + r128;
                 }
             }
         }
@@ -400,27 +391,15 @@ public class BFSWest {
                     d96 = Direction.NORTHWEST;
                     c96 = c112 + r96;
                 }
-                if(c96 > c97 + r96){
-                    d96 = d97;
-                    c96 = c97 + r96;
-                }
             }
         }
 
         if(rc.onTheMap(l111)){
             if(!rc.isLocationOccupied(l111)){
                 r111 = 10 + rc.senseRubble(l111);
-                if(c111 > c126 + r111){
-                    d111 = d126;
-                    c111 = c126 + r111;
-                }
                 if(c111 > c96 + r111){
                     d111 = d96;
                     c111 = c96 + r111;
-                }
-                if(c111 > c97 + r111){
-                    d111 = d97;
-                    c111 = c97 + r111;
                 }
                 if(c111 > c127 + r111){
                     d111 = d127;
@@ -433,40 +412,34 @@ public class BFSWest {
             }
         }
 
-        if(rc.onTheMap(l82)){
-            if(!rc.isLocationOccupied(l82)){
-                r82 = 10 + rc.senseRubble(l82);
-                if(c82 > c97 + r82){
-                    d82 = d97;
-                    c82 = c97 + r82;
-                }
-            }
-        }
-
-        if(rc.onTheMap(l81)){
-            if(!rc.isLocationOccupied(l81)){
-                r81 = 10 + rc.senseRubble(l81);
-                if(c81 > c96 + r81){
-                    d81 = d96;
-                    c81 = c96 + r81;
-                }
-                if(c81 > c97 + r81){
-                    d81 = d97;
-                    c81 = c97 + r81;
-                }
-                if(c81 > c82 + r81){
-                    d81 = d82;
-                    c81 = c82 + r81;
-                }
-            }
-        }
-
         if(rc.onTheMap(l142)){
             if(!rc.isLocationOccupied(l142)){
                 r142 = 10 + rc.senseRubble(l142);
                 if(c142 > c127 + r142){
                     d142 = d127;
                     c142 = c127 + r142;
+                }
+                if(c142 > c126 + r142){
+                    d142 = d126;
+                    c142 = c126 + r142;
+                }
+                if(c142 > c128 + r142){
+                    d142 = d128;
+                    c142 = c128 + r142;
+                }
+            }
+        }
+
+        if(rc.onTheMap(l143)){
+            if(!rc.isLocationOccupied(l143)){
+                r143 = 10 + rc.senseRubble(l143);
+                if(c143 > c128 + r143){
+                    d143 = d128;
+                    c143 = c128 + r143;
+                }
+                if(c143 > c127 + r143){
+                    d143 = d127;
+                    c143 = c127 + r143;
                 }
             }
         }
@@ -485,6 +458,16 @@ public class BFSWest {
                 if(c141 > c142 + r141){
                     d141 = d142;
                     c141 = c142 + r141;
+                }
+            }
+        }
+
+        if(rc.onTheMap(l144)){
+            if(!rc.isLocationOccupied(l144)){
+                r144 = 10 + rc.senseRubble(l144);
+                if(c144 > c128 + r144){
+                    d144 = d128;
+                    c144 = c128 + r144;
                 }
             }
         }
@@ -524,10 +507,6 @@ public class BFSWest {
         if(rc.onTheMap(l125)){
             if(!rc.isLocationOccupied(l125)){
                 r125 = 10 + rc.senseRubble(l125);
-                if(c125 > c140 + r125){
-                    d125 = d140;
-                    c125 = c140 + r125;
-                }
                 if(c125 > c110 + r125){
                     d125 = d110;
                     c125 = c110 + r125;
@@ -554,27 +533,15 @@ public class BFSWest {
                     d80 = d96;
                     c80 = c96 + r80;
                 }
-                if(c80 > c81 + r80){
-                    d80 = d81;
-                    c80 = c81 + r80;
-                }
             }
         }
 
         if(rc.onTheMap(l95)){
             if(!rc.isLocationOccupied(l95)){
                 r95 = 10 + rc.senseRubble(l95);
-                if(c95 > c110 + r95){
-                    d95 = d110;
-                    c95 = c110 + r95;
-                }
                 if(c95 > c80 + r95){
                     d95 = d80;
                     c95 = c80 + r95;
-                }
-                if(c95 > c81 + r95){
-                    d95 = d81;
-                    c95 = c81 + r95;
                 }
                 if(c95 > c111 + r95){
                     d95 = d111;
@@ -587,58 +554,38 @@ public class BFSWest {
             }
         }
 
-        if(rc.onTheMap(l67)){
-            if(!rc.isLocationOccupied(l67)){
-                r67 = 10 + rc.senseRubble(l67);
-                if(c67 > c82 + r67){
-                    d67 = d82;
-                    c67 = c82 + r67;
-                }
-            }
-        }
-
-        if(rc.onTheMap(l66)){
-            if(!rc.isLocationOccupied(l66)){
-                r66 = 10 + rc.senseRubble(l66);
-                if(c66 > c81 + r66){
-                    d66 = d81;
-                    c66 = c81 + r66;
-                }
-                if(c66 > c82 + r66){
-                    d66 = d82;
-                    c66 = c82 + r66;
-                }
-                if(c66 > c67 + r66){
-                    d66 = d67;
-                    c66 = c67 + r66;
-                }
-            }
-        }
-
-        if(rc.onTheMap(l65)){
-            if(!rc.isLocationOccupied(l65)){
-                r65 = 10 + rc.senseRubble(l65);
-                if(c65 > c80 + r65){
-                    d65 = d80;
-                    c65 = c80 + r65;
-                }
-                if(c65 > c81 + r65){
-                    d65 = d81;
-                    c65 = c81 + r65;
-                }
-                if(c65 > c66 + r65){
-                    d65 = d66;
-                    c65 = c66 + r65;
-                }
-            }
-        }
-
         if(rc.onTheMap(l157)){
             if(!rc.isLocationOccupied(l157)){
                 r157 = 10 + rc.senseRubble(l157);
                 if(c157 > c142 + r157){
                     d157 = d142;
                     c157 = c142 + r157;
+                }
+                if(c157 > c141 + r157){
+                    d157 = d141;
+                    c157 = c141 + r157;
+                }
+                if(c157 > c143 + r157){
+                    d157 = d143;
+                    c157 = c143 + r157;
+                }
+            }
+        }
+
+        if(rc.onTheMap(l158)){
+            if(!rc.isLocationOccupied(l158)){
+                r158 = 10 + rc.senseRubble(l158);
+                if(c158 > c143 + r158){
+                    d158 = d143;
+                    c158 = c143 + r158;
+                }
+                if(c158 > c142 + r158){
+                    d158 = d142;
+                    c158 = c142 + r158;
+                }
+                if(c158 > c144 + r158){
+                    d158 = d144;
+                    c158 = c144 + r158;
                 }
             }
         }
@@ -650,6 +597,10 @@ public class BFSWest {
                     d156 = d141;
                     c156 = c141 + r156;
                 }
+                if(c156 > c140 + r156){
+                    d156 = d140;
+                    c156 = c140 + r156;
+                }
                 if(c156 > c142 + r156){
                     d156 = d142;
                     c156 = c142 + r156;
@@ -657,6 +608,20 @@ public class BFSWest {
                 if(c156 > c157 + r156){
                     d156 = d157;
                     c156 = c157 + r156;
+                }
+            }
+        }
+
+        if(rc.onTheMap(l159)){
+            if(!rc.isLocationOccupied(l159)){
+                r159 = 10 + rc.senseRubble(l159);
+                if(c159 > c144 + r159){
+                    d159 = d144;
+                    c159 = c144 + r159;
+                }
+                if(c159 > c143 + r159){
+                    d159 = d143;
+                    c159 = c143 + r159;
                 }
             }
         }
@@ -675,6 +640,16 @@ public class BFSWest {
                 if(c155 > c156 + r155){
                     d155 = d156;
                     c155 = c156 + r155;
+                }
+            }
+        }
+
+        if(rc.onTheMap(l160)){
+            if(!rc.isLocationOccupied(l160)){
+                r160 = 10 + rc.senseRubble(l160);
+                if(c160 > c144 + r160){
+                    d160 = d144;
+                    c160 = c144 + r160;
                 }
             }
         }
@@ -714,10 +689,6 @@ public class BFSWest {
         if(rc.onTheMap(l139)){
             if(!rc.isLocationOccupied(l139)){
                 r139 = 10 + rc.senseRubble(l139);
-                if(c139 > c154 + r139){
-                    d139 = d154;
-                    c139 = c154 + r139;
-                }
                 if(c139 > c124 + r139){
                     d139 = d124;
                     c139 = c124 + r139;
@@ -758,10 +729,6 @@ public class BFSWest {
         if(rc.onTheMap(l109)){
             if(!rc.isLocationOccupied(l109)){
                 r109 = 10 + rc.senseRubble(l109);
-                if(c109 > c124 + r109){
-                    d109 = d124;
-                    c109 = c124 + r109;
-                }
                 if(c109 > c94 + r109){
                     d109 = d94;
                     c109 = c94 + r109;
@@ -788,27 +755,15 @@ public class BFSWest {
                     d64 = d80;
                     c64 = c80 + r64;
                 }
-                if(c64 > c65 + r64){
-                    d64 = d65;
-                    c64 = c65 + r64;
-                }
             }
         }
 
         if(rc.onTheMap(l79)){
             if(!rc.isLocationOccupied(l79)){
                 r79 = 10 + rc.senseRubble(l79);
-                if(c79 > c94 + r79){
-                    d79 = d94;
-                    c79 = c94 + r79;
-                }
                 if(c79 > c64 + r79){
                     d79 = d64;
                     c79 = c64 + r79;
-                }
-                if(c79 > c65 + r79){
-                    d79 = d65;
-                    c79 = c65 + r79;
                 }
                 if(c79 > c95 + r79){
                     d79 = d95;
@@ -821,58 +776,38 @@ public class BFSWest {
             }
         }
 
-        if(rc.onTheMap(l52)){
-            if(!rc.isLocationOccupied(l52)){
-                r52 = 10 + rc.senseRubble(l52);
-                if(c52 > c67 + r52){
-                    d52 = d67;
-                    c52 = c67 + r52;
-                }
-            }
-        }
-
-        if(rc.onTheMap(l51)){
-            if(!rc.isLocationOccupied(l51)){
-                r51 = 10 + rc.senseRubble(l51);
-                if(c51 > c66 + r51){
-                    d51 = d66;
-                    c51 = c66 + r51;
-                }
-                if(c51 > c67 + r51){
-                    d51 = d67;
-                    c51 = c67 + r51;
-                }
-                if(c51 > c52 + r51){
-                    d51 = d52;
-                    c51 = c52 + r51;
-                }
-            }
-        }
-
-        if(rc.onTheMap(l50)){
-            if(!rc.isLocationOccupied(l50)){
-                r50 = 10 + rc.senseRubble(l50);
-                if(c50 > c65 + r50){
-                    d50 = d65;
-                    c50 = c65 + r50;
-                }
-                if(c50 > c66 + r50){
-                    d50 = d66;
-                    c50 = c66 + r50;
-                }
-                if(c50 > c51 + r50){
-                    d50 = d51;
-                    c50 = c51 + r50;
-                }
-            }
-        }
-
         if(rc.onTheMap(l172)){
             if(!rc.isLocationOccupied(l172)){
                 r172 = 10 + rc.senseRubble(l172);
                 if(c172 > c157 + r172){
                     d172 = d157;
                     c172 = c157 + r172;
+                }
+                if(c172 > c156 + r172){
+                    d172 = d156;
+                    c172 = c156 + r172;
+                }
+                if(c172 > c158 + r172){
+                    d172 = d158;
+                    c172 = c158 + r172;
+                }
+            }
+        }
+
+        if(rc.onTheMap(l173)){
+            if(!rc.isLocationOccupied(l173)){
+                r173 = 10 + rc.senseRubble(l173);
+                if(c173 > c158 + r173){
+                    d173 = d158;
+                    c173 = c158 + r173;
+                }
+                if(c173 > c157 + r173){
+                    d173 = d157;
+                    c173 = c157 + r173;
+                }
+                if(c173 > c159 + r173){
+                    d173 = d159;
+                    c173 = c159 + r173;
                 }
             }
         }
@@ -883,6 +818,10 @@ public class BFSWest {
                 if(c171 > c156 + r171){
                     d171 = d156;
                     c171 = c156 + r171;
+                }
+                if(c171 > c155 + r171){
+                    d171 = d155;
+                    c171 = c155 + r171;
                 }
                 if(c171 > c157 + r171){
                     d171 = d157;
@@ -895,12 +834,34 @@ public class BFSWest {
             }
         }
 
+        if(rc.onTheMap(l174)){
+            if(!rc.isLocationOccupied(l174)){
+                r174 = 10 + rc.senseRubble(l174);
+                if(c174 > c159 + r174){
+                    d174 = d159;
+                    c174 = c159 + r174;
+                }
+                if(c174 > c158 + r174){
+                    d174 = d158;
+                    c174 = c158 + r174;
+                }
+                if(c174 > c160 + r174){
+                    d174 = d160;
+                    c174 = c160 + r174;
+                }
+            }
+        }
+
         if(rc.onTheMap(l170)){
             if(!rc.isLocationOccupied(l170)){
                 r170 = 10 + rc.senseRubble(l170);
                 if(c170 > c155 + r170){
                     d170 = d155;
                     c170 = c155 + r170;
+                }
+                if(c170 > c154 + r170){
+                    d170 = d154;
+                    c170 = c154 + r170;
                 }
                 if(c170 > c156 + r170){
                     d170 = d156;
@@ -952,10 +913,6 @@ public class BFSWest {
         if(rc.onTheMap(l123)){
             if(!rc.isLocationOccupied(l123)){
                 r123 = 10 + rc.senseRubble(l123);
-                if(c123 > c138 + r123){
-                    d123 = d138;
-                    c123 = c138 + r123;
-                }
                 if(c123 > c108 + r123){
                     d123 = d108;
                     c123 = c108 + r123;
@@ -996,10 +953,6 @@ public class BFSWest {
         if(rc.onTheMap(l93)){
             if(!rc.isLocationOccupied(l93)){
                 r93 = 10 + rc.senseRubble(l93);
-                if(c93 > c108 + r93){
-                    d93 = d108;
-                    c93 = c108 + r93;
-                }
                 if(c93 > c78 + r93){
                     d93 = d78;
                     c93 = c78 + r93;
@@ -1023,238 +976,231 @@ public class BFSWest {
         int cy = l112.y + 7 - target.y;
         int nomove = Math.max(Math.abs(cx + 7) * 49, Math.abs(cy - 7) * 49); //make it <=
         int cmin = Integer.MAX_VALUE;
-        int dist50 = Math.max(Math.abs(cx+5)*49 + c50, Math.abs(cy - 3)*49+c50);
-        if(dist50 <= cmin){
-            cmin= dist50;
-            ans = d50;
-        }
-
-        int dist51 = Math.max(Math.abs(cx+6)*49 + c51, Math.abs(cy - 3)*49+c51);
-        if(dist51 <= cmin){
-            cmin= dist51;
-            ans = d51;
-        }
-
-        int dist52 = Math.max(Math.abs(cx+7)*49 + c52, Math.abs(cy - 3)*49+c52);
-        if(dist52 <= cmin){
-            cmin= dist52;
-            ans = d52;
-        }
-
-        int dist64 = Math.max(Math.abs(cx+4)*49 + c64, Math.abs(cy - 4)*49+c64);
+        int dist64 = Math.max(Math.abs(cx+4)*49 + c64, Math.abs(cy - 4)*50+c64);
         if(dist64 <= cmin){
             cmin= dist64;
             ans = d64;
         }
 
-        int dist65 = Math.max(Math.abs(cx+5)*49 + c65, Math.abs(cy - 4)*49+c65);
-        if(dist65 <= cmin){
-            cmin= dist65;
-            ans = d65;
-        }
-
-        int dist78 = Math.max(Math.abs(cx+3)*49 + c78, Math.abs(cy - 5)*49+c78);
+        int dist78 = Math.max(Math.abs(cx+3)*49 + c78, Math.abs(cy - 5)*50+c78);
         if(dist78 <= cmin){
             cmin= dist78;
             ans = d78;
         }
 
-        int dist79 = Math.max(Math.abs(cx+4)*49 + c79, Math.abs(cy - 5)*49+c79);
+        int dist79 = Math.max(Math.abs(cx+4)*49 + c79, Math.abs(cy - 5)*50+c79);
         if(dist79 <= cmin){
             cmin= dist79;
             ans = d79;
         }
 
-        int dist93 = Math.max(Math.abs(cx+3)*49 + c93, Math.abs(cy - 6)*49+c93);
+        int dist93 = Math.max(Math.abs(cx+3)*49 + c93, Math.abs(cy - 6)*50+c93);
         if(dist93 <= cmin){
             cmin= dist93;
             ans = d93;
         }
 
-        int dist108 = Math.max(Math.abs(cx+3)*49 + c108, Math.abs(cy - 7)*49+c108);
+        int dist108 = Math.max(Math.abs(cx+3)*49 + c108, Math.abs(cy - 7)*50+c108);
         if(dist108 <= cmin){
             cmin= dist108;
             ans = d108;
         }
 
-        int dist123 = Math.max(Math.abs(cx+3)*49 + c123, Math.abs(cy - 8)*49+c123);
+        int dist123 = Math.max(Math.abs(cx+3)*49 + c123, Math.abs(cy - 8)*50+c123);
         if(dist123 <= cmin){
             cmin= dist123;
             ans = d123;
         }
 
-        int dist138 = Math.max(Math.abs(cx+3)*49 + c138, Math.abs(cy - 9)*49+c138);
+        int dist138 = Math.max(Math.abs(cx+3)*49 + c138, Math.abs(cy - 9)*50+c138);
         if(dist138 <= cmin){
             cmin= dist138;
             ans = d138;
         }
 
-        int dist139 = Math.max(Math.abs(cx+4)*49 + c139, Math.abs(cy - 9)*49+c139);
+        int dist139 = Math.max(Math.abs(cx+4)*49 + c139, Math.abs(cy - 9)*50+c139);
         if(dist139 <= cmin){
             cmin= dist139;
             ans = d139;
         }
 
-        int dist154 = Math.max(Math.abs(cx+4)*49 + c154, Math.abs(cy - 10)*49+c154);
+        int dist154 = Math.max(Math.abs(cx+4)*49 + c154, Math.abs(cy - 10)*50+c154);
         if(dist154 <= cmin){
             cmin= dist154;
             ans = d154;
         }
 
-        int dist155 = Math.max(Math.abs(cx+5)*49 + c155, Math.abs(cy - 10)*49+c155);
+        int dist155 = Math.max(Math.abs(cx+5)*49 + c155, Math.abs(cy - 10)*50+c155);
         if(dist155 <= cmin){
             cmin= dist155;
             ans = d155;
         }
 
-        int dist170 = Math.max(Math.abs(cx+5)*49 + c170, Math.abs(cy - 11)*49+c170);
+        int dist159 = Math.max(Math.abs(cx+9)*49 + c159, Math.abs(cy - 10)*50+c159);
+        if(dist159 <= cmin){
+            cmin= dist159;
+            ans = d159;
+        }
+
+        int dist160 = Math.max(Math.abs(cx+10)*49 + c160, Math.abs(cy - 10)*50+c160);
+        if(dist160 <= cmin){
+            cmin= dist160;
+            ans = d160;
+        }
+
+        int dist170 = Math.max(Math.abs(cx+5)*49 + c170, Math.abs(cy - 11)*50+c170);
         if(dist170 <= cmin){
             cmin= dist170;
             ans = d170;
         }
 
-        int dist171 = Math.max(Math.abs(cx+6)*49 + c171, Math.abs(cy - 11)*49+c171);
+        int dist171 = Math.max(Math.abs(cx+6)*49 + c171, Math.abs(cy - 11)*50+c171);
         if(dist171 <= cmin){
             cmin= dist171;
             ans = d171;
         }
 
-        int dist172 = Math.max(Math.abs(cx+7)*49 + c172, Math.abs(cy - 11)*49+c172);
+        int dist172 = Math.max(Math.abs(cx+7)*49 + c172, Math.abs(cy - 11)*50+c172);
         if(dist172 <= cmin){
             cmin= dist172;
             ans = d172;
         }
 
+        int dist173 = Math.max(Math.abs(cx+8)*49 + c173, Math.abs(cy - 11)*50+c173);
+        if(dist173 <= cmin){
+            cmin= dist173;
+            ans = d173;
+        }
+
+        int dist174 = Math.max(Math.abs(cx+9)*49 + c174, Math.abs(cy - 11)*50+c174);
+        if(dist174 <= cmin){
+            cmin= dist174;
+            ans = d174;
+        }
+
         if(cmin<=nomove) return ans;
 
-        int dist66 = Math.max(Math.abs(cx+6)*49 + c66, Math.abs(cy - 4)*49+c66);
-        if(dist66 <= cmin){
-            cmin= dist66;
-            ans = d66;
-        }
-
-        int dist67 = Math.max(Math.abs(cx+7)*49 + c67, Math.abs(cy - 4)*49+c67);
-        if(dist67 <= cmin){
-            cmin= dist67;
-            ans = d67;
-        }
-
-        int dist80 = Math.max(Math.abs(cx+5)*49 + c80, Math.abs(cy - 5)*49+c80);
+        int dist80 = Math.max(Math.abs(cx+5)*49 + c80, Math.abs(cy - 5)*50+c80);
         if(dist80 <= cmin){
             cmin= dist80;
             ans = d80;
         }
 
-        int dist81 = Math.max(Math.abs(cx+6)*49 + c81, Math.abs(cy - 5)*49+c81);
-        if(dist81 <= cmin){
-            cmin= dist81;
-            ans = d81;
-        }
-
-        int dist94 = Math.max(Math.abs(cx+4)*49 + c94, Math.abs(cy - 6)*49+c94);
+        int dist94 = Math.max(Math.abs(cx+4)*49 + c94, Math.abs(cy - 6)*50+c94);
         if(dist94 <= cmin){
             cmin= dist94;
             ans = d94;
         }
 
-        int dist95 = Math.max(Math.abs(cx+5)*49 + c95, Math.abs(cy - 6)*49+c95);
+        int dist95 = Math.max(Math.abs(cx+5)*49 + c95, Math.abs(cy - 6)*50+c95);
         if(dist95 <= cmin){
             cmin= dist95;
             ans = d95;
         }
 
-        int dist109 = Math.max(Math.abs(cx+4)*49 + c109, Math.abs(cy - 7)*49+c109);
+        int dist109 = Math.max(Math.abs(cx+4)*49 + c109, Math.abs(cy - 7)*50+c109);
         if(dist109 <= cmin){
             cmin= dist109;
             ans = d109;
         }
 
-        int dist124 = Math.max(Math.abs(cx+4)*49 + c124, Math.abs(cy - 8)*49+c124);
+        int dist124 = Math.max(Math.abs(cx+4)*49 + c124, Math.abs(cy - 8)*50+c124);
         if(dist124 <= cmin){
             cmin= dist124;
             ans = d124;
         }
 
-        int dist125 = Math.max(Math.abs(cx+5)*49 + c125, Math.abs(cy - 8)*49+c125);
+        int dist125 = Math.max(Math.abs(cx+5)*49 + c125, Math.abs(cy - 8)*50+c125);
         if(dist125 <= cmin){
             cmin= dist125;
             ans = d125;
         }
 
-        int dist140 = Math.max(Math.abs(cx+5)*49 + c140, Math.abs(cy - 9)*49+c140);
+        int dist140 = Math.max(Math.abs(cx+5)*49 + c140, Math.abs(cy - 9)*50+c140);
         if(dist140 <= cmin){
             cmin= dist140;
             ans = d140;
         }
 
-        int dist141 = Math.max(Math.abs(cx+6)*49 + c141, Math.abs(cy - 9)*49+c141);
+        int dist141 = Math.max(Math.abs(cx+6)*49 + c141, Math.abs(cy - 9)*50+c141);
         if(dist141 <= cmin){
             cmin= dist141;
             ans = d141;
         }
 
-        int dist156 = Math.max(Math.abs(cx+6)*49 + c156, Math.abs(cy - 10)*49+c156);
+        int dist143 = Math.max(Math.abs(cx+8)*49 + c143, Math.abs(cy - 9)*50+c143);
+        if(dist143 <= cmin){
+            cmin= dist143;
+            ans = d143;
+        }
+
+        int dist144 = Math.max(Math.abs(cx+9)*49 + c144, Math.abs(cy - 9)*50+c144);
+        if(dist144 <= cmin){
+            cmin= dist144;
+            ans = d144;
+        }
+
+        int dist156 = Math.max(Math.abs(cx+6)*49 + c156, Math.abs(cy - 10)*50+c156);
         if(dist156 <= cmin){
             cmin= dist156;
             ans = d156;
         }
 
-        int dist157 = Math.max(Math.abs(cx+7)*49 + c157, Math.abs(cy - 10)*49+c157);
+        int dist157 = Math.max(Math.abs(cx+7)*49 + c157, Math.abs(cy - 10)*50+c157);
         if(dist157 <= cmin){
             cmin= dist157;
             ans = d157;
         }
 
-        if(cmin<=nomove) return ans;
-
-        int dist82 = Math.max(Math.abs(cx+7)*49 + c82, Math.abs(cy - 5)*49+c82);
-        if(dist82 <= cmin){
-            cmin= dist82;
-            ans = d82;
+        int dist158 = Math.max(Math.abs(cx+8)*49 + c158, Math.abs(cy - 10)*50+c158);
+        if(dist158 <= cmin){
+            cmin= dist158;
+            ans = d158;
         }
 
-        int dist96 = Math.max(Math.abs(cx+6)*49 + c96, Math.abs(cy - 6)*49+c96);
+        if(cmin<=nomove) return ans;
+
+        int dist96 = Math.max(Math.abs(cx+6)*49 + c96, Math.abs(cy - 6)*50+c96);
         if(dist96 <= cmin){
             cmin= dist96;
             ans = d96;
         }
 
-        int dist97 = Math.max(Math.abs(cx+7)*49 + c97, Math.abs(cy - 6)*49+c97);
-        if(dist97 <= cmin){
-            cmin= dist97;
-            ans = d97;
-        }
-
-        int dist110 = Math.max(Math.abs(cx+5)*49 + c110, Math.abs(cy - 7)*49+c110);
+        int dist110 = Math.max(Math.abs(cx+5)*49 + c110, Math.abs(cy - 7)*50+c110);
         if(dist110 <= cmin){
             cmin= dist110;
             ans = d110;
         }
 
-        int dist111 = Math.max(Math.abs(cx+6)*49 + c111, Math.abs(cy - 7)*49+c111);
+        int dist111 = Math.max(Math.abs(cx+6)*49 + c111, Math.abs(cy - 7)*50+c111);
         if(dist111 <= cmin){
             cmin= dist111;
             ans = d111;
         }
 
-        int dist126 = Math.max(Math.abs(cx+6)*49 + c126, Math.abs(cy - 8)*49+c126);
+        int dist126 = Math.max(Math.abs(cx+6)*49 + c126, Math.abs(cy - 8)*50+c126);
         if(dist126 <= cmin){
             cmin= dist126;
             ans = d126;
         }
 
-        int dist127 = Math.max(Math.abs(cx+7)*49 + c127, Math.abs(cy - 8)*49+c127);
+        int dist127 = Math.max(Math.abs(cx+7)*49 + c127, Math.abs(cy - 8)*50+c127);
         if(dist127 <= cmin){
             cmin= dist127;
             ans = d127;
         }
 
-        int dist142 = Math.max(Math.abs(cx+7)*49 + c142, Math.abs(cy - 9)*49+c142);
+        int dist128 = Math.max(Math.abs(cx+8)*49 + c128, Math.abs(cy - 8)*50+c128);
+        if(dist128 <= cmin){
+            cmin= dist128;
+            ans = d128;
+        }
+
+        int dist142 = Math.max(Math.abs(cx+7)*49 + c142, Math.abs(cy - 9)*50+c142);
         if(dist142 <= cmin){
             cmin= dist142;
             ans = d142;
         }
-
         return ans;
     }
 }
