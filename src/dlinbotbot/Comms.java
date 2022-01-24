@@ -109,7 +109,7 @@ public class Comms {
 				else if (dangerLevel > 5)
 					enc = 0b100;
 				else if (dangerLevel > 2)
-					enc = 0b010;
+					enc = 0b011;
 			}
 
 			if (info.lead != 0)
