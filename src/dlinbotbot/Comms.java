@@ -6,13 +6,11 @@ import battlecode.common.*;
 
 public class Comms {
 
+    // To scan multiple things, bitwise-OR two CommConstants.SCAN together
+    // ex. scan(rc, SCAN_LEAD | SCAN_ENEMY)
     static Information scan(RobotController rc, int type) throws GameActionException {
-        //0 lead
-        //1 enemy
-        //2 friendly
-        //3 ALL LMAOOOO RIP BYTECODEDEEE
-        //4 lead + enemy
-        if (type == 0) {
+        Information answer = new Information();
+        if ((type & CommConstants.SCAN_LEAD) != 0) {
             int totalLead = 0; //get total lead
             MapLocation[] temp = rc.senseNearbyLocationsWithLead();
             int i = 0, size = temp.length;
@@ -20,51 +18,22 @@ public class Comms {
                 totalLead += rc.senseLead(temp[i]);
                 i++;
             }
-            Information answer = new Information();
             answer.lead = totalLead;
-            return answer;
-        } else if (type == 1) { //get enemy troops
-            Information answer = new Information();
+        }
+
+        if ((type & CommConstants.SCAN_ENEMY) != 0) {
             int radius = rc.getType().actionRadiusSquared;
             Team opponent = rc.getTeam().opponent();
             answer.enemy = rc.senseNearbyRobots(radius, opponent);
-            return answer;
-        } else if (type == 2) { //get friendly troops
-            Information answer = new Information();
-            int radius = rc.getType().actionRadiusSquared;
-            Team self = rc.getTeam();
-            answer.friendly = rc.senseNearbyRobots(radius, self);
-            return answer;
-        } else if (type == 3) { //all types
-            Information answer = new Information();
-            int totalLead = 0; //get total lead
-            MapLocation[] temp = rc.senseNearbyLocationsWithLead();
-            int i = 0, size = temp.length;
-            while (i < size) {
-                totalLead += rc.senseLead(temp[i]);
-                i++;
-            }
-            int radius = rc.getType().actionRadiusSquared;
-            Team self = rc.getTeam();
-            answer.enemy = rc.senseNearbyRobots(radius, self.opponent());
-            answer.friendly = rc.senseNearbyRobots(radius, self);
-            answer.lead = totalLead;
-            return answer;
-        } else {
-            Information answer = new Information();
-            int totalLead = 0; //get total lead
-            MapLocation[] temp = rc.senseNearbyLocationsWithLead();
-            int i = 0, size = temp.length;
-            while (i < size) {
-                totalLead += rc.senseLead(temp[i]);
-                i++;
-            }
-            int radius = rc.getType().actionRadiusSquared;
-            Team self = rc.getTeam();
-            answer.enemy = rc.senseNearbyRobots(radius, self.opponent());
-            answer.lead = totalLead;
-            return answer;
         }
+
+        if ((type & CommConstants.SCAN_FRIENDLY) != 0) {
+            int radius = rc.getType().actionRadiusSquared;
+            Team self = rc.getTeam();
+            answer.friendly = rc.senseNearbyRobots(radius, self);
+        }
+
+        return answer;
     }
 
     static int encode(Information info) {
