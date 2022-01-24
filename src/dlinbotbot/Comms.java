@@ -127,7 +127,7 @@ public class Comms {
 
     static void write(int message, RobotController rc) throws GameActionException {
         MapLocation me = rc.getLocation();
-        int zx = Math.max(0, me.x - 1) / ZONE_WIDTH, zy = Math.max(0, me.y - 1) / ZONE_HEIGHT; // 5 is zone size
+        int zx = me.x / ZONE_WIDTH, zy = me.y / ZONE_HEIGHT; // 5 is zone size
         int encLocation = zx * 12 + zy; // 12 is max number of zones per strip (MAP_WIDTH / ZONE_HEIGHT)
 
         // We're encoding 4 pieces of information per zone
