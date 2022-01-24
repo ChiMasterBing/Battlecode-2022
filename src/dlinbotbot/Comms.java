@@ -71,17 +71,17 @@ public class Comms {
 		// bit 1 - lead level
 		// bits 2 to 4 - danger levels
 		int wt = 0, sg = 0, sl = 0, mn = 0;
-		int enc = 0b001;
+		int enc = CommConstants.VERY_LOW;
 		boolean found = false;
 		if (info != null) {
 			for (RobotInfo e : info.enemy) {
 				switch (e.getType()) {
 					case ARCHON:
-						enc = 0b111;
+						enc = CommConstants.ARCHON;
 						found = true;
 						break;
 					case LABORATORY:
-						enc = 0b110;
+						enc = CommConstants.LABORATORY;
 						found = true;
 						break;
 					case WATCHTOWER:
@@ -105,11 +105,13 @@ public class Comms {
 			if (!found) {
 				int dangerLevel = 4 * wt + 3 * sg + 2 * sl + mn;
 				if (dangerLevel > 10)
-					enc = 0b101;
+					enc = CommConstants.CRITICAL;
 				else if (dangerLevel > 5)
-					enc = 0b100;
+					enc = CommConstants.HIGH;
 				else if (dangerLevel > 2)
-					enc = 0b011;
+					enc = CommConstants.MEDIUM;
+				else if (dangerLevel > 0)
+					enc = CommConstants.LOW;
 			}
 
 			if (info.lead != 0)
@@ -144,6 +146,21 @@ public class Comms {
 	static MapLocation getZonePosition(int ArrayIndex, int index) {
 		return new MapLocation(((63-ArrayIndex) * 4)/15, ((63-ArrayIndex) * 4 + index/4)%15);
 	}
+
+	static CommInformation read(int zoneX, int zoneY, RobotController rc) throws GameActionException {
+		int encLocation = zoneX * 12 + zoneY; // 12 is max number of zones per strip (MAP_WIDTH / ZONE_HEIGHT)
+
+		// We're encoding 4 pieces of information per zone
+		int arrayIndex = encLocation / 4;
+		int bitIndex = 4 * (encLocation % 4);
+
+		int val = (rc.readSharedArray(arrayIndex) >> bitIndex) & 0b1111;
+
+		boolean hasLead = val >> 3 > 0;
+		int dangerLevel = val & 0b111;
+
+		return new CommInformation(zoneX, zoneY, dangerLevel, hasLead);
+	}
 }
 class Information {
 	public Information() {
@@ -155,3 +172,49 @@ class Information {
 	RobotInfo[] enemy;
 	RobotInfo[] friendly;
 }
+
+class CommInformation {
+	private int zoneX, zoneY;
+	private int dangerLevel;
+	private boolean lead;
+
+	public int getZoneX() {
+		return zoneX;
+	}
+
+	public void setZoneX(int zoneX) {
+		this.zoneX = zoneX;
+	}
+
+	public int getZoneY() {
+		return zoneY;
+	}
+
+	public void setZoneY(int zoneY) {
+		this.zoneY = zoneY;
+	}
+
+	public int getDangerLevel() {
+		return dangerLevel;
+	}
+
+	public void setDangerLevel(int dangerLevel) {
+		this.dangerLevel = dangerLevel;
+	}
+
+	public boolean hasLead() {
+		return lead;
+	}
+
+	public void setHasLead(boolean hasLead) {
+		this.lead = hasLead;
+	}
+
+	public CommInformation(int zoneX, int zoneY, int dangerLevel, boolean hasLead) {
+		this.zoneX = zoneX;
+		this.zoneY = zoneY;
+		this.dangerLevel = dangerLevel;
+		this.lead = hasLead;
+	}
+}
+
