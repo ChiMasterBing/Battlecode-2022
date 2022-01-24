@@ -1,6 +1,5 @@
 package Pathfinding;
 import java.util.Random;
-
 import battlecode.common.*;
 
 public class Archon{

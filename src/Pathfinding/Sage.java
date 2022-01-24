@@ -4,6 +4,8 @@ import battlecode.common.*;
 
 import java.util.Map;
 
+import java.io.IOException;
+
 public class Sage {
 
 	static Direction dir;
@@ -161,6 +163,4 @@ public class Sage {
 		if(rc.canMove(cdir)){
 			rc.move(cdir);
 		}
-	}
-
 }

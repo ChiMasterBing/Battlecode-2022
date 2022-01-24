@@ -1,4 +1,4 @@
-package Pathfinding;
+package dlinbotbot;
 
 import battlecode.common.GameActionException;
 import battlecode.common.MapLocation;
@@ -6,14 +6,16 @@ import battlecode.common.RobotController;
 
 import java.io.IOException;
 
-public class Builder {
+public class Builder extends Robot {
 
-	static void run(RobotController rc) throws GameActionException, IOException {
+	public Builder(RobotController rc) {
+		this.rc = rc;
+	}
+
+	@Override
+	void run() throws GameActionException, IOException {
 		// TODO Auto-generated method stub
 		//attack
-
-
-
 
 		//pathfind
 		MapLocation dir = null;

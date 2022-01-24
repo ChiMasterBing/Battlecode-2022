@@ -74,7 +74,7 @@ public class Miner{
         	rc.move(cdir);
             dir = cdir;
         }
-        return;
+
 //        if (init) {
 //            self = new zone[rc.getMapHeight()][rc.getMapWidth()];//4x4
 //            for (int i=0; i<self.length; i++) {
