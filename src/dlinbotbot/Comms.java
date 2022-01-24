@@ -1,35 +1,17 @@
 package dlinbotbot;
+import java.util.*;
 import battlecode.common.*;
 
 public class Comms {
-	static final int[] locationsX = {-2, -1, 0, 1, 2, //this is for droids only
-			              -3, -2, -1, 0, 1, 2, 3, 
-			          -4, -3, -2, -1, 0, 1, 2, 3, 4,
-			          -4, -3, -2, -1, 0, 1, 2, 3, 4,
-			          -4, -3, -2, -1, 0, 1, 2, 3, 4,
-			          -4, -3, -2, -1, 0, 1, 2, 3, 4,
-			          -4, -3, -2, -1, 0, 1, 2, 3, 4,
-			          	  -3, -2, -1, 0, 1, 2, 3,
-			          		  -2, -1, 0, 1, 2,}; 
-	static final int[] locationsY = {4, 4, 4, 4, 4,
-						   3, 3, 3, 3, 3, 3, 3,
-						2, 2, 2, 2, 2, 2, 2, 2, 2,
-						1, 1, 1, 1, 1, 1, 1, 1, 1,
-						0, 0, 0, 0, 0, 0, 0, 0, 0,
-						-1,-1,-1,-1,-1,-1,-1,-1,-1,
-						-2,-2,-2,-2,-2,-2,-2,-2,-2,
-						   -3,-3,-3,-3,-3,-3,-3,
-						      -4,-4,-4,-4,-4};
+
 	static Information scan(RobotController rc, int type) throws GameActionException {
 		//0 lead
 		//1 enemy
 		//2 friendly
 		//3 ALL LMAOOOO RIP BYTECODEDEEE
-		MapLocation me = rc.getLocation();
-		int height = rc.getMapHeight();
-		int width = rc.getMapWidth();
+		//4 lead + enemy
 		if (type == 0) {
-			int totalLead = 0; //get total lead 
+			int totalLead = 0; //get total lead
 			MapLocation[] temp = rc.senseNearbyLocationsWithLead();
 			int i = 0, size = temp.length;
 			while (i < size) {
@@ -43,20 +25,20 @@ public class Comms {
 		else if (type == 1) { //get enemy troops
 			Information answer = new Information();
 			int radius = rc.getType().actionRadiusSquared;
-	        Team opponent = rc.getTeam().opponent();
+			Team opponent = rc.getTeam().opponent();
 			answer.enemy = rc.senseNearbyRobots(radius, opponent);
 			return answer;
 		}
 		else if (type == 2) { //get friendly troops
 			Information answer = new Information();
 			int radius = rc.getType().actionRadiusSquared;
-	        Team self = rc.getTeam();
+			Team self = rc.getTeam();
 			answer.friendly = rc.senseNearbyRobots(radius, self);
 			return answer;
 		}
-		else { //all types
+		else if (type == 3) { //all types
 			Information answer = new Information();
-			int totalLead = 0; //get total lead 
+			int totalLead = 0; //get total lead
 			MapLocation[] temp = rc.senseNearbyLocationsWithLead();
 			int i = 0, size = temp.length;
 			while (i < size) {
@@ -64,101 +46,103 @@ public class Comms {
 				i++;
 			}
 			int radius = rc.getType().actionRadiusSquared;
-	        Team self = rc.getTeam();
+			Team self = rc.getTeam();
 			answer.enemy = rc.senseNearbyRobots(radius, self.opponent());
 			answer.friendly = rc.senseNearbyRobots(radius, self);
 			answer.lead = totalLead;
 			return answer;
+		} else {
+			Information answer = new Information();
+			int totalLead = 0; //get total lead
+			MapLocation[] temp = rc.senseNearbyLocationsWithLead();
+			int i = 0, size = temp.length;
+			while (i < size) {
+				totalLead += rc.senseLead(temp[i]);
+				i++;
+			}
+			int radius = rc.getType().actionRadiusSquared;
+			Team self = rc.getTeam();
+			answer.enemy = rc.senseNearbyRobots(radius, self.opponent());
+			answer.lead = totalLead;
+			return answer;
 		}
 	}
-	static String encode(Information info) { //to conserve bytecode, you may want to process this yourself and store the values when doing it for later use
-		int answer = 0;
-		if (info.lead != 0) {
-			if (info.lead >= 300) {
-				answer = 2;
+	static int encode(Information info) { //to conserve bytecode, you may want to process this yourself and store the values when doing it for later use
+		// bit 1 - lead level
+		// bits 2 to 4 - danger levels
+		int wt = 0, sg = 0, sl = 0, mn = 0;
+		int enc = 0b001;
+		boolean found = false;
+		if (info != null) {
+			for (RobotInfo e : info.enemy) {
+				switch (e.getType()) {
+					case ARCHON:
+						enc = 0b111;
+						found = true;
+						break;
+					case LABORATORY:
+						enc = 0b110;
+						found = true;
+						break;
+					case WATCHTOWER:
+						wt++;
+						break;
+					case SAGE:
+						sg++;
+						break;
+					case SOLDIER:
+						sl++;
+						break;
+					case MINER:
+						mn++;
+						break;
+				}
+
+				if (found)
+					break;
 			}
-			else {
-				answer = 1;
+
+			if (!found) {
+				int dangerLevel = 4 * wt + 3 * sg + 2 * sl + mn;
+				if (dangerLevel > 10)
+					enc = 0b101;
+				else if (dangerLevel > 5)
+					enc = 0b100;
+				else if (dangerLevel > 2)
+					enc = 0b010;
 			}
+
+			if (info.lead != 0)
+				enc |= 0b1000;
+			return enc;
 		}
-		if (info.enemy != null) {
-			int maxThreat = 0;
-			for (int i=0; i<info.enemy.length; i++) {
-				int tempThreat = 0;;
-				if (info.enemy[i].getType() == RobotType.MINER || info.enemy[i].getType() == RobotType.BUILDER) {
-					tempThreat = 1;
-				}
-				else if (info.enemy[i].getType() == RobotType.SOLDIER) {
-					tempThreat = 2;
-				}
-				else if (info.enemy[i].getType() == RobotType.WATCHTOWER || info.enemy[i].getType() == RobotType.LABORATORY) {
-					tempThreat = 3;
-				}
-				else if (info.enemy[i].getType() == RobotType.SAGE) {
-					tempThreat = 4;
-				}
-				else if (info.enemy[i].getType() == RobotType.ARCHON) {
-					tempThreat = 5;
-				}
-				if (tempThreat > maxThreat) {
-					maxThreat = tempThreat;
-				}
-			}
-			answer = maxThreat+2;
-		}
-		
-		//idk if this conserves bytecode, but I decided to hardcode the conversion of base 10 to base 2
-		if (answer == 0) {
-			return "0000";
-		}
-		else if (answer == 1) {
-			return "0001";
-		}
-		else if (answer == 2) {
-			return "0010";
-		}
-		else if (answer == 3) {
-			return "0011";
-		}
-		else if (answer == 4) {
-			return "0100";
-		}
-		else if (answer == 5) {
-			return "0101";
-		}
-		else if (answer == 6) {
-			return "0110";
-		}
-		else if (answer == 7) {
-			return "0111";
-		}
-		return "0000"; //this should never happen
+
+		return 0;
 	}
-	static void write(String message, RobotController rc) throws GameActionException {
+
+	public static final int ZONE_WIDTH = 5;
+	public static final int ZONE_HEIGHT = 5;
+
+	static void write(int message, RobotController rc) throws GameActionException {
 		MapLocation me = rc.getLocation();
-		int zx = me.x/4, zy = me.y/4;
-		int bitIndex = zx*60+zy*4;
-		int arrayIndex = 64-(bitIndex/16)-1;
-		bitIndex = bitIndex%16;
-		//System.out.println(arrayIndex);
-		int current = rc.readSharedArray(arrayIndex);
-		String currentBits = String.format("%16s", Integer.toBinaryString(current)).replace(" ", "0");
-		char[] bitArray = currentBits.toCharArray();
-		for (int i=bitIndex; i<bitIndex+4; i++) {
-			bitArray[i] = message.charAt(i-bitIndex);
-		}
-		StringBuilder sb = new StringBuilder();
-        for (int i=0; i < bitArray.length; i++) {
-        	sb.append(bitArray[i]);
-        }
-        rc.writeSharedArray(arrayIndex, Integer.parseInt(sb.toString(), 2));
+		int zx = Math.max(0, me.x - 1) / ZONE_WIDTH, zy = Math.max(0, me.y - 1) / ZONE_HEIGHT; // 5 is zone size
+		int encLocation = zx * 12 + zy; // 12 is max number of zones per strip (MAP_WIDTH / ZONE_HEIGHT)
+
+		// We're encoding 4 pieces of information per zone
+		int arrayIndex = encLocation / 4;
+		int bitIndex = 4 * (encLocation % 4);
+
+		int curVal = (rc.readSharedArray(arrayIndex) | (0b1111 << bitIndex)) & (message << bitIndex);
+
+		rc.writeSharedArray(arrayIndex, curVal);
 	}
-	static MapLocation getZonePosition(int ArrayIndex, int index) {		
+
+	static void encodeAndWrite(Information info, RobotController rc) throws GameActionException {
+		write(encode(info), rc);
+	}
+
+	static MapLocation getZonePosition(int ArrayIndex, int index) {
 		return new MapLocation(((63-ArrayIndex) * 4)/15, ((63-ArrayIndex) * 4 + index/4)%15);
-	}
-	static String getIndex(RobotController rc, int ArrayIndex) throws GameActionException {
-		int val = rc.readSharedArray(ArrayIndex);
-		return String.format("%16s", Integer.toBinaryString(val)).replace(" ", "0");
 	}
 }
 class Information {
