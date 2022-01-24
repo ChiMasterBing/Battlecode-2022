@@ -6,16 +6,9 @@ import battlecode.common.RobotController;
 
 import java.io.IOException;
 
-public class Builder extends Robot {
+public class Builder {
 
-	RobotController rc;
-
-	public Builder(RobotController rc) {
-		this.rc = rc;
-	}
-
-	@Override
-	void run() throws GameActionException, IOException {
+	static void run(RobotController rc) throws GameActionException, IOException {
 		// TODO Auto-generated method stub
 		//attack
 
