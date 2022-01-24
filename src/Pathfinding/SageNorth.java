@@ -1576,6 +1576,373 @@ public class SageNorth {
                 }
             }
         }
-        
+
+        int cx = l112.x - 7 - target.x; //also kinda fricked cuz (0, 0) isnt top left
+        int cy = l112.y + 7 - target.y;
+        int nomove = Math.max(Math.abs(cx + 7) * 49, Math.abs(cy - 7) * 49); //make it <=
+        int cmin = Integer.MAX_VALUE;
+
+        int dist34 = Math.max(Math.abs(cx+4)*49 + c34, Math.abs(cy - 2)*49+c34);
+        if(r34 < cmin){
+            cmin= r34;
+            ans = d34;
+        }
+
+        int dist35 = Math.max(Math.abs(cx+5)*49 + c35, Math.abs(cy - 2)*49+c35);
+        if(r35 < cmin){
+            cmin= r35;
+            ans = d35;
+        }
+
+        int dist36 = Math.max(Math.abs(cx+6)*49 + c36, Math.abs(cy - 2)*49+c36);
+        if(r36 < cmin){
+            cmin= r36;
+            ans = d36;
+        }
+
+        int dist37 = Math.max(Math.abs(cx+7)*49 + c37, Math.abs(cy - 2)*49+c37);
+        if(r37 < cmin){
+            cmin= r37;
+            ans = d37;
+        }
+
+        int dist38 = Math.max(Math.abs(cx+8)*49 + c38, Math.abs(cy - 2)*49+c38);
+        if(r38 < cmin){
+            cmin= r38;
+            ans = d38;
+        }
+
+        int dist39 = Math.max(Math.abs(cx+9)*49 + c39, Math.abs(cy - 2)*49+c39);
+        if(r39 < cmin){
+            cmin= r39;
+            ans = d39;
+        }
+
+        int dist40 = Math.max(Math.abs(cx+10)*49 + c40, Math.abs(cy - 2)*49+c40);
+        if(r40 < cmin){
+            cmin= r40;
+            ans = d40;
+        }
+
+        int dist48 = Math.max(Math.abs(cx+3)*49 + c48, Math.abs(cy - 3)*49+c48);
+        if(r48 < cmin){
+            cmin= r48;
+            ans = d48;
+        }
+
+        int dist49 = Math.max(Math.abs(cx+4)*49 + c49, Math.abs(cy - 3)*49+c49);
+        if(r49 < cmin){
+            cmin= r49;
+            ans = d49;
+        }
+
+        int dist55 = Math.max(Math.abs(cx+10)*49 + c55, Math.abs(cy - 3)*49+c55);
+        if(r55 < cmin){
+            cmin= r55;
+            ans = d55;
+        }
+
+        int dist56 = Math.max(Math.abs(cx+11)*49 + c56, Math.abs(cy - 3)*49+c56);
+        if(r56 < cmin){
+            cmin= r56;
+            ans = d56;
+        }
+
+        int dist62 = Math.max(Math.abs(cx+2)*49 + c62, Math.abs(cy - 4)*49+c62);
+        if(r62 < cmin){
+            cmin= r62;
+            ans = d62;
+        }
+
+        int dist63 = Math.max(Math.abs(cx+3)*49 + c63, Math.abs(cy - 4)*49+c63);
+        if(r63 < cmin){
+            cmin= r63;
+            ans = d63;
+        }
+
+        int dist71 = Math.max(Math.abs(cx+11)*49 + c71, Math.abs(cy - 4)*49+c71);
+        if(r71 < cmin){
+            cmin= r71;
+            ans = d71;
+        }
+
+        int dist72 = Math.max(Math.abs(cx+12)*49 + c72, Math.abs(cy - 4)*49+c72);
+        if(r72 < cmin){
+            cmin= r72;
+            ans = d72;
+        }
+
+        int dist77 = Math.max(Math.abs(cx+2)*49 + c77, Math.abs(cy - 5)*49+c77);
+        if(r77 < cmin){
+            cmin= r77;
+            ans = d77;
+        }
+
+        int dist87 = Math.max(Math.abs(cx+12)*49 + c87, Math.abs(cy - 5)*49+c87);
+        if(r87 < cmin){
+            cmin= r87;
+            ans = d87;
+        }
+
+        int dist92 = Math.max(Math.abs(cx+2)*49 + c92, Math.abs(cy - 6)*49+c92);
+        if(r92 < cmin){
+            cmin= r92;
+            ans = d92;
+        }
+
+        int dist102 = Math.max(Math.abs(cx+12)*49 + c102, Math.abs(cy - 6)*49+c102);
+        if(r102 < cmin){
+            cmin= r102;
+            ans = d102;
+        }
+
+        int dist107 = Math.max(Math.abs(cx+2)*49 + c107, Math.abs(cy - 7)*49+c107);
+        if(r107 < cmin){
+            cmin= r107;
+            ans = d107;
+        }
+
+        int dist117 = Math.max(Math.abs(cx+12)*49 + c117, Math.abs(cy - 7)*49+c117);
+        if(r117 < cmin){
+            cmin= r117;
+            ans = d117;
+        }
+
+        if(cmin<=nomove) return ans;
+
+        int dist50 = Math.max(Math.abs(cx+5)*49 + c50, Math.abs(cy - 3)*49+c50);
+        if(r50 < cmin){
+            cmin= r50;
+            ans = d50;
+        }
+
+        int dist51 = Math.max(Math.abs(cx+6)*49 + c51, Math.abs(cy - 3)*49+c51);
+        if(r51 < cmin){
+            cmin= r51;
+            ans = d51;
+        }
+
+        int dist52 = Math.max(Math.abs(cx+7)*49 + c52, Math.abs(cy - 3)*49+c52);
+        if(r52 < cmin){
+            cmin= r52;
+            ans = d52;
+        }
+
+        int dist53 = Math.max(Math.abs(cx+8)*49 + c53, Math.abs(cy - 3)*49+c53);
+        if(r53 < cmin){
+            cmin= r53;
+            ans = d53;
+        }
+
+        int dist54 = Math.max(Math.abs(cx+9)*49 + c54, Math.abs(cy - 3)*49+c54);
+        if(r54 < cmin){
+            cmin= r54;
+            ans = d54;
+        }
+
+        int dist64 = Math.max(Math.abs(cx+4)*49 + c64, Math.abs(cy - 4)*49+c64);
+        if(r64 < cmin){
+            cmin= r64;
+            ans = d64;
+        }
+
+        int dist65 = Math.max(Math.abs(cx+5)*49 + c65, Math.abs(cy - 4)*49+c65);
+        if(r65 < cmin){
+            cmin= r65;
+            ans = d65;
+        }
+
+        int dist69 = Math.max(Math.abs(cx+9)*49 + c69, Math.abs(cy - 4)*49+c69);
+        if(r69 < cmin){
+            cmin= r69;
+            ans = d69;
+        }
+
+        int dist70 = Math.max(Math.abs(cx+10)*49 + c70, Math.abs(cy - 4)*49+c70);
+        if(r70 < cmin){
+            cmin= r70;
+            ans = d70;
+        }
+
+        int dist78 = Math.max(Math.abs(cx+3)*49 + c78, Math.abs(cy - 5)*49+c78);
+        if(r78 < cmin){
+            cmin= r78;
+            ans = d78;
+        }
+
+        int dist79 = Math.max(Math.abs(cx+4)*49 + c79, Math.abs(cy - 5)*49+c79);
+        if(r79 < cmin){
+            cmin= r79;
+            ans = d79;
+        }
+
+        int dist85 = Math.max(Math.abs(cx+10)*49 + c85, Math.abs(cy - 5)*49+c85);
+        if(r85 < cmin){
+            cmin= r85;
+            ans = d85;
+        }
+
+        int dist86 = Math.max(Math.abs(cx+11)*49 + c86, Math.abs(cy - 5)*49+c86);
+        if(r86 < cmin){
+            cmin= r86;
+            ans = d86;
+        }
+
+        int dist93 = Math.max(Math.abs(cx+3)*49 + c93, Math.abs(cy - 6)*49+c93);
+        if(r93 < cmin){
+            cmin= r93;
+            ans = d93;
+        }
+
+        int dist101 = Math.max(Math.abs(cx+11)*49 + c101, Math.abs(cy - 6)*49+c101);
+        if(r101 < cmin){
+            cmin= r101;
+            ans = d101;
+        }
+
+        int dist108 = Math.max(Math.abs(cx+3)*49 + c108, Math.abs(cy - 7)*49+c108);
+        if(r108 < cmin){
+            cmin= r108;
+            ans = d108;
+        }
+
+        int dist116 = Math.max(Math.abs(cx+11)*49 + c116, Math.abs(cy - 7)*49+c116);
+        if(r116 < cmin){
+            cmin= r116;
+            ans = d116;
+        }
+
+        if(cmin<=nomove) return ans;
+
+        int dist66 = Math.max(Math.abs(cx+6)*49 + c66, Math.abs(cy - 4)*49+c66);
+        if(r66 < cmin){
+            cmin= r66;
+            ans = d66;
+        }
+
+        int dist67 = Math.max(Math.abs(cx+7)*49 + c67, Math.abs(cy - 4)*49+c67);
+        if(r67 < cmin){
+            cmin= r67;
+            ans = d67;
+        }
+
+        int dist68 = Math.max(Math.abs(cx+8)*49 + c68, Math.abs(cy - 4)*49+c68);
+        if(r68 < cmin){
+            cmin= r68;
+            ans = d68;
+        }
+
+        int dist80 = Math.max(Math.abs(cx+5)*49 + c80, Math.abs(cy - 5)*49+c80);
+        if(r80 < cmin){
+            cmin= r80;
+            ans = d80;
+        }
+
+        int dist81 = Math.max(Math.abs(cx+6)*49 + c81, Math.abs(cy - 5)*49+c81);
+        if(r81 < cmin){
+            cmin= r81;
+            ans = d81;
+        }
+
+        int dist83 = Math.max(Math.abs(cx+8)*49 + c83, Math.abs(cy - 5)*49+c83);
+        if(r83 < cmin){
+            cmin= r83;
+            ans = d83;
+        }
+
+        int dist84 = Math.max(Math.abs(cx+9)*49 + c84, Math.abs(cy - 5)*49+c84);
+        if(r84 < cmin){
+            cmin= r84;
+            ans = d84;
+        }
+
+        int dist94 = Math.max(Math.abs(cx+4)*49 + c94, Math.abs(cy - 6)*49+c94);
+        if(r94 < cmin){
+            cmin= r94;
+            ans = d94;
+        }
+
+        int dist95 = Math.max(Math.abs(cx+5)*49 + c95, Math.abs(cy - 6)*49+c95);
+        if(r95 < cmin){
+            cmin= r95;
+            ans = d95;
+        }
+
+        int dist99 = Math.max(Math.abs(cx+9)*49 + c99, Math.abs(cy - 6)*49+c99);
+        if(r99 < cmin){
+            cmin= r99;
+            ans = d99;
+        }
+
+        int dist100 = Math.max(Math.abs(cx+10)*49 + c100, Math.abs(cy - 6)*49+c100);
+        if(r100 < cmin){
+            cmin= r100;
+            ans = d100;
+        }
+
+        int dist109 = Math.max(Math.abs(cx+4)*49 + c109, Math.abs(cy - 7)*49+c109);
+        if(r109 < cmin){
+            cmin= r109;
+            ans = d109;
+        }
+
+        int dist115 = Math.max(Math.abs(cx+10)*49 + c115, Math.abs(cy - 7)*49+c115);
+        if(r115 < cmin){
+            cmin= r115;
+            ans = d115;
+        }
+
+        if(cmin<=nomove) return ans;
+
+        int dist82 = Math.max(Math.abs(cx+7)*49 + c82, Math.abs(cy - 5)*49+c82);
+        if(r82 < cmin){
+            cmin= r82;
+            ans = d82;
+        }
+
+        int dist96 = Math.max(Math.abs(cx+6)*49 + c96, Math.abs(cy - 6)*49+c96);
+        if(r96 < cmin){
+            cmin= r96;
+            ans = d96;
+        }
+
+        int dist97 = Math.max(Math.abs(cx+7)*49 + c97, Math.abs(cy - 6)*49+c97);
+        if(r97 < cmin){
+            cmin= r97;
+            ans = d97;
+        }
+
+        int dist98 = Math.max(Math.abs(cx+8)*49 + c98, Math.abs(cy - 6)*49+c98);
+        if(r98 < cmin){
+            cmin= r98;
+            ans = d98;
+        }
+
+        int dist110 = Math.max(Math.abs(cx+5)*49 + c110, Math.abs(cy - 7)*49+c110);
+        if(r110 < cmin){
+            cmin= r110;
+            ans = d110;
+        }
+
+        int dist111 = Math.max(Math.abs(cx+6)*49 + c111, Math.abs(cy - 7)*49+c111);
+        if(r111 < cmin){
+            cmin= r111;
+            ans = d111;
+        }
+
+        int dist113 = Math.max(Math.abs(cx+8)*49 + c113, Math.abs(cy - 7)*49+c113);
+        if(r113 < cmin){
+            cmin= r113;
+            ans = d113;
+        }
+
+        int dist114 = Math.max(Math.abs(cx+9)*49 + c114, Math.abs(cy - 7)*49+c114);
+        if(r114 < cmin){
+            cmin= r114;
+            ans = d114;
+        }
+
+        return ans;
+
     }
 }
