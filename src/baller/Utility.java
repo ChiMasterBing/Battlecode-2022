@@ -41,7 +41,7 @@ public class Utility {
 		return false;
 	}
 	static MapLocation zonePosToMapPos(MapLocation temp) {
-		return new MapLocation(temp.x*4, temp.y*4);
+		return new MapLocation(temp.x*5, temp.y*5);
 	}
 	static int distance(MapLocation a, MapLocation b) {
 		return (int)Math.sqrt( (a.x-b.x) * (a.x-b.x) + (a.y-b.y) * (a.y-b.y));
