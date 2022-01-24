@@ -3,8 +3,7 @@ import java.util.*;
 import java.util.Random;
 import battlecode.common.*;
 public class Miner extends Robot{
-    final Random rng = new Random(6147);
-    final Direction[] directions = {
+	final Direction[] directions = {
         Direction.NORTH,
         Direction.NORTHEAST,
         Direction.EAST,
@@ -14,6 +13,7 @@ public class Miner extends Robot{
         Direction.WEST,
         Direction.NORTHWEST,
     };
+    final Random rng = new Random(6147);
     int turnCount = 0;
     int bestLead = 0;
     String task;
@@ -32,8 +32,8 @@ public class Miner extends Robot{
 		
 		me = rc.getLocation();
 		if (init) {
-			init();
 			init = false;
+			init();
 		}
 		if (!arrived) {
 			Direction cur = rc.getLocation().directionTo(target);
@@ -69,16 +69,28 @@ public class Miner extends Robot{
 	        	rc.move(cdir);
 	            dir = cdir;
 	        }
-	        
 	        if (Utility.distance(target, me) <= 1) {    	
 	        	arrived = true;
+	        	if (wandering && !foundLead) {
+	        		initWander();
+	        		arrived = false;
+	        	}
 	        }
-	        
 	        Information info = Comms.scan(rc, 3);
 	        Comms.write(Comms.encode(info), rc, me);
 	        if (info.lead > bestLead) {
 	        	bestLead = info.lead;
 	        	nextTarget = me;
+	        }
+	        if (wandering) {
+	        	MapLocation[] leadDep = rc.senseNearbyLocationsWithLead();
+	        	for (int i=0; i<leadDep.length; i++) {
+	        		if (rc.senseLead(leadDep[i]) > 15) {
+	        			target = leadDep[i];
+	        			foundLead = true;
+	        			task = "00000010";
+	        		}
+	        	}
 	        }
 	        
 	        return;
@@ -177,18 +189,23 @@ public class Miner extends Robot{
 	void init() throws GameActionException {
 		int closeArchon = Integer.MAX_VALUE;
 		task = "";
-		for (int i=0; i<rc.getArchonCount(); i++) {
-			String s = Comms.getIndex(rc, i);
-			int aX = Utility.bitToNum(s.substring(0, 4))*4, aY = Utility.bitToNum(s.substring(4, 8))*4;
-			MapLocation aPos = new MapLocation(aX, aY);
-			int dist = Utility.distance(me, aPos);
-			if (dist < closeArchon) {
-				closeArchon = dist;
-				task = s.substring(8);
+		RobotInfo[] nearby = rc.senseNearbyRobots(20, rc.getTeam());
+		String myArchon = "";
+		for (int i=0; i<nearby.length; i++) {
+			if (nearby[i].type == RobotType.ARCHON) {
+				if (Utility.distance(nearby[i].location, rc.getLocation()) < closeArchon) {
+					closeArchon = Utility.distance(nearby[i].location, rc.getLocation());
+					myArchon = Utility.numToBit8(nearby[i].ID);
+				}
 			}
 		}
-		//System.out.println(closeArchon);
-		//System.out.println(task);
+		for (int i=0; i<rc.getArchonCount(); i++) {
+			String s = Comms.getIndex(rc, i);
+			if (s.substring(0, 8).equals(myArchon)) {
+				task = s.substring(8);
+				break;
+			}
+		}
 		rc.setIndicatorString(task);
 		switch (task) {
 			case "00000010": init0010(); break;
@@ -196,8 +213,17 @@ public class Miner extends Robot{
 			case "00000100": initScout(Direction.EAST); break;
 			case "00000101": initScout(Direction.SOUTH); break;
 			case "00000110": initScout(Direction.WEST); break;
-			default: rc.disintegrate(); break;
+			case "00000111": initWander(); break;
+			default: initWander(); break; //fix this case
 		}
+	}
+	boolean foundLead, wandering;
+	void initWander() {
+		arrived = false;
+		wandering = true;
+		foundLead = false;
+		target = new MapLocation((int)(rc.getMapWidth()*rng.nextDouble()), (int)(rc.getMapHeight()*rng.nextDouble()));
+		
 	}
 	void initScout(Direction dir) {
 		if (dir == Direction.NORTH) {

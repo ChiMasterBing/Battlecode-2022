@@ -2,38 +2,6 @@ package baller;
 import java.util.*;
 import battlecode.common.*;
 public class Utility {
-	static Direction getDirection(MapLocation me, MapLocation tar) {
-		int dx = tar.x-me.x;
-		int dy = tar.y-me.y;
-		if (dx > 0 && dy > 0) {
-			return Direction.NORTHEAST;
-		}
-		else if (dx > 0 && dy == 0) {
-			return Direction.NORTH;
-		}
-		else if (dx > 0 && dy < 0) {
-			return Direction.NORTHWEST;
-		}
-		else if (dx == 0 && dy > 0) {
-			return Direction.EAST;
-		}
-		else if (dx == 0 && dy == 0) {
-			return Direction.CENTER;
-		}
-		else if (dx == 0 && dy < 0) {
-			return Direction.WEST;
-		}
-		else if (dx < 0 && dy > 0) {
-			return Direction.SOUTHEAST;
-		}
-		else if (dx < 0 && dy == 0) {
-			return Direction.SOUTH;
-		}
-		else if (dx < 0 && dy < 0) {
-			return Direction.SOUTHWEST;
-		}
-		return Direction.CENTER;
-	}
 	static boolean isInZone(int zoneX, int zoneY, MapLocation me) {
 		if (me.x >= zoneX*4 && me.x <= zoneX*4+4 && me.y >= zoneY*4 && me.y <= zoneY*4+4) {
 			return true;
@@ -52,40 +20,145 @@ public class Utility {
 	static int bitToNum(String bit) {
 		return Integer.parseInt(bit, 2);
 	}
-	static void move(RobotController rc, Direction dir, MapLocation target) throws GameActionException {
-		Direction cur = rc.getLocation().directionTo(target);
-        rc.setIndicatorString(dir.opposite().toString());
-        Direction cdir;
-
-        switch(cur){
-            case NORTH:
-                cdir=BFSNorth.gbda(rc, target, dir.opposite());
-                break;
-            case EAST:
-                cdir=BFSEast.gbda(rc, target, dir.opposite());
-                break;
-            case WEST:
-                cdir=BFSWest.gbda(rc, target, dir.opposite());
-                break;
-            case SOUTH:
-                cdir=BFSSouth.gbda(rc, target, dir.opposite());
-                break;
-            case NORTHEAST:
-                cdir=BFSNorthEast.gbda(rc, target, dir.opposite());
-                break;
-            case NORTHWEST:
-                cdir=BFSNorthWest.gbda(rc, target, dir.opposite());
-                break;
-            case SOUTHEAST:
-                cdir=BFSSouthEast.gbda(rc, target, dir.opposite());
-                break;
-            default:
-                cdir=BFSSouthWest.gbda(rc, target, dir.opposite());
-                break;
+	static String numToBit8(int num) {
+		return String.format("%8s", Integer.toBinaryString(num)).replace(" ", "0");
+	}
+	static String numToBit6(int num) {
+		return String.format("%6s", Integer.toBinaryString(num)).replace(" ", "0");
+	}
+	static MapLocation findLeastRubble(RobotController rc, Direction dir) throws GameActionException {
+        MapLocation adj[][] = new MapLocation[3][3];
+        for(int dx = -1; dx <= 1; dx++){
+            for(int dy = -1; dy <= 1; dy++){
+                adj[dx + 1][dy + 1] = new MapLocation(rc.getLocation().x + dx, rc.getLocation().y + dy);
+            }
         }
-        if(cdir!=null&&rc.canMove(cdir)) {
-        	rc.move(cdir);
-            dir = cdir;
+        // There might be an index out of bounds or smth lol
+        int rubble = 0; MapLocation res = rc.getLocation();
+        if(dir == Direction.NORTH){
+            for(int dx = 0; dx <= 1; dx++){
+                for(int dy = -1; dy <= 1; dy++){
+                	if (rc.canSenseLocation(adj[dx + 1][dy + 1])) {
+	                    if(rc.senseRubble(adj[dx + 1][dy + 1]) < rubble){
+	                        rubble = rc.senseRubble(adj[dx + 1][dy + 1]);
+	                        res = new MapLocation(rc.getLocation().x + dx, rc.getLocation().y + dy);
+	                    }
+                	}
+                }
+            }
+        } else if(dir == Direction.EAST){
+            for(int dx = -1; dx <= 1; dx++){
+                for(int dy = 0; dy <= 1; dy++){
+                	if (rc.canSenseLocation(adj[dx + 1][dy + 1])) {
+	                    if(rc.senseRubble(adj[dx + 1][dy + 1]) < rubble){
+	                        rubble = rc.senseRubble(adj[dx + 1][dy + 1]);
+	                        res = new MapLocation(rc.getLocation().x + dx, rc.getLocation().y + dy);
+	                    }
+                	}
+                }
+            }
+        } else if(dir == Direction.SOUTH){
+            for(int dx = -1; dx <= 0; dx++){
+                for(int dy = -1; dy <= 1; dy++){
+                	if (rc.canSenseLocation(adj[dx + 1][dy + 1])) {
+	                    if(rc.senseRubble(adj[dx + 1][dy + 1]) < rubble){
+	                        rubble = rc.senseRubble(adj[dx + 1][dy + 1]);
+	                        res = new MapLocation(rc.getLocation().x + dx, rc.getLocation().y + dy);
+	                    }
+                	}
+                }
+            }
+        } else if(dir == Direction.WEST){
+            for(int dx = -1; dx <= 1; dx++){
+                for(int dy = -1; dy <= 0; dy++){
+                	if (rc.canSenseLocation(adj[dx + 1][dy + 1])) {
+	                    if(rc.senseRubble(adj[dx + 1][dy + 1]) < rubble){
+	                        rubble = rc.senseRubble(adj[dx + 1][dy + 1]);
+	                        res = new MapLocation(rc.getLocation().x + dx, rc.getLocation().y + dy);
+	                    }
+                	}
+                }
+            }
+        } else if(dir == Direction.NORTHEAST){
+            for(int dx = 0; dx <= 1; dx++){
+                for(int dy = 0; dy <= 1; dy++){
+                	if (rc.canSenseLocation(adj[dx + 1][dy + 1])) {
+	                    if(rc.senseRubble(adj[dx + 1][dy + 1]) < rubble){
+	                        rubble = rc.senseRubble(adj[dx + 1][dy + 1]);
+	                        res = new MapLocation(rc.getLocation().x + dx, rc.getLocation().y + dy);
+	                    }
+                	}
+                }
+            }
+        } else if(dir == Direction.NORTHWEST){
+            for(int dx = 0; dx <= 1; dx++){
+                for(int dy = -1; dy <= 0; dy++){
+                	if (rc.canSenseLocation(adj[dx + 1][dy + 1])) {
+	                    if(rc.senseRubble(adj[dx + 1][dy + 1]) < rubble){
+	                        rubble = rc.senseRubble(adj[dx + 1][dy + 1]);
+	                        res = new MapLocation(rc.getLocation().x + dx, rc.getLocation().y + dy);
+	                    }
+                	}
+                }
+            }
+        } else if(dir == Direction.SOUTHEAST){
+            for(int dx = -1; dx <= 0; dx++){
+                for(int dy = 0; dy <= 1; dy++){
+                	if (rc.canSenseLocation(adj[dx + 1][dy + 1])) {
+	                    if(rc.senseRubble(adj[dx + 1][dy + 1]) < rubble){
+	                        rubble = rc.senseRubble(adj[dx + 1][dy + 1]);
+	                        res = new MapLocation(rc.getLocation().x + dx, rc.getLocation().y + dy);
+	                    }
+                	}
+                }
+            }
+        } else if(dir == Direction.SOUTHWEST){
+            for(int dx = -1; dx <= 0; dx++){
+                for(int dy = -1; dy <= 0; dy++){
+                	if (rc.canSenseLocation(adj[dx + 1][dy + 1])) {
+	                    if(rc.senseRubble(adj[dx + 1][dy + 1]) < rubble){
+	                        rubble = rc.senseRubble(adj[dx + 1][dy + 1]);
+	                        res = new MapLocation(rc.getLocation().x + dx, rc.getLocation().y + dy);
+	                    }
+                	}
+                }
+            }
         }
+        return rc.getLocation(); // Should it ever reach this point?
+    }
+	static ArrayList<MapLocation> leastRubbleAround(RobotController rc, MapLocation me) throws GameActionException {
+		int[] dx = {1, 1, 1, 0, 0, -1,-1, -1};
+		int[] dy = {-1, 0, 1, -1, 1, -1, 0, 1};
+		MLR[] arr = new MLR[8];
+		for (int i=0; i<8; i++) {
+			MapLocation loc = new MapLocation(me.x+dx[i], me.y+dy[i]);
+			MLR temp = new MLR(rc.senseRubble(loc), loc);
+			arr[i] = temp;
+		}
+		Arrays.sort(arr);
+		ArrayList<MapLocation> answer = new ArrayList<MapLocation>();
+		for (int i=0; i<arr.length; i++) {
+			answer.add(arr[i].ML);
+		}
+		return answer;
+	}
+}
+class MLR implements Comparable<MLR> {
+	MapLocation ML;
+	int r;
+	public MLR(int rubble, MapLocation ml) {
+		ML = ml;
+		r = rubble;
+	}
+	public int compareTo(MLR m) {
+		if (m.r < r) {
+			return 1;
+		}
+		else if (m.r > r) {
+			return -1;
+		}
+		else {
+			return 0;
+		}
 	}
 }
