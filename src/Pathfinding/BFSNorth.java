@@ -1,5 +1,6 @@
 package Pathfinding;
 
+import baller.Robot;
 import battlecode.common.Direction;
 import battlecode.common.GameActionException;
 import battlecode.common.MapLocation;
@@ -200,7 +201,245 @@ public class BFSNorth {
     static int c108;
     static int r108;
     static Direction d108;
+    static MapLocation lowest(RobotController rc) throws GameActionException {
+        l112 = rc.getLocation();
+        int cmin = Integer.MAX_VALUE;
+        MapLocation ret = null;
 
+        if(rc.onTheMap(l112)&&!rc.isLocationOccupied(l112)&&rc.senseRubble(l112)<cmin){
+            cmin=rc.senseRubble(l112);
+            ret=l112;
+        }
+
+        l97 = l112.add(Direction.NORTH);
+        if(rc.onTheMap(l97)&&!rc.isLocationOccupied(l97)&&rc.senseRubble(l97)<cmin){
+            cmin=rc.senseRubble(l97);
+            ret=l97;
+        }
+
+        l113 = l112.add(Direction.EAST);
+        if(rc.onTheMap(l113)&&!rc.isLocationOccupied(l113)&&rc.senseRubble(l113)<cmin){
+            cmin=rc.senseRubble(l113);
+            ret=l113;
+        }
+
+        l98 = l112.add(Direction.NORTHEAST);
+        if(rc.onTheMap(l98)&&!rc.isLocationOccupied(l98)&&rc.senseRubble(l98)<cmin){
+            cmin=rc.senseRubble(l98);
+            ret=l98;
+        }
+
+        l96 = l112.add(Direction.NORTHWEST);
+        if(rc.onTheMap(l96)&&!rc.isLocationOccupied(l96)&&rc.senseRubble(l96)<cmin){
+            cmin=rc.senseRubble(l96);
+            ret=l96;
+        }
+
+        l111 = l112.add(Direction.WEST);
+        if(rc.onTheMap(l111)&&!rc.isLocationOccupied(l111)&&rc.senseRubble(l111)<cmin){
+            cmin=rc.senseRubble(l111);
+            ret=l111;
+        }
+
+        l82 = l97.add(Direction.NORTH);
+        if(rc.onTheMap(l82)&&!rc.isLocationOccupied(l82)&&rc.senseRubble(l82)<cmin){
+            cmin=rc.senseRubble(l82);
+            ret=l82;
+        }
+
+        l83 = l97.add(Direction.NORTHEAST);
+        if(rc.onTheMap(l83)&&!rc.isLocationOccupied(l83)&&rc.senseRubble(l83)<cmin){
+            cmin=rc.senseRubble(l83);
+            ret=l83;
+        }
+
+        l81 = l97.add(Direction.NORTHWEST);
+        if(rc.onTheMap(l81)&&!rc.isLocationOccupied(l81)&&rc.senseRubble(l81)<cmin){
+            cmin=rc.senseRubble(l81);
+            ret=l81;
+        }
+
+        l114 = l113.add(Direction.EAST);
+        if(rc.onTheMap(l114)&&!rc.isLocationOccupied(l114)&&rc.senseRubble(l114)<cmin){
+            cmin=rc.senseRubble(l114);
+            ret=l114;
+        }
+
+        l99 = l113.add(Direction.NORTHEAST);
+        if(rc.onTheMap(l99)&&!rc.isLocationOccupied(l99)&&rc.senseRubble(l99)<cmin){
+            cmin=rc.senseRubble(l99);
+            ret=l99;
+        }
+
+        l84 = l98.add(Direction.NORTHEAST);
+        if(rc.onTheMap(l84)&&!rc.isLocationOccupied(l84)&&rc.senseRubble(l84)<cmin){
+            cmin=rc.senseRubble(l84);
+            ret=l84;
+        }
+
+        l80 = l96.add(Direction.NORTHWEST);
+        if(rc.onTheMap(l80)&&!rc.isLocationOccupied(l80)&&rc.senseRubble(l80)<cmin){
+            cmin=rc.senseRubble(l80);
+            ret=l80;
+        }
+
+        l95 = l96.add(Direction.WEST);
+        if(rc.onTheMap(l95)&&!rc.isLocationOccupied(l95)&&rc.senseRubble(l95)<cmin){
+            cmin=rc.senseRubble(l95);
+            ret=l95;
+        }
+
+        l110 = l111.add(Direction.WEST);
+        if(rc.onTheMap(l110)&&!rc.isLocationOccupied(l110)&&rc.senseRubble(l110)<cmin){
+            cmin=rc.senseRubble(l110);
+            ret=l110;
+        }
+
+        l67 = l82.add(Direction.NORTH);
+        if(rc.onTheMap(l67)&&!rc.isLocationOccupied(l67)&&rc.senseRubble(l67)<cmin){
+            cmin=rc.senseRubble(l67);
+            ret=l67;
+        }
+
+        l68 = l82.add(Direction.NORTHEAST);
+        if(rc.onTheMap(l68)&&!rc.isLocationOccupied(l68)&&rc.senseRubble(l68)<cmin){
+            cmin=rc.senseRubble(l68);
+            ret=l68;
+        }
+
+        l66 = l82.add(Direction.NORTHWEST);
+        if(rc.onTheMap(l66)&&!rc.isLocationOccupied(l66)&&rc.senseRubble(l66)<cmin){
+            cmin=rc.senseRubble(l66);
+            ret=l66;
+        }
+
+        l69 = l83.add(Direction.NORTHEAST);
+        if(rc.onTheMap(l69)&&!rc.isLocationOccupied(l69)&&rc.senseRubble(l69)<cmin){
+            cmin=rc.senseRubble(l69);
+            ret=l69;
+        }
+
+        l65 = l81.add(Direction.NORTHWEST);
+        if(rc.onTheMap(l65)&&!rc.isLocationOccupied(l65)&&rc.senseRubble(l65)<cmin){
+            cmin=rc.senseRubble(l65);
+            ret=l65;
+        }
+
+        l115 = l114.add(Direction.EAST);
+        if(rc.onTheMap(l115)&&!rc.isLocationOccupied(l115)&&rc.senseRubble(l115)<cmin){
+            cmin=rc.senseRubble(l115);
+            ret=l115;
+        }
+
+        l100 = l114.add(Direction.NORTHEAST);
+        if(rc.onTheMap(l100)&&!rc.isLocationOccupied(l100)&&rc.senseRubble(l100)<cmin){
+            cmin=rc.senseRubble(l100);
+            ret=l100;
+        }
+
+        l85 = l99.add(Direction.NORTHEAST);
+        if(rc.onTheMap(l85)&&!rc.isLocationOccupied(l85)&&rc.senseRubble(l85)<cmin){
+            cmin=rc.senseRubble(l85);
+            ret=l85;
+        }
+
+        l70 = l84.add(Direction.NORTHEAST);
+        if(rc.onTheMap(l70)&&!rc.isLocationOccupied(l70)&&rc.senseRubble(l70)<cmin){
+            cmin=rc.senseRubble(l70);
+            ret=l70;
+        }
+
+        l64 = l80.add(Direction.NORTHWEST);
+        if(rc.onTheMap(l64)&&!rc.isLocationOccupied(l64)&&rc.senseRubble(l64)<cmin){
+            cmin=rc.senseRubble(l64);
+            ret=l64;
+        }
+
+        l79 = l80.add(Direction.WEST);
+        if(rc.onTheMap(l79)&&!rc.isLocationOccupied(l79)&&rc.senseRubble(l79)<cmin){
+            cmin=rc.senseRubble(l79);
+            ret=l79;
+        }
+
+        l94 = l95.add(Direction.WEST);
+        if(rc.onTheMap(l94)&&!rc.isLocationOccupied(l94)&&rc.senseRubble(l94)<cmin){
+            cmin=rc.senseRubble(l94);
+            ret=l94;
+        }
+
+        l109 = l110.add(Direction.WEST);
+        if(rc.onTheMap(l109)&&!rc.isLocationOccupied(l109)&&rc.senseRubble(l109)<cmin){
+            cmin=rc.senseRubble(l109);
+            ret=l109;
+        }
+
+        l52 = l67.add(Direction.NORTH);
+        if(rc.onTheMap(l52)&&!rc.isLocationOccupied(l52)&&rc.senseRubble(l52)<cmin){
+            cmin=rc.senseRubble(l52);
+            ret=l52;
+        }
+
+        l53 = l67.add(Direction.NORTHEAST);
+        if(rc.onTheMap(l53)&&!rc.isLocationOccupied(l53)&&rc.senseRubble(l53)<cmin){
+            cmin=rc.senseRubble(l53);
+            ret=l53;
+        }
+
+        l51 = l67.add(Direction.NORTHWEST);
+        if(rc.onTheMap(l51)&&!rc.isLocationOccupied(l51)&&rc.senseRubble(l51)<cmin){
+            cmin=rc.senseRubble(l51);
+            ret=l51;
+        }
+
+        l54 = l68.add(Direction.NORTHEAST);
+        if(rc.onTheMap(l54)&&!rc.isLocationOccupied(l54)&&rc.senseRubble(l54)<cmin){
+            cmin=rc.senseRubble(l54);
+            ret=l54;
+        }
+
+        l50 = l66.add(Direction.NORTHWEST);
+        if(rc.onTheMap(l50)&&!rc.isLocationOccupied(l50)&&rc.senseRubble(l50)<cmin){
+            cmin=rc.senseRubble(l50);
+            ret=l50;
+        }
+
+        l116 = l115.add(Direction.EAST);
+        if(rc.onTheMap(l116)&&!rc.isLocationOccupied(l116)&&rc.senseRubble(l116)<cmin){
+            cmin=rc.senseRubble(l116);
+            ret=l116;
+        }
+
+        l101 = l115.add(Direction.NORTHEAST);
+        if(rc.onTheMap(l101)&&!rc.isLocationOccupied(l101)&&rc.senseRubble(l101)<cmin){
+            cmin=rc.senseRubble(l101);
+            ret=l101;
+        }
+
+        l86 = l100.add(Direction.NORTHEAST);
+        if(rc.onTheMap(l86)&&!rc.isLocationOccupied(l86)&&rc.senseRubble(l86)<cmin){
+            cmin=rc.senseRubble(l86);
+            ret=l86;
+        }
+
+        l78 = l79.add(Direction.WEST);
+        if(rc.onTheMap(l78)&&!rc.isLocationOccupied(l78)&&rc.senseRubble(l78)<cmin){
+            cmin=rc.senseRubble(l78);
+            ret=l78;
+        }
+
+        l93 = l94.add(Direction.WEST);
+        if(rc.onTheMap(l93)&&!rc.isLocationOccupied(l93)&&rc.senseRubble(l93)<cmin){
+            cmin=rc.senseRubble(l93);
+            ret=l93;
+        }
+
+        l108 = l109.add(Direction.WEST);
+        if(rc.onTheMap(l108)&&!rc.isLocationOccupied(l108)&&rc.senseRubble(l108)<cmin){
+            cmin=rc.senseRubble(l108);
+            ret=l108;
+        }
+        return ret;
+    }
     static Direction ans;
     static Direction gbda(RobotController rc, MapLocation target, Direction prev) throws GameActionException {//get best dir -all
         ans = null;

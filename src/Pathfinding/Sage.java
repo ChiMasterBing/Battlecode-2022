@@ -2,10 +2,6 @@ package Pathfinding;
 
 import battlecode.common.*;
 
-import java.util.Map;
-
-import java.io.IOException;
-
 public class Sage {
 
 	static Direction dir;
@@ -15,7 +11,7 @@ public class Sage {
 		// TODO Auto-generated method stub
 		//check if escape mode
 
-		if(init){
+		if (init) {
 			init = false;
 			startloc = rc.getLocation();
 		}
@@ -34,14 +30,15 @@ public class Sage {
 		//signal to fall back if not attacking
 		RobotInfo[] arr = rc.senseNearbyRobots(34, rc.getTeam().opponent());
 		MapLocation targ = new MapLocation();
-		if (rc.getActionCooldownTurns()>5) {
-			if(arr.length>0) {
+		SageBFS.init(rc);//inits the locs
+		if (rc.getActionCooldownTurns() > 5) {
+			if (arr.length > 0) {
 				//run towards freinds
-			}else{
-				targ = SageBFS.lowest(rc);
+			} else {
+				targ = SageBFS.lowest();//finds the lowest rubble and stays
 			}
-		}else{
-			if(rc.getActionCooldownTurns()==0){
+		} else {
+			if (rc.getActionCooldownTurns() == 0) {
 				int ab = 0;//attack building anom
 				int at = 0;//attack troop anom
 				int n = 0;//normal attack
@@ -49,76 +46,76 @@ public class Sage {
 				MapLocation norm = null; // normal attack location
 				Direction sdir = null; //special direction to move
 				int lvl = 0; //what should normall attack given multiple choices
-				for(RobotInfo i: arr){
-					Direction mdir = BFSSage.sdir(i.getLocation());
-					if(rc.canAttack(i.getLocation())){
+				for (RobotInfo i : arr) {
+					Direction mdir = SageBFS.sdir(i.getLocation());
+					if (rc.canAttack(i.getLocation())) {
 						int benefits = 0;
 						RobotType typ = i.getType();
-						if(typ==RobotType.SAGE){
+						if (typ == RobotType.SAGE) {
 							benefits = 30;
-						}else if(typ==RobotType.SOLDIER){
+						} else if (typ == RobotType.SOLDIER) {
 							benefits = 20;
-						}else if(typ==RobotType.ARCHON){
+						} else if (typ == RobotType.ARCHON) {
 							benefits = 500;
-						}else if(typ==RobotType.BUILDER){
+						} else if (typ == RobotType.BUILDER) {
 							benefits = 8;
-						}else if(typ==RobotType.MINER){
+						} else if (typ == RobotType.MINER) {
 							benefits = 10;
-						}else if(typ==RobotType.WATCHTOWER){
+						} else if (typ == RobotType.WATCHTOWER) {
 							benefits = 100;
-						}else{
+						} else {
 							benefits = 200;
 						}
-						if(i.getHealth()<45){
-							int kil = i.getHealth()+benefits;
-							if(kil>n){
+						if (i.getHealth() < 45) {
+							int kil = i.getHealth() + benefits;
+							if (kil > n) {
 								n = kil;
 								norm = i.getLocation();
 							}
-						}else{
-							if(benefits>lvl&&n<45){
+						} else {
+							if (benefits > lvl && n < 45) {
 								lvl = benefits;
 								n = 45;
 								norm = i.getLocation();
 							}
 						}
-						if(i.getType().isBuilding()) {
+						if (i.getType().isBuilding()) {
 							int dmg = i.getType().health / 10;
-							if(dmg>i.getHealth()){
+							if (dmg > i.getHealth()) {
 								dmg = i.getHealth();
-								at+=benefits;//constant
+								at += benefits;//constant
 							}
 							ab += dmg;
-						}else{//troops
-							int dmg = (int)(i.getType().health*0.22);
-							if(dmg>i.getHealth()){
+						} else {//troops
+							int dmg = (int) (i.getType().health * 0.22);
+							if (dmg > i.getHealth()) {
 								dmg = i.getHealth();
-								at+=benefits;
+								at += benefits;
 							}
-							at+=dmg;
+							at += dmg;
 						}
-					}else if(mdir!=null){//if you move u can attack specially
-						if(st==null){
+					} else if (mdir != null) {//if you move u can attack specially
+						if (st == null) {
 							sdir = mdir;
 							st = i;
-						}else if(st.getType().health<i.getType().health){
+						} else if (st.getType().health < i.getType().health) {
 							st = i;
 							sdir = mdir;
 						}
 					}
 				}
-				if(at>40&&at>n&&at>ab){
+				if (at > 40 && at > n && at > ab) {
 					rc.envision(AnomalyType.CHARGE);
-				}else if(ab>40&&ab>at&&ab>n){
+				} else if (ab > 40 && ab > at && ab > n) {
 					rc.envision(AnomalyType.FURY);
-				}else if(n>40){
+				} else if (n > 40) {
 					rc.attack(norm);
-				}else {//matack
-					if(sdir!=null&&rc.canMove(sdir)){
+				} else {//matack
+					if (sdir != null && rc.canMove(sdir)) {
 						rc.move(sdir);
-						if(st.getType()==RobotType.ARCHON){
+						if (st.getType() == RobotType.ARCHON) {
 							rc.envision(AnomalyType.FURY);
-						}else{
+						} else {
 							rc.attack(st.getLocation());
 						}
 					}
@@ -128,39 +125,40 @@ public class Sage {
 
 		}
 
-		if(rc.getHealth()<20&&targ.distanceSquaredTo(startloc)>5){
+		if (rc.getHealth() < 20 && targ.distanceSquaredTo(startloc) > 5) {
 			targ = startloc;
 		}
 		Direction cur = rc.getLocation().directionTo(targ);
 		Direction cdir;
 
-		switch(cur){//rip one move, but issok
+		switch (cur) {//rip one move, but issok
 			case NORTH:
-				cdir=SageNorth.gbda(rc, targ, dir.opposite());
+				cdir = SageBFS.BFSNorth(targ, dir.opposite());
 				break;
 			case EAST:
-				cdir=SageEast.gbda(rc, targ, dir.opposite());
+				cdir = SageBFS.BFSEast(targ, dir.opposite());
 				break;
 			case WEST:
-				cdir=SageWest.gbda(rc, targ, dir.opposite());
+				cdir = SageBFS.BFSWest(targ, dir.opposite());
 				break;
 			case SOUTH:
-				cdir=SageSouth.gbda(rc, targ, dir.opposite());
+				cdir = SageBFS.BFSSouth(targ, dir.opposite());
 				break;
 			case NORTHEAST:
-				cdir=SageNorthEast.gbda(rc, targ, dir.opposite());
+				cdir = SageBFS.BFSNorthEast(targ, dir.opposite());
 				break;
 			case NORTHWEST:
-				cdir=SageNorthWest.gbda(rc, targ, dir.opposite());
+				cdir = SageBFS.BFSNorthWest(targ, dir.opposite());
 				break;
 			case SOUTHEAST:
-				cdir=SageSouthEast.gbda(rc, targ, dir.opposite());
+				cdir = SageBFS.BFSSouthEast(targ, dir.opposite());
 				break;
 			default:
-				cdir=SageSouthWest.gbda(rc, targ, dir.opposite());
+				cdir = SageBFS.BFSSouthWest(targ, dir.opposite());
 				break;
 		}
-		if(rc.canMove(cdir)){
+		if (rc.canMove(cdir)) {
 			rc.move(cdir);
 		}
+	}
 }
