@@ -136,28 +136,28 @@ public class Sage {
 
 		switch(cur){//rip one move, but issok
 			case NORTH:
-				cdir=BFSNorth.gbda(rc, targ, dir.opposite());
+				cdir=SageNorth.gbda(rc, targ, dir.opposite());
 				break;
 			case EAST:
-				cdir=BFSEast.gbda(rc, targ, dir.opposite());
+				cdir=SageEast.gbda(rc, targ, dir.opposite());
 				break;
 			case WEST:
-				cdir=BFSWest.gbda(rc, targ, dir.opposite());
+				cdir=SageWest.gbda(rc, targ, dir.opposite());
 				break;
 			case SOUTH:
-				cdir=BFSSouth.gbda(rc, targ, dir.opposite());
+				cdir=SageSouth.gbda(rc, targ, dir.opposite());
 				break;
 			case NORTHEAST:
-				cdir=BFSNorthEast.gbda(rc, targ, dir.opposite());
+				cdir=SageNorthEast.gbda(rc, targ, dir.opposite());
 				break;
 			case NORTHWEST:
-				cdir=BFSNorthWest.gbda(rc, targ, dir.opposite());
+				cdir=SageNorthWest.gbda(rc, targ, dir.opposite());
 				break;
 			case SOUTHEAST:
-				cdir=BFSSouthEast.gbda(rc, targ, dir.opposite());
+				cdir=SageSouthEast.gbda(rc, targ, dir.opposite());
 				break;
 			default:
-				cdir=BFSSouthWest.gbda(rc, targ, dir.opposite());
+				cdir=SageSouthWest.gbda(rc, targ, dir.opposite());
 				break;
 		}
 		if(rc.canMove(cdir)){

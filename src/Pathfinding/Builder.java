@@ -4,22 +4,20 @@ import battlecode.common.GameActionException;
 import battlecode.common.MapLocation;
 import battlecode.common.RobotController;
 
-import java.io.IOException;
-
 public class Builder {
 
-	static void run(RobotController rc) throws GameActionException, IOException {
+	public static void run(RobotController rc) throws GameActionException {
 		// TODO Auto-generated method stub
-		//attack
+		//if you have enough miner + soldier and lead is neough and no danger, build
 
-
-
-
+		
+		
+		
+		
 		//pathfind
 		MapLocation dir = null;
 		rc.move(BFSBuilder.getBestDir(rc, new MapLocation(0, 0)));
 	}
-
 	static class Node implements Comparable<Node>{
 		public int dist;
 		public MapLocation loc;
