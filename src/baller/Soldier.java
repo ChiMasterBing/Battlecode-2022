@@ -5,7 +5,7 @@ public class Soldier extends Robot {
 	int turnCount = 0;
     final Random rng = new Random(6147);
 	boolean init = true;
-    MapLocation target, me, tempTarget, repair;
+    MapLocation target, me, tempTarget, repair, archonTarget;
     boolean real = false, combat = false, attacked = false, setRepair = false, repairing = false;
     RobotController rc;
     Team opponent;
@@ -24,158 +24,114 @@ public class Soldier extends Robot {
 			init = false;
 			init();
 		}
-		
+		tempTarget = null;
 		attacked = false;
         RobotInfo[] enemies = rc.senseNearbyRobots(radius, opponent);
         Arrays.sort(enemies, new RobotInfoComparator());
-        int ptr = 0, realE = 0, att = 0;
-        while(ptr < enemies.length){
+        int realE = 0;
+        for (int ptr=0; ptr<enemies.length;ptr++) {
             MapLocation cur = enemies[ptr].location;
             while (rc.canAttack(cur)){
             	attacked = true;
-            	boolean attArchon = false;
-            	if (enemies[ptr].type == RobotType.ARCHON) {
-            		attArchon = true;
+            	if (enemies[ptr].type == RobotType.ARCHON && enemies[ptr].health <= 3) {
+            		System.out.println("I BE BALLIN!");
+                	int current = rc.readSharedArray(8);
+        			String currentBits = String.format("%16s", Integer.toBinaryString(current)).replace(" ", "0");
+        			String message = "0010" + currentBits.substring(4, 16);
+        	        rc.writeSharedArray(8, Integer.parseInt(message, 2));
+        	        target = null;
+        	        init0000();
             	}
             	else if (enemies[ptr].type == RobotType.SOLDIER) {
             		combat = true;
             		tempTarget = enemies[ptr].location;
             	}
                 rc.attack(cur);
-                if (attArchon && !rc.canSenseRobotAtLocation(cur)) {
-                	System.out.println("I BE BALLIN!");
-                	int current = rc.readSharedArray(8);
-        			String currentBits = String.format("%16s", Integer.toBinaryString(current)).replace(" ", "0");
-        			String message = currentBits.substring(0, 4) + "0010" + currentBits.substring(8, 16);
-        	        rc.writeSharedArray(8, Integer.parseInt(message, 2));
-        	        target = null;
-        	        init0000();
-                }
             }
             ptr++;
         }
     	if (task.equals("00010000") && !real) {
     		init0000();
-    		if (target == null) {
-    			return;
-    		}
     	}
     	RobotInfo[] enemies2 = rc.senseNearbyRobots(20 , opponent);
-    	int soldierCount = 0;
+    	RobotInfo[] friendly = rc.senseNearbyRobots(20, opponent.opponent());
+    	boolean nearby = false;
     	for (int i=0; i<enemies2.length; i++) {
     		if (enemies2[i].type == RobotType.ARCHON) {
     			real = true;
         		realE++;
-        		target = enemies2[i].getLocation();
+        		archonTarget = enemies2[i].getLocation();
         		int current = rc.readSharedArray(8);
     			String currentBits = String.format("%16s", Integer.toBinaryString(current)).replace(" ", "0");
-    			String message = currentBits.substring(0, 4) + "0011" + Utility.numToBit(target.x/4) + Utility.numToBit(target.y/4);
+    			String message = "0011" + Utility.numToBit6(archonTarget.x) + Utility.numToBit6(archonTarget.y);
     	        if (message != currentBits) {
-    	        	//System.out.println("override!!! " + rc.getRoundNum());
-    	        	//System.out.println(message);
-    	        	//System.out.println(currentBits);
     	        	rc.writeSharedArray(8, Integer.parseInt(message, 2));
     	        }
     	    }
     		else if (enemies2[i].type == RobotType.SOLDIER) {
-    			combat = true;
-    			soldierCount++;
     			tempTarget = enemies2[i].location;
+    			nearby = true;
     		}
     		else if (enemies2[i].type == RobotType.MINER) {
-    			combat = true;
-    			soldierCount++;
     			tempTarget = enemies2[i].location;
     			attacked = false;
     		}
     	}
-    	if (soldierCount == 0) {
-    		combat = false;
-    	}
     	if (realE == 0) {
         	real = false;
         }
-    	if (rc.getHealth() <= 12 || repairing) {
+    	if (rc.getHealth() <= 15 || repairing) {
 			repair();
 			return;
 		}
-    	if (combat) {
-    		Direction cur;
-    		if (attacked) {
-    			cur = rc.getLocation().directionTo(tempTarget).opposite();
-    		}
-    		else {
-    			cur = rc.getLocation().directionTo(tempTarget);
-    		}
-    		
-	        Direction cdir;
-	        switch(cur){ //improve by writing code that determines ONLY the moves rn, greedy
-	            case NORTH:
-	                cdir=BFSNorth.gbda(rc, tempTarget, dir.opposite());
-	                break;
-	            case EAST:
-	                cdir=BFSEast.gbda(rc, tempTarget, dir.opposite());
-	                break;
-	            case WEST:
-	                cdir=BFSWest.gbda(rc, tempTarget, dir.opposite());
-	                break;
-	            case SOUTH:
-	                cdir=BFSSouth.gbda(rc, tempTarget, dir.opposite());
-	                break;
-	            case NORTHEAST:
-	                cdir=BFSNorthEast.gbda(rc, tempTarget, dir.opposite());
-	                break;
-	            case NORTHWEST:
-	                cdir=BFSNorthWest.gbda(rc, tempTarget, dir.opposite());
-	                break;
-	            case SOUTHEAST:
-	                cdir=BFSSouthEast.gbda(rc, tempTarget, dir.opposite());
-	                break;
-	            default:
-	                cdir=BFSSouthWest.gbda(rc, tempTarget, dir.opposite());
-	                break;
-	        }
-	        if(cdir!=null&&rc.canMove(cdir)) {
-	        	rc.move(cdir);
-	            dir = cdir;
-	        }
+    	if (tempTarget != null) {
+    		target = tempTarget;
     	}
-    	else if (!combat) {
-	        Direction cur = rc.getLocation().directionTo(target);
-	        Direction cdir;
-	        switch(cur){
-	            case NORTH:
-	                cdir=BFSNorth.gbda(rc, target, dir.opposite());
-	                break;
-	            case EAST:
-	                cdir=BFSEast.gbda(rc, target, dir.opposite());
-	                break;
-	            case WEST:
-	                cdir=BFSWest.gbda(rc, target, dir.opposite());
-	                break;
-	            case SOUTH:
-	                cdir=BFSSouth.gbda(rc, target, dir.opposite());
-	                break;
-	            case NORTHEAST:
-	                cdir=BFSNorthEast.gbda(rc, target, dir.opposite());
-	                break;
-	            case NORTHWEST:
-	                cdir=BFSNorthWest.gbda(rc, target, dir.opposite());
-	                break;
-	            case SOUTHEAST:
-	                cdir=BFSSouthEast.gbda(rc, target, dir.opposite());
-	                break;
-	            default:
-	                cdir=BFSSouthWest.gbda(rc, target, dir.opposite());
-	                break;
-	        }
-	        if(cdir!=null&&rc.canMove(cdir)) {
-	        	rc.move(cdir);
-	            dir = cdir;
-	        }
+    	else {
+    		target = archonTarget;
     	}
+    	
+        Direction cur = rc.getLocation().directionTo(target);
+        Direction cdir;
+        if (attacked || !assess(friendly, enemies2)) { //
+        	cur = rc.getLocation().directionTo(target).opposite();
+		}
+		else {
+			cur = rc.getLocation().directionTo(target);
+		}
+        switch(cur){
+            case NORTH:
+                cdir=BFSNorth.gbda(rc, target, dir.opposite());
+                break;
+            case EAST:
+                cdir=BFSEast.gbda(rc, target, dir.opposite());
+                break;
+            case WEST:
+                cdir=BFSWest.gbda(rc, target, dir.opposite());
+                break;
+            case SOUTH:
+                cdir=BFSSouth.gbda(rc, target, dir.opposite());
+                break;
+            case NORTHEAST:
+                cdir=BFSNorthEast.gbda(rc, target, dir.opposite());
+                break;
+            case NORTHWEST:
+                cdir=BFSNorthWest.gbda(rc, target, dir.opposite());
+                break;
+            case SOUTHEAST:
+                cdir=BFSSouthEast.gbda(rc, target, dir.opposite());
+                break;
+            default:
+                cdir=BFSSouthWest.gbda(rc, target, dir.opposite());
+                break;
+        }
         
-    	if (!attacked && combat) {
+        if(cdir!=null&&rc.canMove(cdir)) {
+        	rc.move(cdir);
+            dir = cdir;
+        }
+        
+    	if (!attacked && tempTarget != null) {
     		RobotInfo[] enemies3 = rc.senseNearbyRobots(radius, opponent);
     		Arrays.sort(enemies3, new RobotInfoComparator());
     		for (int i=0; i<enemies3.length; i++) {
@@ -197,10 +153,9 @@ public class Soldier extends Robot {
         		}
         	}
         	if (archo == 0) {
-        		
         		int current = rc.readSharedArray(8);
     			String currentBits = String.format("%16s", Integer.toBinaryString(current)).replace(" ", "0");
-    			String message = currentBits.substring(0, 4) + "0001" + currentBits.substring(8, 16);
+    			String message = "0001" + currentBits.substring(4, 16);
     	        rc.writeSharedArray(8, Integer.parseInt(message, 2));
     	        target = null;
     	        init0000();
@@ -208,17 +163,48 @@ public class Soldier extends Robot {
         }
         turnCount++;
 	}
-	
+	boolean assess(RobotInfo[] friendly, RobotInfo[] enemies) {
+		int fTotal = 0, eSTotal = 0, eVTotal = 0;
+		for (int i=0; i<friendly.length; i++) {
+			if (friendly[i].type == RobotType.ARCHON) {
+				fTotal += 10;
+			}
+			else if (friendly[i].type == RobotType.SOLDIER) {
+				fTotal += 2;
+			}
+			else if (friendly[i].type == RobotType.SAGE) {
+				fTotal += 4;
+			}
+		}
+		for (int i=0; i<enemies.length; i++) {
+			if (enemies[i].type == RobotType.ARCHON) {
+				eVTotal += 5;
+			}
+			else if (enemies[i].type == RobotType.SOLDIER) {
+				eSTotal += 2;
+			}
+			else if (enemies[i].type == RobotType.SAGE) {
+				eVTotal += 4;
+			}
+		}
+		if (fTotal > (eSTotal+eVTotal/2)) {
+			return true;
+		}
+		if (eSTotal <= 2 && eVTotal > 0 && eVTotal <= 5) {
+			return true;
+		}
+		return false;
+	}
 	void repair() throws GameActionException {
 		if (!setRepair) {
 			int closestDist = Integer.MAX_VALUE;
 			int leastOccupancy = Integer.MAX_VALUE;
+			int repairIndex = -1;
 			for (int i=4; i<(4+rc.getArchonCount()); i++) {
 				String s = Comms.getIndex(rc, i);
 				int occupancy = Integer.parseInt(s.substring(12, 16));
 				if (Math.abs(leastOccupancy-occupancy) <= 2) {
-					String s2 = Comms.getIndex(rc, i-4);
-					int aX = Utility.bitToNum(s2.substring(0, 4))*4, aY = Utility.bitToNum(s2.substring(4, 8))*4;
+					int aX = Utility.bitToNum(s.substring(0, 4))*4, aY = Utility.bitToNum(s.substring(4, 8))*4;
 					MapLocation aPos = new MapLocation(aX, aY);
 					int dist = Utility.distance(me, aPos);
 					if (dist < closestDist) {
@@ -228,13 +214,13 @@ public class Soldier extends Robot {
 					}
 				}
 				else if (occupancy < leastOccupancy) {
-					String s2 = Comms.getIndex(rc, i-4);
-					int aX = Utility.bitToNum(s2.substring(0, 4))*4, aY = Utility.bitToNum(s2.substring(4, 8))*4;
+					int aX = Utility.bitToNum(s.substring(0, 4))*4, aY = Utility.bitToNum(s.substring(4, 8))*4;
 					MapLocation aPos = new MapLocation(aX, aY);
 					int dist = Utility.distance(me, aPos);
 					closestDist = dist;
 					leastOccupancy = occupancy;
 					repair = aPos;
+					repairIndex = i;
 				}
 
 			}
@@ -300,27 +286,35 @@ public class Soldier extends Robot {
 		radius = rc.getType().actionRadiusSquared;
 		int closeArchon = Integer.MAX_VALUE;
 		task = "";
+		
+		RobotInfo[] nearby = rc.senseNearbyRobots(20, opponent.opponent());
+		String myArchon = "";
+		for (int i=0; i<nearby.length; i++) {
+			if (nearby[i].type == RobotType.ARCHON) {
+				if (Utility.distance(nearby[i].location, rc.getLocation()) < closeArchon) {
+					closeArchon = Utility.distance(nearby[i].location, rc.getLocation());
+					myArchon = Utility.numToBit8(nearby[i].ID);
+				}
+			}
+		}
 		for (int i=0; i<rc.getArchonCount(); i++) {
 			String s = Comms.getIndex(rc, i);
-			int aX = Utility.bitToNum(s.substring(0, 4))*4, aY = Utility.bitToNum(s.substring(4, 8))*4;
-			MapLocation aPos = new MapLocation(aX, aY);
-			int dist = Utility.distance(me, aPos);
-			if (dist < closeArchon) {
-				closeArchon = dist;
+			if (s.substring(0, 8).equals(myArchon)) {
 				task = s.substring(8);
+				break;
 			}
 		}
 		
 		switch (task) {
 			case "00010000": init0000(); break;
-			default: rc.disintegrate(); break;
+			default: init0000(); break;
 		}
 	}
 	void init0000() throws GameActionException {
 		String s = Comms.getIndex(rc, 8);
-		int tX = Utility.bitToNum(s.substring(8, 12))*4, tY = Utility.bitToNum(s.substring(12, 16))*4;
+		int tX = Utility.bitToNum(s.substring(4, 10)), tY = Utility.bitToNum(s.substring(10, 16));
 		MapLocation tPos = new MapLocation(tX, tY);
-		target = tPos;
+		archonTarget = tPos;
 	}
 }
 class RobotInfoComparator implements Comparator<RobotInfo> {
