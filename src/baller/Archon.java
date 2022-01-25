@@ -2,17 +2,13 @@ package baller;
 import java.util.Random;
 
 import java.util.*;
-import battlecode.common.Direction;
-import battlecode.common.GameActionException;
-import battlecode.common.MapLocation;
-import battlecode.common.RobotController;
-import battlecode.common.RobotInfo;
-import battlecode.common.RobotType;
+import battlecode.common.*;
 public class Archon extends Robot{
-	int turnCount = 0, soldCount = 0;
+	int turnCount = 0, soldCount = 0, mineCount = 0;
 	int archonCount, mapWidth, mapHeight, remain;
 	int curTar = 0, repairTar = -1;
-    int myID, myIndex, myHealth;
+	int criticalValue = 0;
+    int myID, myIndex, myHealth, myMiners;
 	boolean init = true, builtRobot = false;
 	String prefix;
     ArrayList<MapLocation> spawnZones, possibleArchon, myArchon;
@@ -53,8 +49,6 @@ public class Archon extends Robot{
 			panic(1);
 			panic = false;
 		}
-		
-		
 		if (home.x != rc.getLocation().x && home.y != rc.getLocation().y) {
 			move();
 		}
@@ -69,56 +63,39 @@ public class Archon extends Robot{
 		}
 
 		if (turnCount > 1 && scouted < 4 && !panic) {
-			scout();
+			//scout();
 		}
 		if (turnCount == 20 && myIndex == 0) {
 			for (int i=12; i<16; i++) {
 				rc.writeSharedArray(i, 0);
 			}
 		}
-		if (scouted >= 4 || panic) {
-			int danger = 0;
+		if (true) {
+			int danger = 0, danger2 = 0;
 			for (int i=4; i<archonCount+4; i++) {
 				String s = Comms.getIndex(rc, i);
 				if (s.substring(8, 12).equals("0001")) {
 					if (i != myIndex+4) {
 						danger++;
 					}
+					danger2++;
 				}
 			}
-			if (danger == 0) {
-				if (soldCount < 5 || panic) {
+			rc.setIndicatorString(String.valueOf(danger));
+			if (danger == 0 || (danger2 >= 2 && myIndex == 0)) {
+				if (soldCount < 3 || panic) {
 					attack();
 				}
 				else {
-					wanderingMiner();
+					wanderingMiner(); 
 				}
 			}
 		}
-		rc.setIndicatorString(String.valueOf(curTar));
-		String s = Comms.getIndex(rc, 8);
+		//spawnMine();
 		if (myIndex == 0) {
-			if (s.substring(0, 4).equals("0001")) {
-				nextTarget();
-			}
-			else if (s.substring(0, 4).equals("0010")) {
-				remain--;
-				nextTarget();
-			}
-			else if (s.substring(0, 4).equals("0011")) {
-				//System.out.println("override " + turnCount);
-				if (active) {
-					curTar--;
-					active = false;
-					int current = rc.readSharedArray(8);
-					String currentBits = String.format("%16s", Integer.toBinaryString(current)).replace(" ", "0");
-					String message = "0000" + s.substring(4, 16);
-			        rc.writeSharedArray(8, Integer.parseInt(message, 2));
-				}
-			}
-			
+			processTargetting();
 		}
-		//implement defensive procedures && efficient lead farming
+		
 		if (!builtRobot) {
 			repair();
 		}
@@ -128,6 +105,50 @@ public class Archon extends Robot{
 	boolean active = false;
 	char lastTurn[];
 	boolean panic = false;
+	String attPrefix = "0000";
+	void wanderingMiner() throws GameActionException {
+		MapLocation me = rc.getLocation();
+		for (int i=0; i<8; i++) {
+			Direction dir = me.directionTo(spawnZones.get(i));
+			if (rc.canBuildRobot(RobotType.MINER, dir)) {
+				int output;
+				output = Integer.parseInt(prefix + "00000111", 2);
+				rc.writeSharedArray(myIndex, output);
+				rc.buildRobot(RobotType.MINER, dir);
+				builtRobot = true;
+				soldCount = 0;
+				break;
+			}
+		}
+	}
+	void processTargetting() throws GameActionException {
+		String sc = Comms.getIndex(rc, 9);
+		int soldCount = Integer.parseInt(sc.substring(4, 16), 2);
+		
+		if (soldCount >= criticalValue) {
+			attPrefix = "1000";
+		}
+		
+		String s = Comms.getIndex(rc, 8);
+		if (s.substring(0, 4).equals("0001")) {
+			nextTarget();
+		}
+		else if (s.substring(0, 4).equals("0010")) {
+			remain--;
+			nextTarget();
+		}
+		else if (s.substring(0, 4).equals("0011")) {
+			//System.out.println("override " + turnCount);
+			if (active) {
+				curTar--;
+				active = false;
+				int current = rc.readSharedArray(8);
+				String currentBits = String.format("%16s", Integer.toBinaryString(current)).replace(" ", "0");
+				String message = "0000" + s.substring(4, 16);
+		        rc.writeSharedArray(8, Integer.parseInt(message, 2));
+			}
+		}
+	}
 	void panic(int par) throws GameActionException {
 		if (par == 0) {
 			String s = Comms.getIndex(rc, myIndex+4);
@@ -300,21 +321,6 @@ public class Archon extends Robot{
 			}
 		}
 	}
-	void wanderingMiner() throws GameActionException {
-		MapLocation me = rc.getLocation();
-		for (int i=0; i<8; i++) {
-			Direction dir = me.directionTo(spawnZones.get(i));
-			if (rc.canBuildRobot(RobotType.MINER, dir)) {
-				int output;
-				output = Integer.parseInt(prefix + "00000111", 2);
-				rc.writeSharedArray(myIndex, output);
-				rc.buildRobot(RobotType.MINER, dir);
-				builtRobot = true;
-				soldCount = 0;
-				break;
-			}
-		}
-	}
 	void calculateArchons() throws GameActionException {
 		myArchon = new ArrayList<MapLocation>();
 		possibleArchon = new ArrayList<MapLocation>();
@@ -380,7 +386,9 @@ public class Archon extends Robot{
 		mapHeight = rc.getMapHeight();
 		myID = rc.getID();
 		myHealth = rc.getHealth();
+		myMiners = 0;
 		lastTurn = new char[archonCount];
+		criticalValue = (mapWidth*mapHeight)/30;
 		for (int i=0; i<4; i++) {
 			//System.out.println(rc.readSharedArray(i) + " " + i);
 			if (rc.readSharedArray(i) != 0) {
@@ -394,23 +402,15 @@ public class Archon extends Robot{
 				break;
 			}
 		}
+		/*
 		MapLocation[] temp = rc.senseNearbyLocationsWithLead();
 		for (int i=0; i<temp.length; i++) { //find guaranteed lead
 			Comms.write("0001", rc, temp[i]);
 		}
-		
+		*/
 		spawnZones = Utility.leastRubbleAround(rc, me);
 		
-		for (int i=0; i<8; i++) {
-			Direction dir = me.directionTo(spawnZones.get(i));
-			if (rc.canBuildRobot(RobotType.MINER, dir)) {
-				System.out.println("ok boomer " + myIndex);
-				rc.buildRobot(RobotType.MINER, dir);
-				int output = Integer.parseInt(prefix + "00000010", 2);
-				rc.writeSharedArray(myIndex, output);
-				break;
-			}
-		}
+		wanderingMiner();
 		
 		String exactCoord = Utility.numToBit8(me.x) + Utility.numToBit8(me.y);
 		rc.writeSharedArray(myIndex+12, Integer.parseInt(exactCoord, 2));

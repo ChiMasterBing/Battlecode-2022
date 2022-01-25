@@ -13,7 +13,7 @@ public class Miner extends Robot{
         Direction.WEST,
         Direction.NORTHWEST,
     };
-    final Random rng = new Random(6147);
+    Random rng;
     int turnCount = 0;
     int bestLead = 0;
     String task;
@@ -76,19 +76,39 @@ public class Miner extends Robot{
 	        		arrived = false;
 	        	}
 	        }
-	        Information info = Comms.scan(rc, 3);
-	        Comms.write(Comms.encode(info), rc, me);
-	        if (info.lead > bestLead) {
-	        	bestLead = info.lead;
-	        	nextTarget = me;
+	        //Information info = Comms.scan(rc, 3);
+	        //Comms.write(Comms.encode(info), rc, me);
+	        MapLocation[] leadDep = rc.senseNearbyLocationsWithLead();
+	        for (int i=0; i<leadDep.length; i++) {
+	        	if (rc.canMineLead(leadDep[i])) {
+	        		int lead = rc.senseLead(leadDep[i]); 
+		           int minedCount = 0;
+		           while (rc.canMineLead(leadDep[i]) && lead-minedCount > 1) {
+		              rc.mineLead(leadDep[i]);
+		              minedCount++;
+		           }
+	        	}
+	        }
+	        if (scout) {
+		        int tLead = 0;
+	        	for (int i=0; i<leadDep.length; i++) {
+		        	tLead += rc.senseLead(leadDep[i]);
+		        }
+		        if (tLead > bestLead) {
+		        	bestLead = tLead;
+		        	nextTarget = me;
+		        }
 	        }
 	        if (wandering) {
-	        	MapLocation[] leadDep = rc.senseNearbyLocationsWithLead();
+	        	int maxLead = 0;
 	        	for (int i=0; i<leadDep.length; i++) {
 	        		if (rc.senseLead(leadDep[i]) > 15) {
-	        			target = leadDep[i];
-	        			foundLead = true;
-	        			task = "00000010";
+	        			if (rc.senseLead(leadDep[i]) > maxLead) {
+	        				maxLead = rc.senseLead(leadDep[i]);
+		        			target = leadDep[i];
+		        			foundLead = true;
+		        			task = "00000010";
+	        			}
 	        		}
 	        	}
 	        }
@@ -96,6 +116,16 @@ public class Miner extends Robot{
 	        return;
 		}
 		else { 	
+			RobotInfo[] nearbyMiners = rc.senseNearbyRobots(1, rc.getTeam());
+			int miners = 0;
+			for (int i=0; i<nearbyMiners.length; i++) {
+				if (nearbyMiners[i].type == RobotType.MINER) {
+					miners++;	
+				}
+			}
+			if (miners >= 2) {
+				initWander();
+			}
 			if (task.equals("00000011") || task.equals("00000100") || task.equals("00000101") || task.equals("00000110")) {
 				if (nextTarget != null) {
 					arrived = false;
@@ -187,6 +217,7 @@ public class Miner extends Robot{
         turnCount++;
 	}
 	void init() throws GameActionException {
+		rng = new Random(rc.getRoundNum() + rc.getTeamLeadAmount(rc.getTeam().opponent()));
 		int closeArchon = Integer.MAX_VALUE;
 		task = "";
 		RobotInfo[] nearby = rc.senseNearbyRobots(20, rc.getTeam());
@@ -223,9 +254,10 @@ public class Miner extends Robot{
 		wandering = true;
 		foundLead = false;
 		target = new MapLocation((int)(rc.getMapWidth()*rng.nextDouble()), (int)(rc.getMapHeight()*rng.nextDouble()));
-		
 	}
+	boolean scout = false;
 	void initScout(Direction dir) {
+		scout = true;
 		if (dir == Direction.NORTH) {
 			target = new MapLocation(me.x, rc.getMapHeight()-1);
 		}

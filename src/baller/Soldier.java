@@ -24,6 +24,7 @@ public class Soldier extends Robot {
 			init = false;
 			init();
 		}
+
 		tempTarget = null;
 		attacked = false;
         RobotInfo[] enemies = rc.senseNearbyRobots(radius, opponent);
@@ -163,8 +164,14 @@ public class Soldier extends Robot {
         }
         turnCount++;
 	}
+	void verbose() throws GameActionException {
+		String s = Comms.getIndex(rc, 9);
+		int n = Integer.parseInt(s.substring(4, 16), 2)+1;
+		String message = s.substring(0, 4) + String.format("%12s", Integer.toBinaryString(n)).replace(" ", "0");
+		rc.writeSharedArray(9, Integer.parseInt(message, 2));
+	}
 	boolean assess(RobotInfo[] friendly, RobotInfo[] enemies) {
-		int fTotal = 0, eSTotal = 0, eVTotal = 0;
+		int fTotal = 2, eSTotal = 0, eVTotal = 0;
 		for (int i=0; i<friendly.length; i++) {
 			if (friendly[i].type == RobotType.ARCHON) {
 				fTotal += 10;
