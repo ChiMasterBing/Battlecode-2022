@@ -22,15 +22,13 @@ public class Comms {
         }
 
         if ((type & CommConstants.SCAN_ENEMY) != 0) {
-            int radius = rc.getType().actionRadiusSquared;
             Team opponent = rc.getTeam().opponent();
-            answer.enemy = rc.senseNearbyRobots(radius, opponent);
+            answer.enemy = rc.senseNearbyRobots(-1, opponent);
         }
 
         if ((type & CommConstants.SCAN_FRIENDLY) != 0) {
-            int radius = rc.getType().actionRadiusSquared;
             Team self = rc.getTeam();
-            answer.friendly = rc.senseNearbyRobots(radius, self);
+            answer.friendly = rc.senseNearbyRobots(-1, self);
         }
 
         return answer;
@@ -94,26 +92,26 @@ public class Comms {
     public static final int ZONE_WIDTH = 5;
     public static final int ZONE_HEIGHT = 5;
 
-    static void write(int message, RobotController rc) throws GameActionException {
-        MapLocation me = rc.getLocation();
-        int zx = me.x / ZONE_WIDTH, zy = me.y / ZONE_HEIGHT; // 5 is zone size
-        int encLocation = zx * 12 + zy; // 12 is max number of zones per strip (MAP_WIDTH / ZONE_HEIGHT)
+    static void write(int zoneX, int zoneY, int message, RobotController rc) throws GameActionException {
+        int encLocation = zoneX * 12 + zoneY; // 12 is max number of zones per strip (MAP_WIDTH / ZONE_HEIGHT)
 
         // We're encoding 4 pieces of information per zone
         int arrayIndex = encLocation / 4;
         int bitIndex = 4 * (encLocation % 4);
 
-        int curVal = (rc.readSharedArray(arrayIndex) | (0b1111 << bitIndex)) & (message << bitIndex);
+        int curVal = (rc.readSharedArray(arrayIndex) | (0b1111 << bitIndex)) ^ (0b1111 << bitIndex) ^ (message << bitIndex);
 
         rc.writeSharedArray(arrayIndex, curVal);
     }
 
-    static void encodeAndWrite(Information info, RobotController rc) throws GameActionException {
-        write(encode(info), rc);
+    static void write(int message, RobotController rc) throws GameActionException {
+        MapLocation me = rc.getLocation();
+        int zx = me.x / ZONE_WIDTH, zy = me.y / ZONE_HEIGHT; // 5 is zone size
+        write(zx, zy, message, rc);
     }
 
-    static MapLocation getZonePosition(int ArrayIndex, int index) {
-        return new MapLocation(((63 - ArrayIndex) * 4) / 15, ((63 - ArrayIndex) * 4 + index / 4) % 15);
+    static void encodeAndWrite(Information info, RobotController rc) throws GameActionException {
+        write(encode(info), rc);
     }
 
     static CommInformation read(int zoneX, int zoneY, RobotController rc) throws GameActionException {
@@ -129,6 +127,19 @@ public class Comms {
         int dangerLevel = val & 0b111;
 
         return new CommInformation(zoneX, zoneY, dangerLevel, hasLead);
+    }
+
+    static CommInformation[][] readAllZones(RobotController rc) throws GameActionException {
+        int width = rc.getMapWidth() / ZONE_WIDTH, height = rc.getMapHeight() / ZONE_HEIGHT;
+        CommInformation[][] info = new CommInformation[height][width];
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                info[y][x] = read(x, y, rc);
+            }
+        }
+
+        return info;
     }
 }
 
