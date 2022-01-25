@@ -1,67 +1,177 @@
 package dlinbotbot;
-import java.util.Random;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import battlecode.common.*;
+import dlinbotbot.bfs.*;
 
 public class Miner extends Robot {
     boolean init = true;
-    zone[][] self; //each miner keeps 1x1 instead of 4x4
+    CommInformation info[][];
     MapLocation homeArchonLocation;
     MapLocation lastZoneInfoLocation;
     Direction followingDir;
 
-    MapLocation targetLeadZone;
-    public Miner(RobotController rc) throws GameActionException {
+    int roundInfoLastUpdated;
+
+    MapLocation targetLoc;
+
+    MinerRoles role = MinerRoles.Miner;
+
+    public Miner(RobotController rc) {
         this.rc = rc;
     }
 
     static Direction dir = Direction.CENTER;
     public void run() throws GameActionException {
+        rc.setIndicatorString(role == MinerRoles.Miner ? "MINER" : "EXPLORER");
         if (init) {
             lastZoneInfoLocation = rc.getLocation();
-            Information i = Comms.scan(rc, 0);
-            Comms.write(Comms.encode(i), rc);
+            Comms.encodeAndWrite(Comms.scan(rc, CommConstants.SCAN_ENEMY | CommConstants.SCAN_LEAD), rc);
 
-            Direction archonDir = null;
-            RobotInfo[] ris = rc.senseNearbyRobots(-1, rc.getTeam());
-            for (RobotInfo ri : ris) {
-                if (ri.getType() != RobotType.ARCHON)
-                    continue;
+            info = Comms.readAllZones(rc);
+            roundInfoLastUpdated = rc.getRoundNum();
 
-                homeArchonLocation = ri.getLocation();
-                archonDir = rc.getLocation().directionTo(homeArchonLocation);
-                followingDir = archonDir;
-                break;
+            // TODO: BFS from closest to me
+
+            CommInformation targ = null;
+
+            int numUnknown = 0;
+            for (int y = 0; y < info.length; y++) {
+                for (int x = 0; x < info[0].length; x++) {
+                    if (info[y][x].getDangerLevel() == CommConstants.UNKNOWN) {
+                        numUnknown++;
+                        targ = info[y][x];
+                    }
+                }
             }
 
-            Direction res = directions.get(((directions.indexOf(archonDir) + 4 + rng.nextInt(3) - 1) % 8));
+            if (numUnknown > 10) {
+                role = MinerRoles.Explorer;
+            } else {
+                role = MinerRoles.Miner;
+                boolean found = false;
+                for (int y = 0; y < info.length; y++) {
+                    for (int x = 0; x < info[0].length; x++) {
+                        if (info[y][x].hasLead()) {
+                            targ = info[y][x];
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (found)
+                        break;
+                }
+            }
 
-            while (rc.canMove(res))
-                rc.move(res);
+            if (targ != null) {
+                targetLoc = new MapLocation(targ.getZoneX() * Comms.ZONE_WIDTH + Comms.ZONE_HEIGHT / 2,
+                        targ.getZoneY() * Comms.ZONE_HEIGHT + Comms.ZONE_HEIGHT / 2);
+            }
 
             init = false;
+        } else {
+            info = Comms.readAllZones(rc);
+            roundInfoLastUpdated = rc.getRoundNum();
         }
 
-        MapLocation[] locations = rc.senseNearbyLocationsWithLead(RobotType.MINER.actionRadiusSquared);
-        for (MapLocation l : locations) {
-            while (rc.canMineLead(l))
-                rc.mineLead(l);
-        }
+        lastZoneInfoLocation = rc.getLocation();
+        Comms.encodeAndWrite(Comms.scan(rc, CommConstants.SCAN_ENEMY | CommConstants.SCAN_LEAD), rc);
 
-        Direction archonDir = rc.getLocation().directionTo(homeArchonLocation);
-        while (rc.senseNearbyLocationsWithLead(RobotType.MINER.actionRadiusSquared).length == 0) {
-            Direction res = directions.get(((directions.indexOf(followingDir) + 8 + rng.nextInt(5) - 3) % 8));
-            if (rc.canMove(res)) {
-                rc.move(res);
+        boolean reachedTarget = targetLoc != null && targetLoc.isAdjacentTo(rc.getLocation());
 
-                if (lastZoneInfoLocation.distanceSquaredTo(rc.getLocation()) >= 20) {
-                    Information i = Comms.scan(rc, 0);
-                    Comms.write(Comms.encode(i), rc);
-                }
-            } else if (!rc.onTheMap(rc.getLocation().add(res))) {
-                followingDir = followingDir.rotateLeft();
+        if (targetLoc != null && !reachedTarget) {
+            Direction cur = rc.getLocation().directionTo(targetLoc);
+            Direction cdir;
+
+            switch (cur) {
+                case NORTH:
+                    cdir = BFSNorth.gbda(rc, targetLoc, dir.opposite());
+                    break;
+                case EAST:
+                    cdir = BFSEast.gbda(rc, targetLoc, dir.opposite());
+                    break;
+                case WEST:
+                    cdir = BFSWest.gbda(rc, targetLoc, dir.opposite());
+                    break;
+                case SOUTH:
+                    cdir = BFSSouth.gbda(rc, targetLoc, dir.opposite());
+                    break;
+                case NORTHEAST:
+                    cdir = BFSNorthEast.gbda(rc, targetLoc, dir.opposite());
+                    break;
+                case NORTHWEST:
+                    cdir = BFSNorthWest.gbda(rc, targetLoc, dir.opposite());
+                    break;
+                case SOUTHEAST:
+                    cdir = BFSSouthEast.gbda(rc, targetLoc, dir.opposite());
+                    break;
+                default:
+                    cdir = BFSSouthWest.gbda(rc, targetLoc, dir.opposite());
+                    break;
+            }
+            if (cdir != null && rc.canMove(cdir)) {
+                rc.move(cdir);
+                dir = cdir;
             }
         }
+
+        MapLocation[] locations = rc.senseNearbyLocationsWithLead(rc.getType().actionRadiusSquared);
+
+        if (role == MinerRoles.Explorer && targetLoc != null &&
+                info[targetLoc.x / Comms.ZONE_HEIGHT][targetLoc.x / Comms.ZONE_WIDTH].getDangerLevel() != CommConstants.UNKNOWN)
+            targetLoc = null;
+
+        if (locations.length != 0) {
+            for (MapLocation location : locations) {
+                while (rc.canMineLead(location)) {
+                    rc.mineLead(location);
+                    Direction dirTo = rc.getLocation().directionTo(location);
+                    if (rc.canMove(dirTo))
+                        rc.move(dirTo);
+                }
+            }
+        } else if (targetLoc == null || reachedTarget) {
+            if (role == MinerRoles.Miner) {
+
+                CommInformation lead = null;
+
+                for (int y = 0; y < info.length; y++) {
+                    for (int x = 0; x < info[0].length; x++) {
+                        if (info[y][x].hasLead()) {
+                            lead = info[y][x];
+                            break;
+                        }
+                    }
+                }
+
+                if (lead != null)
+                    targetLoc = new MapLocation(lead.getZoneX() * Comms.ZONE_WIDTH + Comms.ZONE_WIDTH / 2,
+                            lead.getZoneY() * Comms.ZONE_HEIGHT + Comms.ZONE_HEIGHT / 2);
+                else
+                    this.role = MinerRoles.Explorer;
+            } else {
+
+                CommInformation unknown = findZoneUnknown();
+
+                if (unknown != null)
+                    targetLoc = new MapLocation(unknown.getZoneX() * Comms.ZONE_WIDTH + Comms.ZONE_WIDTH / 2,
+                            unknown.getZoneY() * Comms.ZONE_HEIGHT + Comms.ZONE_HEIGHT / 2);
+                else
+                    this.role = MinerRoles.Miner;
+            }
+        }
+    }
+
+    private CommInformation findZoneUnknown() {
+        for (int y = 0; y < info.length; y++) {
+            for (int x = 0; x < info[0].length; x++) {
+                if (info[y][x].getDangerLevel() == CommConstants.UNKNOWN) {
+                    return info[y][x];
+                }
+            }
+        }
+        return null;
     }
 }
 

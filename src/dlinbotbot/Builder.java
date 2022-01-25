@@ -3,6 +3,7 @@ package dlinbotbot;
 import battlecode.common.GameActionException;
 import battlecode.common.MapLocation;
 import battlecode.common.RobotController;
+import dlinbotbot.bfs.BFSBuilder;
 
 import java.io.IOException;
 
@@ -18,8 +19,8 @@ public class Builder extends Robot {
 		//attack
 
 		//pathfind
-		MapLocation dir = null;
-		rc.move(BFSBuilder.getBestDir(rc, new MapLocation(0, 0)));
+//		MapLocation dir = null;
+//		rc.move(BFSBuilder.getBestDir(rc, new MapLocation(0, 0)));
 	}
 
 	static class Node implements Comparable<Node>{

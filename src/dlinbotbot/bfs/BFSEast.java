@@ -203,7 +203,7 @@ public class BFSEast {
 
     static Direction ans;
 
-    static Direction gbda(RobotController rc, MapLocation target, Direction prev) throws GameActionException {//get best dir -all
+    public static Direction gbda(RobotController rc, MapLocation target, Direction prev) throws GameActionException {//get best dir -all
         ans = null;
         l112 = rc.getLocation();
         c112 = 0;
