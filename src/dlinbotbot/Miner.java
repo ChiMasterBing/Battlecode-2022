@@ -22,10 +22,9 @@ public class Miner extends Robot {
     int nextAnomalyIndex = 0;
 
     boolean[] symmetry = {true, true, true};
-    boolean anomalySymmetryDesync = true;
 
-    int[] dX = {-1, -1, -1,  0, 0, 0,  1, 1, 1};
-    int[] dY = {-1,  0,  1, -1, 0, 1, -1, 0, 1};
+    int[] dX = {-2, -2, -2, -2, -2, -1, -1, -1,  0, 0, 0,  1, 1, 1,  2,  2, 2, 2, 2};
+    int[] dY = {-2, -1,  0,  1,  2, -1,  0,  1, -1, 0, 1, -1, 0, 1, -2, -1, 0, 1, 2};
 
     public Miner(RobotController rc) throws GameActionException {
         this.rc = rc;
@@ -72,6 +71,9 @@ public class Miner extends Robot {
                     targ.getZoneY() * Comms.ZONE_HEIGHT + Comms.ZONE_HEIGHT / 2);
         }
 
+        if (role == MinerRoles.Explorer && rc.getRoundNum() < 5)
+            targetLoc = new MapLocation(rc.getMapWidth() / 2, rc.getMapHeight() / 2);
+
         anomalySchedule = rc.getAnomalySchedule();
         nextAnomalyIndex = 0;
 
@@ -80,7 +82,7 @@ public class Miner extends Robot {
 
     static Direction dir = Direction.CENTER;
     public void run() throws GameActionException {
-        rc.setIndicatorString(Arrays.toString(symmetry));
+//        rc.setIndicatorString(Arrays.toString(symmetry));
         if (nextAnomalyIndex < anomalySchedule.length) {
             AnomalyScheduleEntry an = anomalySchedule[nextAnomalyIndex];
             if (an.roundNumber <= rc.getRoundNum()) {
@@ -162,7 +164,7 @@ public class Miner extends Robot {
         MapLocation me = rc.getLocation();
 
         syncSymmetry();
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < dX.length; i++) {
             checkSymmetry(me.translate(dX[i], dY[i]));
         }
 
