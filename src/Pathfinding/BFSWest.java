@@ -204,10 +204,163 @@ public class BFSWest {
     static Direction ans;
     static MapLocation lowest(RobotController rc) throws GameActionException {
         l112 = rc.getLocation();
+        c112 = 0;
+
+        l97 = l112.add(Direction.NORTH);
+        c97 = 10000000;
+        d97 = null;
+
+        l127 = l112.add(Direction.SOUTH);
+        c127 = 10000000;
+        d127 = null;
+
+        l126 = l112.add(Direction.SOUTHWEST);
+        c126 = 10000000;
+        d126 = null;
+
+        l96 = l112.add(Direction.NORTHWEST);
+        c96 = 10000000;
+        d96 = null;
+
+        l111 = l112.add(Direction.WEST);
+        c111 = 10000000;
+        d111 = null;
+
+        l82 = l97.add(Direction.NORTH);
+        c82 = 10000000;
+        d82 = null;
+
+        l81 = l97.add(Direction.NORTHWEST);
+        c81 = 10000000;
+        d81 = null;
+
+        l142 = l127.add(Direction.SOUTH);
+        c142 = 10000000;
+        d142 = null;
+
+        l141 = l127.add(Direction.SOUTHWEST);
+        c141 = 10000000;
+        d141 = null;
+
+        l140 = l126.add(Direction.SOUTHWEST);
+        c140 = 10000000;
+        d140 = null;
+
+        l110 = l126.add(Direction.NORTHWEST);
+        c110 = 10000000;
+        d110 = null;
+
+        l125 = l126.add(Direction.WEST);
+        c125 = 10000000;
+        d125 = null;
+
+        l80 = l96.add(Direction.NORTHWEST);
+        c80 = 10000000;
+        d80 = null;
+
+        l95 = l96.add(Direction.WEST);
+        c95 = 10000000;
+        d95 = null;
+
+        l67 = l82.add(Direction.NORTH);
+        c67 = 10000000;
+        d67 = null;
+
+        l66 = l82.add(Direction.NORTHWEST);
+        c66 = 10000000;
+        d66 = null;
+
+        l65 = l81.add(Direction.NORTHWEST);
+        c65 = 10000000;
+        d65 = null;
+
+        l157 = l142.add(Direction.SOUTH);
+        c157 = 10000000;
+        d157 = null;
+
+        l156 = l142.add(Direction.SOUTHWEST);
+        c156 = 10000000;
+        d156 = null;
+
+        l155 = l141.add(Direction.SOUTHWEST);
+        c155 = 10000000;
+        d155 = null;
+
+        l154 = l140.add(Direction.SOUTHWEST);
+        c154 = 10000000;
+        d154 = null;
+
+        l124 = l140.add(Direction.NORTHWEST);
+        c124 = 10000000;
+        d124 = null;
+
+        l139 = l140.add(Direction.WEST);
+        c139 = 10000000;
+        d139 = null;
+
+        l94 = l110.add(Direction.NORTHWEST);
+        c94 = 10000000;
+        d94 = null;
+
+        l109 = l110.add(Direction.WEST);
+        c109 = 10000000;
+        d109 = null;
+
+        l64 = l80.add(Direction.NORTHWEST);
+        c64 = 10000000;
+        d64 = null;
+
+        l79 = l80.add(Direction.WEST);
+        c79 = 10000000;
+        d79 = null;
+
+        l52 = l67.add(Direction.NORTH);
+        c52 = 10000000;
+        d52 = null;
+
+        l51 = l67.add(Direction.NORTHWEST);
+        c51 = 10000000;
+        d51 = null;
+
+        l50 = l66.add(Direction.NORTHWEST);
+        c50 = 10000000;
+        d50 = null;
+
+        l172 = l157.add(Direction.SOUTH);
+        c172 = 10000000;
+        d172 = null;
+
+        l171 = l157.add(Direction.SOUTHWEST);
+        c171 = 10000000;
+        d171 = null;
+
+        l170 = l156.add(Direction.SOUTHWEST);
+        c170 = 10000000;
+        d170 = null;
+
+        l138 = l154.add(Direction.NORTHWEST);
+        c138 = 10000000;
+        d138 = null;
+
+        l108 = l124.add(Direction.NORTHWEST);
+        c108 = 10000000;
+        d108 = null;
+
+        l123 = l124.add(Direction.WEST);
+        c123 = 10000000;
+        d123 = null;
+
+        l78 = l94.add(Direction.NORTHWEST);
+        c78 = 10000000;
+        d78 = null;
+
+        l93 = l94.add(Direction.WEST);
+        c93 = 10000000;
+        d93 = null;
         int cmin = Integer.MAX_VALUE;
         MapLocation ret = null;
 
-        if(rc.onTheMap(l112)&&!rc.isLocationOccupied(l112)&&rc.senseRubble(l112)<cmin){
+        if(rc.onTheMap(l112)){
             cmin=rc.senseRubble(l112);
             ret=l112;
         }

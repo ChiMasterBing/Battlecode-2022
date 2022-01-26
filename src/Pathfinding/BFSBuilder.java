@@ -87,46 +87,48 @@ public class BFSBuilder {
         MapLocation southwest = cur.add(Direction.SOUTHWEST);
         int cmin = Integer.MAX_VALUE;
         Direction ret = null;
-        if(rc.isLocationOccupied(north)&&rc.onTheMap(north)&&rc.senseRubble(north)<cmin){
+        if(rc.onTheMap(north)&&!rc.isLocationOccupied(north)&&rc.senseRubble(north)<cmin){
             ret =  Direction.NORTH;
             cmin = rc.senseRubble(north);
         }
-        if(rc.isLocationOccupied(south)&&rc.onTheMap(south)&&rc.senseRubble(south)<cmin){
+        if(rc.onTheMap(south)&&!rc.isLocationOccupied(south)&&rc.senseRubble(south)<cmin){
             ret= Direction.SOUTH;
             cmin = rc.senseRubble(south);
 
         }
-        if(rc.isLocationOccupied(east)&&rc.onTheMap(east)&&rc.senseRubble(east)<cmin){
+        if(rc.onTheMap(east)&&!rc.isLocationOccupied(east)&&rc.senseRubble(east)<cmin){
             ret= Direction.EAST;
             cmin = rc.senseRubble(east);
         }
-        if(rc.isLocationOccupied(west)&&rc.onTheMap(west)&&rc.senseRubble(west)<cmin){
+        if(rc.onTheMap(west)&&!rc.isLocationOccupied(west)&&rc.senseRubble(west)<cmin){
             ret= Direction.WEST;
             cmin = rc.senseRubble(west);
         }
-        if(rc.isLocationOccupied(northeast)&&rc.onTheMap(northeast)&&rc.senseRubble(northeast)<cmin){
+        if(rc.onTheMap(northeast)&&!rc.isLocationOccupied(northeast)&&rc.senseRubble(northeast)<cmin){
             ret= Direction.NORTHEAST;
             cmin = rc.senseRubble(northeast);
         }
-        if(rc.isLocationOccupied(northwest)&&rc.onTheMap(northwest)&&rc.senseRubble(northwest)<cmin){
+        if(rc.onTheMap(northwest)&&!rc.isLocationOccupied(northwest)&&rc.senseRubble(northwest)<cmin){
             ret= Direction.NORTHWEST;
             cmin = rc.senseRubble(northwest);
         }
-        if(rc.isLocationOccupied(southeast)&&rc.onTheMap(southeast)&&rc.senseRubble(southeast)<cmin){
+        if(rc.onTheMap(southeast)&&!rc.isLocationOccupied(southeast)&&rc.senseRubble(southeast)<cmin){
             ret= Direction.SOUTHEAST;
             cmin = rc.senseRubble(southeast);
         }
-        if(rc.isLocationOccupied(southwest)&&rc.onTheMap(southwest)&&rc.senseRubble(southwest)<cmin){
+        if(rc.onTheMap(southwest)&&!rc.isLocationOccupied(southwest)&&rc.senseRubble(southwest)<cmin){
             ret= Direction.SOUTHWEST;
             cmin = rc.senseRubble(southwest);
         }
+        System.out.println(cmin);
+        System.out.println(ret);
         return ret;
     }
     static MapLocation smallestInRange(RobotController rc) throws GameActionException {
         MapLocation ret = null;
         int cmin = Integer.MAX_VALUE;
         l112 = rc.getLocation();
-        if(rc.onTheMap(l112)&&!rc.isLocationOccupied(l112)&&rc.senseRubble(l112)<cmin){
+        if(rc.senseRubble(l112)<cmin){
             cmin=rc.senseRubble(l112);
             ret=l112;
         }

@@ -2,6 +2,8 @@ package Pathfinding;
 
 import battlecode.common.*;
 
+import java.util.Objects;
+
 public class Builder {
 	static boolean init = true;
 	static MapLocation aloc = null;
@@ -14,11 +16,27 @@ public class Builder {
 		// TODO Auto-generated method stub
 		//if you have enough miner + soldier and lead is neough and no danger, build
 		// if anomaly and sense better loc, go there and end
+		RobotInfo[] arr = rc.senseNearbyRobots();
+		int smallhealth = Integer.MAX_VALUE;
+		MapLocation loc =null;
+		rc.setIndicatorString("WTF");
+		for (RobotInfo i : arr) {
+			if (i.getTeam()==rc.getTeam()&&i.getType().isBuilding()&&i.getHealth()<smallhealth&&i.getHealth()<i.getType().health) {
+				smallhealth = i.getHealth();
+				loc = i.getLocation();
+			}
+		}
+		if(loc!=null&&rc.canRepair(loc)){
+//			System.out.println("REPAIRE");
+//			rc.resign();
+			rc.repair(loc);
+		}
 		if(settled){
 			AnomalyScheduleEntry[] anom = rc.getAnomalySchedule();
 			for(AnomalyScheduleEntry i: anom){
-				if(i.anomalyType==AnomalyType.VORTEX&&i.roundNumber+11==currentRound){
+				if(i.anomalyType==AnomalyType.VORTEX&&i.roundNumber+21==rc.getRoundNum()){
 					rc.move(pd);
+					dir = pd;
 					settled = false;
 					wait = 11;
 					targ = null;
@@ -52,6 +70,8 @@ public class Builder {
 			}
 		}
 		if(wait>1){
+			System.out.println("MM");
+//			rc.resign();
 			wait--;
 			return;
 		}
@@ -86,11 +106,31 @@ public class Builder {
 					break;
 			}
 		}else{
+			// !!WHAT IS THIS LINE?
+			rc.resign();
 			if(targ==null) {
 				targ = BFSBuilder.smallestInRange(rc);
 			}
 		}
-		Direction cur = rc.getLocation().directionTo(targ);
+//		if(rc.getRoundNum()>300){
+//			rc.resign();
+//		}
+//		System.out.println();
+//		MapLocation eee = new MapLocation(30, 19);
+//		if(Objects.equals(rc.getLocation(), eee)){
+//			System.out.println(pd);
+//			System.out.println(targ);
+//			rc.resign();
+//		}
+//		rc.setIndicatorString(targ.toString());
+		Direction cur = pd;//this avoids infiante loops
+		if(cur==null){
+			cur=Direction.CENTER;
+		}
+		if(targ==null){
+			System.out.println(pd);
+			rc.resign();
+		}
 		switch(cur){
 			case NORTH:
 				cdir=BFSNorth.gbda(rc, targ, dir.opposite());
@@ -120,19 +160,63 @@ public class Builder {
 				cdir = Direction.CENTER;
 				break;
 		}
-
-		if(cdir!=Direction.CENTER) {
+		//rc.setIndicatorString(cdir.toString());
+		if(targ==null){
+			System.out.println(rc.getLocation());
+			System.out.println(dir);
+			System.out.println(pd);
+			System.out.println(cdir);
+			//System.out.println(targ.toString());
+			//rc.resign();
+			rc.resign();
+		}
+		//rc.setIndicatorString(targ.toString());
+//		rc.resign();
+		if(cdir!=Direction.CENTER&&cdir!=null) {
+			//rc.setIndicatorString(targ.toString());
+//			rc.resign();
 			if (cdir != null && rc.canMove(cdir)) {
 				//System.out.println(dir);
 				rc.move(cdir);
 				dir = cdir;
+			}else{
+				if(rc.getMovementCooldownTurns()==0) {
+					System.out.println("HEEEE");
+					rc.resign();
+				}
 			}
 		}else {
-			if (!danger && enoughLead && enoughSold) {
+			//rc.setIndicatorString("BALLER");
+//			rc.resign();
+			int anum = rc.getArchonCount();
+			boolean underattck = false;
+			for(int i = 0; i<anum; i++){
+				if (((rc.readSharedArray(i)>>11)&1)==1) {// !!w8 CHEDCK THIS
+					underattck = true;
+					break;
+				}
+			}
+			if(underattck){// !! just for test
+				underattck = false;
+			}
+			//rc.resign();
+			int numsoldiers = rc.readSharedArray(9)>>4;
+			if (!underattck) {//dw abut soldiers for nwo
 				//find the least rubble dir
-				rc.move(pd);
-				Direction bestdir = BFSBuilder.getBestDir(rc);//best place to place tower
-				settled = true;
+
+				if(rc.getActionCooldownTurns()==0&&rc.getTeamLeadAmount(rc.getTeam())>180){
+					Direction bestdir = BFSBuilder.getBestDir(rc);//best place to move
+					if(rc.canMove(bestdir)) {
+						rc.move(bestdir);
+						dir = bestdir.opposite();
+						bestdir = BFSBuilder.getBestDir(rc);//best place to place tower
+						if(rc.canBuildRobot(RobotType.LABORATORY, bestdir)) {
+							settled = true;
+							rc.buildRobot(RobotType.LABORATORY, bestdir);
+						}
+					}
+
+				}
 			}
 		}
 

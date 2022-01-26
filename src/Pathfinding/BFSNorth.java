@@ -201,12 +201,14 @@ public class BFSNorth {
     static int c108;
     static int r108;
     static Direction d108;
+
     static MapLocation lowest(RobotController rc) throws GameActionException {
+
         l112 = rc.getLocation();
         int cmin = Integer.MAX_VALUE;
         MapLocation ret = null;
 
-        if(rc.onTheMap(l112)&&!rc.isLocationOccupied(l112)&&rc.senseRubble(l112)<cmin){
+        if(rc.senseRubble(l112)<cmin){//!! edited so that it goes into this loop
             cmin=rc.senseRubble(l112);
             ret=l112;
         }
@@ -1204,7 +1206,7 @@ public class BFSNorth {
         int cx = l112.x - 7 - target.x; //also kinda fricked cuz (0, 0) isnt top left
         int cy = l112.y + 7 - target.y;
         int nomove = Math.max(Math.abs(cx + 7) * 49, Math.abs(cy - 7) * 49); //make it <=
-        int cmin = rc.senseRubble(l112);
+        int cmin = Integer.MAX_VALUE;
 
         int dist50 = Math.max(Math.abs(cx+5)*49 + c50, Math.abs(cy - 3)*49+c50);
         if(dist50 <= cmin){
@@ -1437,7 +1439,6 @@ public class BFSNorth {
             cmin= dist114;
             ans = d114;
         }
-
 
         return ans;
     }
