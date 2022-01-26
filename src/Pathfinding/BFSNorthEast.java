@@ -201,7 +201,7 @@ public class BFSNorthEast {
         l112 = rc.getLocation();
         int cmin = Integer.MAX_VALUE;
         MapLocation ret = null;
-        if(rc.onTheMap(l112)&&!rc.isLocationOccupied(l112)&&rc.senseRubble(l112)<cmin){
+        if(rc.senseRubble(l112)<cmin){
             cmin=rc.senseRubble(l112);
             ret=l112;
         }

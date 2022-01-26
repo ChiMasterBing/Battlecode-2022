@@ -201,7 +201,7 @@ public class BFSSouthEast {
         l112 = rc.getLocation();
         int cmin = Integer.MAX_VALUE;
         MapLocation ret = null;
-        if(rc.onTheMap(l112)&&!rc.isLocationOccupied(l112)&&rc.senseRubble(l112)<cmin){
+        if(rc.senseRubble(l112)<cmin){
             cmin=rc.senseRubble(l112);
             ret=l112;
         }
@@ -427,6 +427,7 @@ public class BFSSouthEast {
             cmin=rc.senseRubble(l86);
             ret=l86;
         }
+        System.out.println(cmin);
         return ret;
     }
     static Direction gbda(RobotController rc, MapLocation target, Direction prev) throws GameActionException {//get best dir -all
