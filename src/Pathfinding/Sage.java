@@ -2,8 +2,10 @@ package Pathfinding;
 
 import battlecode.common.*;
 
-public class Sage {
 
+public class Sage {
+	static final int WAITWHENGETTHERE = -5;
+	static final int AVGPATHRUBBLE = 30;
 	static Direction dir=Direction.CENTER;
 	static boolean init = true;
 	static MapLocation startloc;
@@ -47,6 +49,7 @@ public class Sage {
 		int y = allinfo>>6;
 		x = 1;
 		y= 43;
+		MapLocation backup = new MapLocation(x, y);
 //		if(x==0&&y==0){
 //			rc.writeSharedArray(8, 0b111111110011);
 //			allinfo = rc.readSharedArray(8)>>4;
@@ -58,7 +61,15 @@ public class Sage {
 		if(prevEnemies>0){
 			prevEnemies--;
 		}
-		if (rc.getActionCooldownTurns() > 5) {
+		int turnsleft = rc.getActionCooldownTurns()/10;
+		if(rc.getActionCooldownTurns()>50&&rc.getHealth()<50) {//might wanan change this
+			if (rc.getLocation().distanceSquaredTo(startloc) > 5) {
+				targ = startloc;
+			}
+			rc.setIndicatorString("HEALING"+String.valueOf(dx)+" "+String.valueOf(dy)+"wTF IS IT?"+String.valueOf(rc.getActionCooldownTurns()));
+		}
+		else if (turnsleft>0&&(20-prevEnemies<=turnsleft||turnsleft>=Math.max(Math.abs(backup.x-rc.getLocation().x), Math.abs(backup.y-rc.getLocation().y))+WAITWHENGETTHERE)) {
+			rc.setIndicatorString("hding"+String.valueOf(dx)+" "+String.valueOf(dy)+"wTF IS IT?"+String.valueOf(rc.getActionCooldownTurns()));
 			if (enemies > 0) {
 				dx = 0;
 				dy = 0;
@@ -137,44 +148,23 @@ public class Sage {
 					}
 				}
 			}
-			int lowestrubble = Integer.MAX_VALUE;
 			if(enemies==0&&prevEnemies==0){//!! isnt this the same as what wil happen next?
-				targ = SageBFS.lowest();
-				lowestrubble = -1;
+				targ = SageBFS.lowest(100);
 			}
-			if(dx>=0&&dy>=0){
-				LocInt temprub = SageBFS.lowestNorthEast();
-				if(lowestrubble>temprub.x){
-					lowestrubble = temprub.x;
-					targ = temprub.y;
-				}
+			if(dx>0&&dy>0){
+				rc.move(Direction.NORTHEAST);
 			}
-			if(dx>=0&&dy<=0){
-				LocInt temprub = SageBFS.lowestSouthEast();
-				if(lowestrubble>temprub.x){
-					lowestrubble = temprub.x;
-					targ = temprub.y;
-				}
+			if(dx>0&&dy<0){
+				rc.move(Direction.SOUTHEAST);
 			}
-			if(dx<=0&&dy>=0){
-				LocInt temprub = SageBFS.lowestNorthWest();
-				if(lowestrubble>temprub.x){
-					lowestrubble = temprub.x;
-					targ = temprub.y;
-				}
+			if(dx<0&&dy>0){
+				rc.move(Direction.NORTHWEST);
 			}
-			if(dx<=0&&dy<=0){
-				LocInt temprub = SageBFS.lowestSouthWest();
-				if(lowestrubble>temprub.x){
-					lowestrubble = temprub.x;
-					targ = temprub.y;
-				}
+			if(dx<0&&dy<0){
+				rc.move(Direction.SOUTHWEST);
 			}
+
 //			targ = SageBFS.lowest();//finds the lowest rubble and stays
-			if(targ==null){
-				System.out.println("NO LOWEST");
-				rc.resign();
-			}
 		} else {
 			targ = new MapLocation(x, y);
 			if(targ==null){
@@ -186,6 +176,7 @@ public class Sage {
 				int ab = 0;//attack building anom
 				int at = 0;//attack troop anom
 				int n = 0;//normal attack
+				int apm = 0;
 				RobotInfo st = null;//special troop that can be attack if move
 				MapLocation norm = null; // normal attack location
 				Direction sdir = null; //special direction to move
@@ -197,18 +188,23 @@ public class Sage {
 							int benefits = 0;
 							RobotType typ = i.getType();
 							if (typ == RobotType.SAGE) {
+								apm+=45;
 								benefits = 30;
 							} else if (typ == RobotType.SOLDIER) {
+								apm+=3;
 								benefits = 20;
 							} else if (typ == RobotType.ARCHON) {
+								apm+=70;
 								benefits = 500;
 							} else if (typ == RobotType.BUILDER) {
 								benefits = 8;
 							} else if (typ == RobotType.MINER) {
 								benefits = 10;
 							} else if (typ == RobotType.WATCHTOWER) {
+								apm+=4;
 								benefits = 100;
 							} else {
+								apm+=45;
 								benefits = 200;
 							}
 							if (i.getHealth() < 45) {
@@ -249,6 +245,23 @@ public class Sage {
 							}
 						}
 					}
+
+				}
+				boolean shouldattack = true;
+				if(3*apm<rc.getHealth()){
+					if(apm!=0) {
+						targ = SageBFS.lowest(((rc.getHealth() / apm) / 10)+1);
+					}else{
+						targ = SageBFS.lowest(100);
+					}
+					//System.out.println(rc.getHealth()/apm);
+					shouldattack = false;
+					if(targ.equals(rc.getLocation())){
+						targ = backup;
+						shouldattack = true;
+					}
+				}
+				if(shouldattack) {
 					if (at > 40 && at > n && at > ab) {
 						rc.envision(AnomalyType.CHARGE);
 					} else if (ab > 40 && ab > at && ab > n) {
@@ -267,55 +280,52 @@ public class Sage {
 						}
 					}
 				}
-
 			}
+			rc.setIndicatorString("ATTACKING"+String.valueOf(dx)+" "+String.valueOf(dy)+targ+"wTF IS IT?"+String.valueOf(rc.getActionCooldownTurns()));
 
 		}
-		rc.setIndicatorString(String.valueOf(dx)+" "+String.valueOf(dy)+targ+"wTF IS IT?"+String.valueOf(rc.getActionCooldownTurns()));
 
 //		if(rc.getActionCooldownTurns()>1000){
 //			rc.resign();
 //		}
 //		goto archon
-		if((rc.getActionCooldownTurns()>5&&rc.getHealth()<50)||(rc.getHealth()<20)) {//might wanan change this
-			if (targ.distanceSquaredTo(startloc) > 5) {
-				targ = startloc;
+		if(targ!=null) {
+			Direction cur = rc.getLocation().directionTo(targ);
+			Direction cdir;
+			switch (cur) {//rip one move, but issok
+				case NORTH:
+					cdir = SageBFS.BFSNorth(targ, dir.opposite());
+					break;
+				case EAST:
+					cdir = SageBFS.BFSEast(targ, dir.opposite());
+					break;
+				case WEST:
+					cdir = SageBFS.BFSWest(targ, dir.opposite());
+					break;
+				case SOUTH:
+					cdir = SageBFS.BFSSouth(targ, dir.opposite());
+					break;
+				case NORTHEAST:
+					cdir = SageBFS.BFSNorthEast(targ, dir.opposite());
+					break;
+				case NORTHWEST:
+					cdir = SageBFS.BFSNorthWest(targ, dir.opposite());
+					break;
+				case SOUTHEAST:
+					cdir = SageBFS.BFSSouthEast(targ, dir.opposite());
+					break;
+				default:
+					cdir = SageBFS.BFSSouthWest(targ, dir.opposite());
+					break;
+			}
+			if(cdir!=null){
+				if (rc.canMove(cdir)) {
+					dir = cdir;
+					rc.move(cdir);
+				}
 			}
 		}
-		Direction cur = rc.getLocation().directionTo(targ);
-		Direction cdir;
-
-		switch (cur) {//rip one move, but issok
-			case NORTH:
-				cdir = SageBFS.BFSNorth(targ, dir.opposite());
-				break;
-			case EAST:
-				cdir = SageBFS.BFSEast(targ, dir.opposite());
-				break;
-			case WEST:
-				cdir = SageBFS.BFSWest(targ, dir.opposite());
-				break;
-			case SOUTH:
-				cdir = SageBFS.BFSSouth(targ, dir.opposite());
-				break;
-			case NORTHEAST:
-				cdir = SageBFS.BFSNorthEast(targ, dir.opposite());
-				break;
-			case NORTHWEST:
-				cdir = SageBFS.BFSNorthWest(targ, dir.opposite());
-				break;
-			case SOUTHEAST:
-				cdir = SageBFS.BFSSouthEast(targ, dir.opposite());
-				break;
-			default:
-				cdir = SageBFS.BFSSouthWest(targ, dir.opposite());
-				break;
-		}
 		//rc.setIndicatorString(targ.toString());
-		if(targ==null){
-			System.out.println("NO TARGET UNFORCH");
-			rc.resign();
-		}
 		//CODEGEN  IS BAD CHECK YOUR IF STAMEMENTS
 //		rc.setIndicatorString(targ.toString());
 //		System.out.println(targ);
@@ -337,10 +347,6 @@ public class Sage {
 ////			System.out.println(targ);
 ////			rc.resign();
 //		}
-		if (cdir!=null&&rc.canMove(cdir)) {
-			dir = cdir;
-			rc.move(cdir);
-		}
 	}
 	static void Suicide(){
 

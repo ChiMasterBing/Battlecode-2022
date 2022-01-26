@@ -32,7 +32,7 @@ public class Laboratory {
 				}
 			}
 		}else{
-			if(rc.getRoundNum()%3<1&&rc.canTransmute()) {
+			if(rc.canTransmute()) {
 				rc.transmute();
 			}
 		}

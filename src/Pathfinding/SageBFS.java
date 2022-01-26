@@ -1539,2392 +1539,249 @@ public class SageBFS {
 
 
     }
-    static MapLocation lowest(){
+    static MapLocation lowest(int layer){
         int lowest = Integer.MAX_VALUE;
         MapLocation ret = null;
 
-        if(r112 < lowest){
+        if(r112 < lowest&&layer>0){
             lowest = r112;
             ret = l112;
         }
-        if(r97 < lowest){
-            lowest = r97;
-            ret = l97;
-        }
-        if(r127 < lowest){
+        if(r127 < lowest&&layer>1){
             lowest = r127;
             ret = l127;
         }
-        if(r113 < lowest){
-            lowest = r113;
-            ret = l113;
-        }
-        if(r128 < lowest){
+        if(r128 < lowest&&layer>1){
             lowest = r128;
             ret = l128;
         }
-        if(r98 < lowest){
-            lowest = r98;
-            ret = l98;
-        }
-        if(r126 < lowest){
+        if(r126 < lowest&&layer>1){
             lowest = r126;
             ret = l126;
         }
-        if(r96 < lowest){
+        if(r96 < lowest&&layer>1){
             lowest = r96;
             ret = l96;
         }
-        if(r111 < lowest){
+        if(r111 < lowest&&layer>1){
             lowest = r111;
             ret = l111;
         }
-        if(r82 < lowest){
-            lowest = r82;
-            ret = l82;
-        }
-        if(r83 < lowest){
-            lowest = r83;
-            ret = l83;
-        }
-        if(r81 < lowest){
-            lowest = r81;
-            ret = l81;
-        }
-        if(r142 < lowest){
+        if(r142 < lowest&&layer>2){
             lowest = r142;
             ret = l142;
         }
-        if(r143 < lowest){
+        if(r143 < lowest&&layer>2){
             lowest = r143;
             ret = l143;
         }
-        if(r141 < lowest){
+        if(r141 < lowest&&layer>2){
             lowest = r141;
             ret = l141;
         }
-        if(r114 < lowest){
-            lowest = r114;
-            ret = l114;
-        }
-        if(r129 < lowest){
-            lowest = r129;
-            ret = l129;
-        }
-        if(r99 < lowest){
-            lowest = r99;
-            ret = l99;
-        }
-        if(r144 < lowest){
+        if(r144 < lowest&&layer>2){
             lowest = r144;
             ret = l144;
         }
-        if(r84 < lowest){
-            lowest = r84;
-            ret = l84;
-        }
-        if(r140 < lowest){
+        if(r140 < lowest&&layer>2){
             lowest = r140;
             ret = l140;
         }
-        if(r110 < lowest){
+        if(r110 < lowest&&layer>2){
             lowest = r110;
             ret = l110;
         }
-        if(r125 < lowest){
+        if(r125 < lowest&&layer>2){
             lowest = r125;
             ret = l125;
         }
-        if(r80 < lowest){
+        if(r80 < lowest&&layer>2){
             lowest = r80;
             ret = l80;
         }
-        if(r95 < lowest){
+        if(r95 < lowest&&layer>2){
             lowest = r95;
             ret = l95;
         }
-        if(r67 < lowest){
-            lowest = r67;
-            ret = l67;
-        }
-        if(r68 < lowest){
-            lowest = r68;
-            ret = l68;
-        }
-        if(r66 < lowest){
-            lowest = r66;
-            ret = l66;
-        }
-        if(r69 < lowest){
-            lowest = r69;
-            ret = l69;
-        }
-        if(r65 < lowest){
-            lowest = r65;
-            ret = l65;
-        }
-        if(r157 < lowest){
+        if(r157 < lowest&&layer>3){
             lowest = r157;
             ret = l157;
         }
-        if(r158 < lowest){
+        if(r158 < lowest&&layer>3){
             lowest = r158;
             ret = l158;
         }
-        if(r156 < lowest){
+        if(r156 < lowest&&layer>3){
             lowest = r156;
             ret = l156;
         }
-        if(r159 < lowest){
+        if(r159 < lowest&&layer>3){
             lowest = r159;
             ret = l159;
         }
-        if(r155 < lowest){
+        if(r155 < lowest&&layer>3){
             lowest = r155;
             ret = l155;
         }
-        if(r115 < lowest){
-            lowest = r115;
-            ret = l115;
-        }
-        if(r130 < lowest){
-            lowest = r130;
-            ret = l130;
-        }
-        if(r100 < lowest){
-            lowest = r100;
-            ret = l100;
-        }
-        if(r145 < lowest){
-            lowest = r145;
-            ret = l145;
-        }
-        if(r85 < lowest){
-            lowest = r85;
-            ret = l85;
-        }
-        if(r160 < lowest){
+        if(r160 < lowest&&layer>3){
             lowest = r160;
             ret = l160;
         }
-        if(r70 < lowest){
-            lowest = r70;
-            ret = l70;
-        }
-        if(r154 < lowest){
+        if(r154 < lowest&&layer>3){
             lowest = r154;
             ret = l154;
         }
-        if(r124 < lowest){
+        if(r124 < lowest&&layer>3){
             lowest = r124;
             ret = l124;
         }
-        if(r139 < lowest){
+        if(r139 < lowest&&layer>3){
             lowest = r139;
             ret = l139;
         }
-        if(r94 < lowest){
+        if(r94 < lowest&&layer>3){
             lowest = r94;
             ret = l94;
         }
-        if(r109 < lowest){
+        if(r109 < lowest&&layer>3){
             lowest = r109;
             ret = l109;
         }
-        if(r64 < lowest){
+        if(r64 < lowest&&layer>3){
             lowest = r64;
             ret = l64;
         }
-        if(r79 < lowest){
+        if(r79 < lowest&&layer>3){
             lowest = r79;
             ret = l79;
         }
-        if(r52 < lowest){
-            lowest = r52;
-            ret = l52;
-        }
-        if(r53 < lowest){
-            lowest = r53;
-            ret = l53;
-        }
-        if(r51 < lowest){
-            lowest = r51;
-            ret = l51;
-        }
-        if(r54 < lowest){
-            lowest = r54;
-            ret = l54;
-        }
-        if(r50 < lowest){
-            lowest = r50;
-            ret = l50;
-        }
-        if(r55 < lowest){
-            lowest = r55;
-            ret = l55;
-        }
-        if(r49 < lowest){
-            lowest = r49;
-            ret = l49;
-        }
-        if(r172 < lowest){
+        if(r172 < lowest&&layer>4){
             lowest = r172;
             ret = l172;
         }
-        if(r173 < lowest){
+        if(r173 < lowest&&layer>4){
             lowest = r173;
             ret = l173;
         }
-        if(r171 < lowest){
+        if(r171 < lowest&&layer>4){
             lowest = r171;
             ret = l171;
         }
-        if(r174 < lowest){
+        if(r174 < lowest&&layer>4){
             lowest = r174;
             ret = l174;
         }
-        if(r170 < lowest){
+        if(r170 < lowest&&layer>4){
             lowest = r170;
             ret = l170;
         }
-        if(r175 < lowest){
+        if(r175 < lowest&&layer>4){
             lowest = r175;
             ret = l175;
         }
-        if(r169 < lowest){
+        if(r169 < lowest&&layer>4){
             lowest = r169;
             ret = l169;
         }
-        if(r116 < lowest){
-            lowest = r116;
-            ret = l116;
-        }
-        if(r131 < lowest){
-            lowest = r131;
-            ret = l131;
-        }
-        if(r101 < lowest){
-            lowest = r101;
-            ret = l101;
-        }
-        if(r146 < lowest){
-            lowest = r146;
-            ret = l146;
-        }
-        if(r86 < lowest){
-            lowest = r86;
-            ret = l86;
-        }
-        if(r161 < lowest){
-            lowest = r161;
-            ret = l161;
-        }
-        if(r71 < lowest){
-            lowest = r71;
-            ret = l71;
-        }
-        if(r176 < lowest){
+        if(r176 < lowest&&layer>4){
             lowest = r176;
             ret = l176;
         }
-        if(r56 < lowest){
-            lowest = r56;
-            ret = l56;
-        }
-        if(r168 < lowest){
+        if(r168 < lowest&&layer>4){
             lowest = r168;
             ret = l168;
         }
-        if(r138 < lowest){
+        if(r138 < lowest&&layer>4){
             lowest = r138;
             ret = l138;
         }
-        if(r153 < lowest){
+        if(r153 < lowest&&layer>4){
             lowest = r153;
             ret = l153;
         }
-        if(r108 < lowest){
+        if(r108 < lowest&&layer>4){
             lowest = r108;
             ret = l108;
         }
-        if(r123 < lowest){
+        if(r123 < lowest&&layer>4){
             lowest = r123;
             ret = l123;
         }
-        if(r78 < lowest){
+        if(r78 < lowest&&layer>4){
             lowest = r78;
             ret = l78;
         }
-        if(r93 < lowest){
+        if(r93 < lowest&&layer>4){
             lowest = r93;
             ret = l93;
         }
-        if(r48 < lowest){
+        if(r48 < lowest&&layer>4){
             lowest = r48;
             ret = l48;
         }
-        if(r63 < lowest){
+        if(r63 < lowest&&layer>4){
             lowest = r63;
             ret = l63;
         }
-        if(r37 < lowest){
-            lowest = r37;
-            ret = l37;
-        }
-        if(r38 < lowest){
-            lowest = r38;
-            ret = l38;
-        }
-        if(r36 < lowest){
-            lowest = r36;
-            ret = l36;
-        }
-        if(r39 < lowest){
-            lowest = r39;
-            ret = l39;
-        }
-        if(r35 < lowest){
-            lowest = r35;
-            ret = l35;
-        }
-        if(r40 < lowest){
-            lowest = r40;
-            ret = l40;
-        }
-        if(r34 < lowest){
-            lowest = r34;
-            ret = l34;
-        }
-        if(r187 < lowest){
+        if(r187 < lowest&&layer>5){
             lowest = r187;
             ret = l187;
         }
-        if(r188 < lowest){
+        if(r188 < lowest&&layer>5){
             lowest = r188;
             ret = l188;
         }
-        if(r186 < lowest){
+        if(r186 < lowest&&layer>5){
             lowest = r186;
             ret = l186;
         }
-        if(r189 < lowest){
+        if(r189 < lowest&&layer>5){
             lowest = r189;
             ret = l189;
         }
-        if(r185 < lowest){
+        if(r185 < lowest&&layer>5){
             lowest = r185;
             ret = l185;
         }
-        if(r190 < lowest){
+        if(r190 < lowest&&layer>5){
             lowest = r190;
             ret = l190;
         }
-        if(r184 < lowest){
+        if(r184 < lowest&&layer>5){
             lowest = r184;
             ret = l184;
         }
-        if(r117 < lowest){
-            lowest = r117;
-            ret = l117;
-        }
-        if(r132 < lowest){
-            lowest = r132;
-            ret = l132;
-        }
-        if(r102 < lowest){
-            lowest = r102;
-            ret = l102;
-        }
-        if(r147 < lowest){
-            lowest = r147;
-            ret = l147;
-        }
-        if(r87 < lowest){
-            lowest = r87;
-            ret = l87;
-        }
-        if(r162 < lowest){
-            lowest = r162;
-            ret = l162;
-        }
-        if(r72 < lowest){
-            lowest = r72;
-            ret = l72;
-        }
-        if(r152 < lowest){
+        if(r152 < lowest&&layer>5){
             lowest = r152;
             ret = l152;
         }
-        if(r122 < lowest){
+        if(r122 < lowest&&layer>5){
             lowest = r122;
             ret = l122;
         }
-        if(r137 < lowest){
+        if(r137 < lowest&&layer>5){
             lowest = r137;
             ret = l137;
         }
-        if(r92 < lowest){
+        if(r92 < lowest&&layer>5){
             lowest = r92;
             ret = l92;
         }
-        if(r107 < lowest){
+        if(r107 < lowest&&layer>5){
             lowest = r107;
             ret = l107;
         }
-        if(r62 < lowest){
+        if(r62 < lowest&&layer>5){
             lowest = r62;
             ret = l62;
         }
-        if(r77 < lowest){
+        if(r77 < lowest&&layer>5){
             lowest = r77;
             ret = l77;
         }
         return ret;
     }
-    static LocInt lowestNorth() {
-        int lowest = Integer.MAX_VALUE;
-        MapLocation ret = null;
-        if(r112 < lowest){
-            lowest = r112;
-            ret = l112;
-        }
-        if(r97 < lowest){
-            lowest = r97;
-            ret = l97;
-        }
-        if(r113 < lowest){
-            lowest = r113;
-            ret = l113;
-        }
-        if(r98 < lowest){
-            lowest = r98;
-            ret = l98;
-        }
-        if(r96 < lowest){
-            lowest = r96;
-            ret = l96;
-        }
-        if(r111 < lowest){
-            lowest = r111;
-            ret = l111;
-        }
-        if(r82 < lowest){
-            lowest = r82;
-            ret = l82;
-        }
-        if(r83 < lowest){
-            lowest = r83;
-            ret = l83;
-        }
-        if(r81 < lowest){
-            lowest = r81;
-            ret = l81;
-        }
-        if(r114 < lowest){
-            lowest = r114;
-            ret = l114;
-        }
-        if(r99 < lowest){
-            lowest = r99;
-            ret = l99;
-        }
-        if(r84 < lowest){
-            lowest = r84;
-            ret = l84;
-        }
-        if(r80 < lowest){
-            lowest = r80;
-            ret = l80;
-        }
-        if(r95 < lowest){
-            lowest = r95;
-            ret = l95;
-        }
-        if(r110 < lowest){
-            lowest = r110;
-            ret = l110;
-        }
-        if(r67 < lowest){
-            lowest = r67;
-            ret = l67;
-        }
-        if(r68 < lowest){
-            lowest = r68;
-            ret = l68;
-        }
-        if(r66 < lowest){
-            lowest = r66;
-            ret = l66;
-        }
-        if(r69 < lowest){
-            lowest = r69;
-            ret = l69;
-        }
-        if(r65 < lowest){
-            lowest = r65;
-            ret = l65;
-        }
-        if(r115 < lowest){
-            lowest = r115;
-            ret = l115;
-        }
-        if(r100 < lowest){
-            lowest = r100;
-            ret = l100;
-        }
-        if(r85 < lowest){
-            lowest = r85;
-            ret = l85;
-        }
-        if(r70 < lowest){
-            lowest = r70;
-            ret = l70;
-        }
-        if(r64 < lowest){
-            lowest = r64;
-            ret = l64;
-        }
-        if(r79 < lowest){
-            lowest = r79;
-            ret = l79;
-        }
-        if(r94 < lowest){
-            lowest = r94;
-            ret = l94;
-        }
-        if(r109 < lowest){
-            lowest = r109;
-            ret = l109;
-        }
-        if(r52 < lowest){
-            lowest = r52;
-            ret = l52;
-        }
-        if(r53 < lowest){
-            lowest = r53;
-            ret = l53;
-        }
-        if(r51 < lowest){
-            lowest = r51;
-            ret = l51;
-        }
-        if(r54 < lowest){
-            lowest = r54;
-            ret = l54;
-        }
-        if(r50 < lowest){
-            lowest = r50;
-            ret = l50;
-        }
-        if(r55 < lowest){
-            lowest = r55;
-            ret = l55;
-        }
-        if(r49 < lowest){
-            lowest = r49;
-            ret = l49;
-        }
-        if(r116 < lowest){
-            lowest = r116;
-            ret = l116;
-        }
-        if(r101 < lowest){
-            lowest = r101;
-            ret = l101;
-        }
-        if(r86 < lowest){
-            lowest = r86;
-            ret = l86;
-        }
-        if(r71 < lowest){
-            lowest = r71;
-            ret = l71;
-        }
-        if(r56 < lowest){
-            lowest = r56;
-            ret = l56;
-        }
-        if(r48 < lowest){
-            lowest = r48;
-            ret = l48;
-        }
-        if(r63 < lowest){
-            lowest = r63;
-            ret = l63;
-        }
-        if(r78 < lowest){
-            lowest = r78;
-            ret = l78;
-        }
-        if(r93 < lowest){
-            lowest = r93;
-            ret = l93;
-        }
-        if(r108 < lowest){
-            lowest = r108;
-            ret = l108;
-        }
-        if(r37 < lowest){
-            lowest = r37;
-            ret = l37;
-        }
-        if(r38 < lowest){
-            lowest = r38;
-            ret = l38;
-        }
-        if(r36 < lowest){
-            lowest = r36;
-            ret = l36;
-        }
-        if(r39 < lowest){
-            lowest = r39;
-            ret = l39;
-        }
-        if(r35 < lowest){
-            lowest = r35;
-            ret = l35;
-        }
-        if(r40 < lowest){
-            lowest = r40;
-            ret = l40;
-        }
-        if(r34 < lowest){
-            lowest = r34;
-            ret = l34;
-        }
-        if(r117 < lowest){
-            lowest = r117;
-            ret = l117;
-        }
-        if(r102 < lowest){
-            lowest = r102;
-            ret = l102;
-        }
-        if(r87 < lowest){
-            lowest = r87;
-            ret = l87;
-        }
-        if(r72 < lowest){
-            lowest = r72;
-            ret = l72;
-        }
-        if(r62 < lowest){
-            lowest = r62;
-            ret = l62;
-        }
-        if(r77 < lowest){
-            lowest = r77;
-            ret = l77;
-        }
-        if(r92 < lowest){
-            lowest = r92;
-            ret = l92;
-        }
-        if(r107 < lowest){
-            lowest = r107;
-            ret = l107;
-        }
-        return new LocInt(lowest, ret);
-    }
-    static LocInt lowestSouth(){
-        int lowest = Integer.MAX_VALUE;
-        MapLocation ret = null;
-        if(r112 < lowest){
-            lowest = r112;
-            ret = l112;
-        }
-        if(r127 < lowest){
-            lowest = r127;
-            ret = l127;
-        }
-        if(r113 < lowest){
-            lowest = r113;
-            ret = l113;
-        }
-        if(r128 < lowest){
-            lowest = r128;
-            ret = l128;
-        }
-        if(r126 < lowest){
-            lowest = r126;
-            ret = l126;
-        }
-        if(r111 < lowest){
-            lowest = r111;
-            ret = l111;
-        }
-        if(r142 < lowest){
-            lowest = r142;
-            ret = l142;
-        }
-        if(r143 < lowest){
-            lowest = r143;
-            ret = l143;
-        }
-        if(r141 < lowest){
-            lowest = r141;
-            ret = l141;
-        }
-        if(r114 < lowest){
-            lowest = r114;
-            ret = l114;
-        }
-        if(r129 < lowest){
-            lowest = r129;
-            ret = l129;
-        }
-        if(r144 < lowest){
-            lowest = r144;
-            ret = l144;
-        }
-        if(r140 < lowest){
-            lowest = r140;
-            ret = l140;
-        }
-        if(r125 < lowest){
-            lowest = r125;
-            ret = l125;
-        }
-        if(r110 < lowest){
-            lowest = r110;
-            ret = l110;
-        }
-        if(r157 < lowest){
-            lowest = r157;
-            ret = l157;
-        }
-        if(r158 < lowest){
-            lowest = r158;
-            ret = l158;
-        }
-        if(r156 < lowest){
-            lowest = r156;
-            ret = l156;
-        }
-        if(r159 < lowest){
-            lowest = r159;
-            ret = l159;
-        }
-        if(r155 < lowest){
-            lowest = r155;
-            ret = l155;
-        }
-        if(r115 < lowest){
-            lowest = r115;
-            ret = l115;
-        }
-        if(r130 < lowest){
-            lowest = r130;
-            ret = l130;
-        }
-        if(r145 < lowest){
-            lowest = r145;
-            ret = l145;
-        }
-        if(r160 < lowest){
-            lowest = r160;
-            ret = l160;
-        }
-        if(r154 < lowest){
-            lowest = r154;
-            ret = l154;
-        }
-        if(r139 < lowest){
-            lowest = r139;
-            ret = l139;
-        }
-        if(r124 < lowest){
-            lowest = r124;
-            ret = l124;
-        }
-        if(r109 < lowest){
-            lowest = r109;
-            ret = l109;
-        }
-        if(r172 < lowest){
-            lowest = r172;
-            ret = l172;
-        }
-        if(r173 < lowest){
-            lowest = r173;
-            ret = l173;
-        }
-        if(r171 < lowest){
-            lowest = r171;
-            ret = l171;
-        }
-        if(r174 < lowest){
-            lowest = r174;
-            ret = l174;
-        }
-        if(r170 < lowest){
-            lowest = r170;
-            ret = l170;
-        }
-        if(r175 < lowest){
-            lowest = r175;
-            ret = l175;
-        }
-        if(r169 < lowest){
-            lowest = r169;
-            ret = l169;
-        }
-        if(r116 < lowest){
-            lowest = r116;
-            ret = l116;
-        }
-        if(r131 < lowest){
-            lowest = r131;
-            ret = l131;
-        }
-        if(r146 < lowest){
-            lowest = r146;
-            ret = l146;
-        }
-        if(r161 < lowest){
-            lowest = r161;
-            ret = l161;
-        }
-        if(r176 < lowest){
-            lowest = r176;
-            ret = l176;
-        }
-        if(r168 < lowest){
-            lowest = r168;
-            ret = l168;
-        }
-        if(r153 < lowest){
-            lowest = r153;
-            ret = l153;
-        }
-        if(r138 < lowest){
-            lowest = r138;
-            ret = l138;
-        }
-        if(r123 < lowest){
-            lowest = r123;
-            ret = l123;
-        }
-        if(r108 < lowest){
-            lowest = r108;
-            ret = l108;
-        }
-        if(r187 < lowest){
-            lowest = r187;
-            ret = l187;
-        }
-        if(r188 < lowest){
-            lowest = r188;
-            ret = l188;
-        }
-        if(r186 < lowest){
-            lowest = r186;
-            ret = l186;
-        }
-        if(r189 < lowest){
-            lowest = r189;
-            ret = l189;
-        }
-        if(r185 < lowest){
-            lowest = r185;
-            ret = l185;
-        }
-        if(r190 < lowest){
-            lowest = r190;
-            ret = l190;
-        }
-        if(r184 < lowest){
-            lowest = r184;
-            ret = l184;
-        }
-        if(r117 < lowest){
-            lowest = r117;
-            ret = l117;
-        }
-        if(r132 < lowest){
-            lowest = r132;
-            ret = l132;
-        }
-        if(r147 < lowest){
-            lowest = r147;
-            ret = l147;
-        }
-        if(r162 < lowest){
-            lowest = r162;
-            ret = l162;
-        }
-        if(r152 < lowest){
-            lowest = r152;
-            ret = l152;
-        }
-        if(r137 < lowest){
-            lowest = r137;
-            ret = l137;
-        }
-        if(r122 < lowest){
-            lowest = r122;
-            ret = l122;
-        }
-        if(r107 < lowest){
-            lowest = r107;
-            ret = l107;
-        }
-        return new LocInt(lowest, ret);
-    }
-    static LocInt lowestEast(){
-        int lowest = Integer.MAX_VALUE;
-        MapLocation ret = null;
-        if(r112 < lowest){
-            lowest = r112;
-            ret = l112;
-        }
-        if(r97 < lowest){
-            lowest = r97;
-            ret = l97;
-        }
-        if(r127 < lowest){
-            lowest = r127;
-            ret = l127;
-        }
-        if(r113 < lowest){
-            lowest = r113;
-            ret = l113;
-        }
-        if(r128 < lowest){
-            lowest = r128;
-            ret = l128;
-        }
-        if(r98 < lowest){
-            lowest = r98;
-            ret = l98;
-        }
-        if(r82 < lowest){
-            lowest = r82;
-            ret = l82;
-        }
-        if(r83 < lowest){
-            lowest = r83;
-            ret = l83;
-        }
-        if(r142 < lowest){
-            lowest = r142;
-            ret = l142;
-        }
-        if(r143 < lowest){
-            lowest = r143;
-            ret = l143;
-        }
-        if(r114 < lowest){
-            lowest = r114;
-            ret = l114;
-        }
-        if(r129 < lowest){
-            lowest = r129;
-            ret = l129;
-        }
-        if(r99 < lowest){
-            lowest = r99;
-            ret = l99;
-        }
-        if(r144 < lowest){
-            lowest = r144;
-            ret = l144;
-        }
-        if(r84 < lowest){
-            lowest = r84;
-            ret = l84;
-        }
-        if(r67 < lowest){
-            lowest = r67;
-            ret = l67;
-        }
-        if(r68 < lowest){
-            lowest = r68;
-            ret = l68;
-        }
-        if(r69 < lowest){
-            lowest = r69;
-            ret = l69;
-        }
-        if(r157 < lowest){
-            lowest = r157;
-            ret = l157;
-        }
-        if(r158 < lowest){
-            lowest = r158;
-            ret = l158;
-        }
-        if(r159 < lowest){
-            lowest = r159;
-            ret = l159;
-        }
-        if(r115 < lowest){
-            lowest = r115;
-            ret = l115;
-        }
-        if(r130 < lowest){
-            lowest = r130;
-            ret = l130;
-        }
-        if(r100 < lowest){
-            lowest = r100;
-            ret = l100;
-        }
-        if(r145 < lowest){
-            lowest = r145;
-            ret = l145;
-        }
-        if(r85 < lowest){
-            lowest = r85;
-            ret = l85;
-        }
-        if(r160 < lowest){
-            lowest = r160;
-            ret = l160;
-        }
-        if(r70 < lowest){
-            lowest = r70;
-            ret = l70;
-        }
-        if(r52 < lowest){
-            lowest = r52;
-            ret = l52;
-        }
-        if(r53 < lowest){
-            lowest = r53;
-            ret = l53;
-        }
-        if(r54 < lowest){
-            lowest = r54;
-            ret = l54;
-        }
-        if(r55 < lowest){
-            lowest = r55;
-            ret = l55;
-        }
-        if(r172 < lowest){
-            lowest = r172;
-            ret = l172;
-        }
-        if(r173 < lowest){
-            lowest = r173;
-            ret = l173;
-        }
-        if(r174 < lowest){
-            lowest = r174;
-            ret = l174;
-        }
-        if(r175 < lowest){
-            lowest = r175;
-            ret = l175;
-        }
-        if(r116 < lowest){
-            lowest = r116;
-            ret = l116;
-        }
-        if(r131 < lowest){
-            lowest = r131;
-            ret = l131;
-        }
-        if(r101 < lowest){
-            lowest = r101;
-            ret = l101;
-        }
-        if(r146 < lowest){
-            lowest = r146;
-            ret = l146;
-        }
-        if(r86 < lowest){
-            lowest = r86;
-            ret = l86;
-        }
-        if(r161 < lowest){
-            lowest = r161;
-            ret = l161;
-        }
-        if(r71 < lowest){
-            lowest = r71;
-            ret = l71;
-        }
-        if(r176 < lowest){
-            lowest = r176;
-            ret = l176;
-        }
-        if(r56 < lowest){
-            lowest = r56;
-            ret = l56;
-        }
-        if(r37 < lowest){
-            lowest = r37;
-            ret = l37;
-        }
-        if(r38 < lowest){
-            lowest = r38;
-            ret = l38;
-        }
-        if(r39 < lowest){
-            lowest = r39;
-            ret = l39;
-        }
-        if(r40 < lowest){
-            lowest = r40;
-            ret = l40;
-        }
-        if(r187 < lowest){
-            lowest = r187;
-            ret = l187;
-        }
-        if(r188 < lowest){
-            lowest = r188;
-            ret = l188;
-        }
-        if(r189 < lowest){
-            lowest = r189;
-            ret = l189;
-        }
-        if(r190 < lowest){
-            lowest = r190;
-            ret = l190;
-        }
-        if(r117 < lowest){
-            lowest = r117;
-            ret = l117;
-        }
-        if(r132 < lowest){
-            lowest = r132;
-            ret = l132;
-        }
-        if(r102 < lowest){
-            lowest = r102;
-            ret = l102;
-        }
-        if(r147 < lowest){
-            lowest = r147;
-            ret = l147;
-        }
-        if(r87 < lowest){
-            lowest = r87;
-            ret = l87;
-        }
-        if(r162 < lowest){
-            lowest = r162;
-            ret = l162;
-        }
-        if(r72 < lowest){
-            lowest = r72;
-            ret = l72;
-        }
-        return new LocInt(lowest, ret);
-    }
-    static LocInt lowestWest(){
-        int lowest = Integer.MAX_VALUE;
-        MapLocation ret = null;
-        if(r112 < lowest){
-            lowest = r112;
-            ret = l112;
-        }
-        if(r97 < lowest){
-            lowest = r97;
-            ret = l97;
-        }
-        if(r127 < lowest){
-            lowest = r127;
-            ret = l127;
-        }
-        if(r126 < lowest){
-            lowest = r126;
-            ret = l126;
-        }
-        if(r96 < lowest){
-            lowest = r96;
-            ret = l96;
-        }
-        if(r111 < lowest){
-            lowest = r111;
-            ret = l111;
-        }
-        if(r82 < lowest){
-            lowest = r82;
-            ret = l82;
-        }
-        if(r81 < lowest){
-            lowest = r81;
-            ret = l81;
-        }
-        if(r142 < lowest){
-            lowest = r142;
-            ret = l142;
-        }
-        if(r141 < lowest){
-            lowest = r141;
-            ret = l141;
-        }
-        if(r140 < lowest){
-            lowest = r140;
-            ret = l140;
-        }
-        if(r110 < lowest){
-            lowest = r110;
-            ret = l110;
-        }
-        if(r125 < lowest){
-            lowest = r125;
-            ret = l125;
-        }
-        if(r80 < lowest){
-            lowest = r80;
-            ret = l80;
-        }
-        if(r95 < lowest){
-            lowest = r95;
-            ret = l95;
-        }
-        if(r67 < lowest){
-            lowest = r67;
-            ret = l67;
-        }
-        if(r66 < lowest){
-            lowest = r66;
-            ret = l66;
-        }
-        if(r65 < lowest){
-            lowest = r65;
-            ret = l65;
-        }
-        if(r157 < lowest){
-            lowest = r157;
-            ret = l157;
-        }
-        if(r156 < lowest){
-            lowest = r156;
-            ret = l156;
-        }
-        if(r155 < lowest){
-            lowest = r155;
-            ret = l155;
-        }
-        if(r154 < lowest){
-            lowest = r154;
-            ret = l154;
-        }
-        if(r124 < lowest){
-            lowest = r124;
-            ret = l124;
-        }
-        if(r139 < lowest){
-            lowest = r139;
-            ret = l139;
-        }
-        if(r94 < lowest){
-            lowest = r94;
-            ret = l94;
-        }
-        if(r109 < lowest){
-            lowest = r109;
-            ret = l109;
-        }
-        if(r64 < lowest){
-            lowest = r64;
-            ret = l64;
-        }
-        if(r79 < lowest){
-            lowest = r79;
-            ret = l79;
-        }
-        if(r52 < lowest){
-            lowest = r52;
-            ret = l52;
-        }
-        if(r51 < lowest){
-            lowest = r51;
-            ret = l51;
-        }
-        if(r50 < lowest){
-            lowest = r50;
-            ret = l50;
-        }
-        if(r49 < lowest){
-            lowest = r49;
-            ret = l49;
-        }
-        if(r172 < lowest){
-            lowest = r172;
-            ret = l172;
-        }
-        if(r171 < lowest){
-            lowest = r171;
-            ret = l171;
-        }
-        if(r170 < lowest){
-            lowest = r170;
-            ret = l170;
-        }
-        if(r169 < lowest){
-            lowest = r169;
-            ret = l169;
-        }
-        if(r168 < lowest){
-            lowest = r168;
-            ret = l168;
-        }
-        if(r138 < lowest){
-            lowest = r138;
-            ret = l138;
-        }
-        if(r153 < lowest){
-            lowest = r153;
-            ret = l153;
-        }
-        if(r108 < lowest){
-            lowest = r108;
-            ret = l108;
-        }
-        if(r123 < lowest){
-            lowest = r123;
-            ret = l123;
-        }
-        if(r78 < lowest){
-            lowest = r78;
-            ret = l78;
-        }
-        if(r93 < lowest){
-            lowest = r93;
-            ret = l93;
-        }
-        if(r48 < lowest){
-            lowest = r48;
-            ret = l48;
-        }
-        if(r63 < lowest){
-            lowest = r63;
-            ret = l63;
-        }
-        if(r37 < lowest){
-            lowest = r37;
-            ret = l37;
-        }
-        if(r36 < lowest){
-            lowest = r36;
-            ret = l36;
-        }
-        if(r35 < lowest){
-            lowest = r35;
-            ret = l35;
-        }
-        if(r34 < lowest){
-            lowest = r34;
-            ret = l34;
-        }
-        if(r187 < lowest){
-            lowest = r187;
-            ret = l187;
-        }
-        if(r186 < lowest){
-            lowest = r186;
-            ret = l186;
-        }
-        if(r185 < lowest){
-            lowest = r185;
-            ret = l185;
-        }
-        if(r184 < lowest){
-            lowest = r184;
-            ret = l184;
-        }
-        if(r152 < lowest){
-            lowest = r152;
-            ret = l152;
-        }
-        if(r122 < lowest){
-            lowest = r122;
-            ret = l122;
-        }
-        if(r137 < lowest){
-            lowest = r137;
-            ret = l137;
-        }
-        if(r92 < lowest){
-            lowest = r92;
-            ret = l92;
-        }
-        if(r107 < lowest){
-            lowest = r107;
-            ret = l107;
-        }
-        if(r62 < lowest){
-            lowest = r62;
-            ret = l62;
-        }
-        if(r77 < lowest){
-            lowest = r77;
-            ret = l77;
-        }
-        return new LocInt(lowest, ret);
-    }
-    static LocInt lowestNorthEast(){
-        int lowest = Integer.MAX_VALUE;
-        MapLocation ret = null;
-        if(r112 < lowest){
-            lowest = r112;
-            ret = l112;
-        }
-        if(r97 < lowest){
-            lowest = r97;
-            ret = l97;
-        }
-        if(r113 < lowest){
-            lowest = r113;
-            ret = l113;
-        }
-        if(r128 < lowest){
-            lowest = r128;
-            ret = l128;
-        }
-        if(r98 < lowest){
-            lowest = r98;
-            ret = l98;
-        }
-        if(r96 < lowest){
-            lowest = r96;
-            ret = l96;
-        }
-        if(r82 < lowest){
-            lowest = r82;
-            ret = l82;
-        }
-        if(r83 < lowest){
-            lowest = r83;
-            ret = l83;
-        }
-        if(r81 < lowest){
-            lowest = r81;
-            ret = l81;
-        }
-        if(r114 < lowest){
-            lowest = r114;
-            ret = l114;
-        }
-        if(r129 < lowest){
-            lowest = r129;
-            ret = l129;
-        }
-        if(r99 < lowest){
-            lowest = r99;
-            ret = l99;
-        }
-        if(r144 < lowest){
-            lowest = r144;
-            ret = l144;
-        }
-        if(r84 < lowest){
-            lowest = r84;
-            ret = l84;
-        }
-        if(r80 < lowest){
-            lowest = r80;
-            ret = l80;
-        }
-        if(r67 < lowest){
-            lowest = r67;
-            ret = l67;
-        }
-        if(r68 < lowest){
-            lowest = r68;
-            ret = l68;
-        }
-        if(r66 < lowest){
-            lowest = r66;
-            ret = l66;
-        }
-        if(r69 < lowest){
-            lowest = r69;
-            ret = l69;
-        }
-        if(r65 < lowest){
-            lowest = r65;
-            ret = l65;
-        }
-        if(r115 < lowest){
-            lowest = r115;
-            ret = l115;
-        }
-        if(r130 < lowest){
-            lowest = r130;
-            ret = l130;
-        }
-        if(r100 < lowest){
-            lowest = r100;
-            ret = l100;
-        }
-        if(r145 < lowest){
-            lowest = r145;
-            ret = l145;
-        }
-        if(r85 < lowest){
-            lowest = r85;
-            ret = l85;
-        }
-        if(r160 < lowest){
-            lowest = r160;
-            ret = l160;
-        }
-        if(r70 < lowest){
-            lowest = r70;
-            ret = l70;
-        }
-        if(r64 < lowest){
-            lowest = r64;
-            ret = l64;
-        }
-        if(r52 < lowest){
-            lowest = r52;
-            ret = l52;
-        }
-        if(r53 < lowest){
-            lowest = r53;
-            ret = l53;
-        }
-        if(r51 < lowest){
-            lowest = r51;
-            ret = l51;
-        }
-        if(r54 < lowest){
-            lowest = r54;
-            ret = l54;
-        }
-        if(r50 < lowest){
-            lowest = r50;
-            ret = l50;
-        }
-        if(r55 < lowest){
-            lowest = r55;
-            ret = l55;
-        }
-        if(r49 < lowest){
-            lowest = r49;
-            ret = l49;
-        }
-        if(r116 < lowest){
-            lowest = r116;
-            ret = l116;
-        }
-        if(r131 < lowest){
-            lowest = r131;
-            ret = l131;
-        }
-        if(r101 < lowest){
-            lowest = r101;
-            ret = l101;
-        }
-        if(r146 < lowest){
-            lowest = r146;
-            ret = l146;
-        }
-        if(r86 < lowest){
-            lowest = r86;
-            ret = l86;
-        }
-        if(r161 < lowest){
-            lowest = r161;
-            ret = l161;
-        }
-        if(r71 < lowest){
-            lowest = r71;
-            ret = l71;
-        }
-        if(r176 < lowest){
-            lowest = r176;
-            ret = l176;
-        }
-        if(r56 < lowest){
-            lowest = r56;
-            ret = l56;
-        }
-        if(r48 < lowest){
-            lowest = r48;
-            ret = l48;
-        }
-        if(r37 < lowest){
-            lowest = r37;
-            ret = l37;
-        }
-        if(r38 < lowest){
-            lowest = r38;
-            ret = l38;
-        }
-        if(r36 < lowest){
-            lowest = r36;
-            ret = l36;
-        }
-        if(r39 < lowest){
-            lowest = r39;
-            ret = l39;
-        }
-        if(r35 < lowest){
-            lowest = r35;
-            ret = l35;
-        }
-        if(r40 < lowest){
-            lowest = r40;
-            ret = l40;
-        }
-        if(r34 < lowest){
-            lowest = r34;
-            ret = l34;
-        }
-        if(r117 < lowest){
-            lowest = r117;
-            ret = l117;
-        }
-        if(r132 < lowest){
-            lowest = r132;
-            ret = l132;
-        }
-        if(r102 < lowest){
-            lowest = r102;
-            ret = l102;
-        }
-        if(r147 < lowest){
-            lowest = r147;
-            ret = l147;
-        }
-        if(r87 < lowest){
-            lowest = r87;
-            ret = l87;
-        }
-        if(r162 < lowest){
-            lowest = r162;
-            ret = l162;
-        }
-        if(r72 < lowest){
-            lowest = r72;
-            ret = l72;
-        }
-        return new LocInt(lowest, ret);
-    }
-    static LocInt lowestNorthWest(){
-        int lowest = Integer.MAX_VALUE;
-        MapLocation ret = null;
-        if(r112 < lowest){
-            lowest = r112;
-            ret = l112;
-        }
-        if(r97 < lowest){
-            lowest = r97;
-            ret = l97;
-        }
-        if(r98 < lowest){
-            lowest = r98;
-            ret = l98;
-        }
-        if(r126 < lowest){
-            lowest = r126;
-            ret = l126;
-        }
-        if(r96 < lowest){
-            lowest = r96;
-            ret = l96;
-        }
-        if(r111 < lowest){
-            lowest = r111;
-            ret = l111;
-        }
-        if(r82 < lowest){
-            lowest = r82;
-            ret = l82;
-        }
-        if(r83 < lowest){
-            lowest = r83;
-            ret = l83;
-        }
-        if(r81 < lowest){
-            lowest = r81;
-            ret = l81;
-        }
-        if(r84 < lowest){
-            lowest = r84;
-            ret = l84;
-        }
-        if(r140 < lowest){
-            lowest = r140;
-            ret = l140;
-        }
-        if(r110 < lowest){
-            lowest = r110;
-            ret = l110;
-        }
-        if(r125 < lowest){
-            lowest = r125;
-            ret = l125;
-        }
-        if(r80 < lowest){
-            lowest = r80;
-            ret = l80;
-        }
-        if(r95 < lowest){
-            lowest = r95;
-            ret = l95;
-        }
-        if(r67 < lowest){
-            lowest = r67;
-            ret = l67;
-        }
-        if(r68 < lowest){
-            lowest = r68;
-            ret = l68;
-        }
-        if(r66 < lowest){
-            lowest = r66;
-            ret = l66;
-        }
-        if(r69 < lowest){
-            lowest = r69;
-            ret = l69;
-        }
-        if(r65 < lowest){
-            lowest = r65;
-            ret = l65;
-        }
-        if(r70 < lowest){
-            lowest = r70;
-            ret = l70;
-        }
-        if(r154 < lowest){
-            lowest = r154;
-            ret = l154;
-        }
-        if(r124 < lowest){
-            lowest = r124;
-            ret = l124;
-        }
-        if(r139 < lowest){
-            lowest = r139;
-            ret = l139;
-        }
-        if(r94 < lowest){
-            lowest = r94;
-            ret = l94;
-        }
-        if(r109 < lowest){
-            lowest = r109;
-            ret = l109;
-        }
-        if(r64 < lowest){
-            lowest = r64;
-            ret = l64;
-        }
-        if(r79 < lowest){
-            lowest = r79;
-            ret = l79;
-        }
-        if(r52 < lowest){
-            lowest = r52;
-            ret = l52;
-        }
-        if(r53 < lowest){
-            lowest = r53;
-            ret = l53;
-        }
-        if(r51 < lowest){
-            lowest = r51;
-            ret = l51;
-        }
-        if(r54 < lowest){
-            lowest = r54;
-            ret = l54;
-        }
-        if(r50 < lowest){
-            lowest = r50;
-            ret = l50;
-        }
-        if(r55 < lowest){
-            lowest = r55;
-            ret = l55;
-        }
-        if(r49 < lowest){
-            lowest = r49;
-            ret = l49;
-        }
-        if(r56 < lowest){
-            lowest = r56;
-            ret = l56;
-        }
-        if(r168 < lowest){
-            lowest = r168;
-            ret = l168;
-        }
-        if(r138 < lowest){
-            lowest = r138;
-            ret = l138;
-        }
-        if(r153 < lowest){
-            lowest = r153;
-            ret = l153;
-        }
-        if(r108 < lowest){
-            lowest = r108;
-            ret = l108;
-        }
-        if(r123 < lowest){
-            lowest = r123;
-            ret = l123;
-        }
-        if(r78 < lowest){
-            lowest = r78;
-            ret = l78;
-        }
-        if(r93 < lowest){
-            lowest = r93;
-            ret = l93;
-        }
-        if(r48 < lowest){
-            lowest = r48;
-            ret = l48;
-        }
-        if(r63 < lowest){
-            lowest = r63;
-            ret = l63;
-        }
-        if(r37 < lowest){
-            lowest = r37;
-            ret = l37;
-        }
-        if(r38 < lowest){
-            lowest = r38;
-            ret = l38;
-        }
-        if(r36 < lowest){
-            lowest = r36;
-            ret = l36;
-        }
-        if(r39 < lowest){
-            lowest = r39;
-            ret = l39;
-        }
-        if(r35 < lowest){
-            lowest = r35;
-            ret = l35;
-        }
-        if(r40 < lowest){
-            lowest = r40;
-            ret = l40;
-        }
-        if(r34 < lowest){
-            lowest = r34;
-            ret = l34;
-        }
-        if(r152 < lowest){
-            lowest = r152;
-            ret = l152;
-        }
-        if(r122 < lowest){
-            lowest = r122;
-            ret = l122;
-        }
-        if(r137 < lowest){
-            lowest = r137;
-            ret = l137;
-        }
-        if(r92 < lowest){
-            lowest = r92;
-            ret = l92;
-        }
-        if(r107 < lowest){
-            lowest = r107;
-            ret = l107;
-        }
-        if(r62 < lowest){
-            lowest = r62;
-            ret = l62;
-        }
-        if(r77 < lowest){
-            lowest = r77;
-            ret = l77;
-        }
-        return new LocInt(lowest, ret);
-    }
-    static LocInt lowestSouthEast(){
-        int lowest = Integer.MAX_VALUE;
-        MapLocation ret = null;
-        if(r112 < lowest){
-            lowest = r112;
-            ret = l112;
-        }
-        if(r127 < lowest){
-            lowest = r127;
-            ret = l127;
-        }
-        if(r113 < lowest){
-            lowest = r113;
-            ret = l113;
-        }
-        if(r128 < lowest){
-            lowest = r128;
-            ret = l128;
-        }
-        if(r98 < lowest){
-            lowest = r98;
-            ret = l98;
-        }
-        if(r126 < lowest){
-            lowest = r126;
-            ret = l126;
-        }
-        if(r142 < lowest){
-            lowest = r142;
-            ret = l142;
-        }
-        if(r143 < lowest){
-            lowest = r143;
-            ret = l143;
-        }
-        if(r141 < lowest){
-            lowest = r141;
-            ret = l141;
-        }
-        if(r114 < lowest){
-            lowest = r114;
-            ret = l114;
-        }
-        if(r129 < lowest){
-            lowest = r129;
-            ret = l129;
-        }
-        if(r99 < lowest){
-            lowest = r99;
-            ret = l99;
-        }
-        if(r144 < lowest){
-            lowest = r144;
-            ret = l144;
-        }
-        if(r84 < lowest){
-            lowest = r84;
-            ret = l84;
-        }
-        if(r140 < lowest){
-            lowest = r140;
-            ret = l140;
-        }
-        if(r157 < lowest){
-            lowest = r157;
-            ret = l157;
-        }
-        if(r158 < lowest){
-            lowest = r158;
-            ret = l158;
-        }
-        if(r156 < lowest){
-            lowest = r156;
-            ret = l156;
-        }
-        if(r159 < lowest){
-            lowest = r159;
-            ret = l159;
-        }
-        if(r155 < lowest){
-            lowest = r155;
-            ret = l155;
-        }
-        if(r115 < lowest){
-            lowest = r115;
-            ret = l115;
-        }
-        if(r130 < lowest){
-            lowest = r130;
-            ret = l130;
-        }
-        if(r100 < lowest){
-            lowest = r100;
-            ret = l100;
-        }
-        if(r145 < lowest){
-            lowest = r145;
-            ret = l145;
-        }
-        if(r85 < lowest){
-            lowest = r85;
-            ret = l85;
-        }
-        if(r160 < lowest){
-            lowest = r160;
-            ret = l160;
-        }
-        if(r70 < lowest){
-            lowest = r70;
-            ret = l70;
-        }
-        if(r154 < lowest){
-            lowest = r154;
-            ret = l154;
-        }
-        if(r172 < lowest){
-            lowest = r172;
-            ret = l172;
-        }
-        if(r173 < lowest){
-            lowest = r173;
-            ret = l173;
-        }
-        if(r171 < lowest){
-            lowest = r171;
-            ret = l171;
-        }
-        if(r174 < lowest){
-            lowest = r174;
-            ret = l174;
-        }
-        if(r170 < lowest){
-            lowest = r170;
-            ret = l170;
-        }
-        if(r175 < lowest){
-            lowest = r175;
-            ret = l175;
-        }
-        if(r169 < lowest){
-            lowest = r169;
-            ret = l169;
-        }
-        if(r116 < lowest){
-            lowest = r116;
-            ret = l116;
-        }
-        if(r131 < lowest){
-            lowest = r131;
-            ret = l131;
-        }
-        if(r101 < lowest){
-            lowest = r101;
-            ret = l101;
-        }
-        if(r146 < lowest){
-            lowest = r146;
-            ret = l146;
-        }
-        if(r86 < lowest){
-            lowest = r86;
-            ret = l86;
-        }
-        if(r161 < lowest){
-            lowest = r161;
-            ret = l161;
-        }
-        if(r71 < lowest){
-            lowest = r71;
-            ret = l71;
-        }
-        if(r176 < lowest){
-            lowest = r176;
-            ret = l176;
-        }
-        if(r56 < lowest){
-            lowest = r56;
-            ret = l56;
-        }
-        if(r168 < lowest){
-            lowest = r168;
-            ret = l168;
-        }
-        if(r187 < lowest){
-            lowest = r187;
-            ret = l187;
-        }
-        if(r188 < lowest){
-            lowest = r188;
-            ret = l188;
-        }
-        if(r186 < lowest){
-            lowest = r186;
-            ret = l186;
-        }
-        if(r189 < lowest){
-            lowest = r189;
-            ret = l189;
-        }
-        if(r185 < lowest){
-            lowest = r185;
-            ret = l185;
-        }
-        if(r190 < lowest){
-            lowest = r190;
-            ret = l190;
-        }
-        if(r184 < lowest){
-            lowest = r184;
-            ret = l184;
-        }
-        if(r117 < lowest){
-            lowest = r117;
-            ret = l117;
-        }
-        if(r132 < lowest){
-            lowest = r132;
-            ret = l132;
-        }
-        if(r102 < lowest){
-            lowest = r102;
-            ret = l102;
-        }
-        if(r147 < lowest){
-            lowest = r147;
-            ret = l147;
-        }
-        if(r87 < lowest){
-            lowest = r87;
-            ret = l87;
-        }
-        if(r162 < lowest){
-            lowest = r162;
-            ret = l162;
-        }
-        if(r72 < lowest){
-            lowest = r72;
-            ret = l72;
-        }
-        return new LocInt(lowest, ret);
-    }
-    static LocInt lowestSouthWest(){
-        int lowest = Integer.MAX_VALUE;
-        MapLocation ret = null;
-        if(r112 < lowest){
-            lowest = r112;
-            ret = l112;
-        }
-        if(r127 < lowest){
-            lowest = r127;
-            ret = l127;
-        }
-        if(r128 < lowest){
-            lowest = r128;
-            ret = l128;
-        }
-        if(r126 < lowest){
-            lowest = r126;
-            ret = l126;
-        }
-        if(r96 < lowest){
-            lowest = r96;
-            ret = l96;
-        }
-        if(r111 < lowest){
-            lowest = r111;
-            ret = l111;
-        }
-        if(r142 < lowest){
-            lowest = r142;
-            ret = l142;
-        }
-        if(r143 < lowest){
-            lowest = r143;
-            ret = l143;
-        }
-        if(r141 < lowest){
-            lowest = r141;
-            ret = l141;
-        }
-        if(r144 < lowest){
-            lowest = r144;
-            ret = l144;
-        }
-        if(r140 < lowest){
-            lowest = r140;
-            ret = l140;
-        }
-        if(r110 < lowest){
-            lowest = r110;
-            ret = l110;
-        }
-        if(r125 < lowest){
-            lowest = r125;
-            ret = l125;
-        }
-        if(r80 < lowest){
-            lowest = r80;
-            ret = l80;
-        }
-        if(r95 < lowest){
-            lowest = r95;
-            ret = l95;
-        }
-        if(r157 < lowest){
-            lowest = r157;
-            ret = l157;
-        }
-        if(r158 < lowest){
-            lowest = r158;
-            ret = l158;
-        }
-        if(r156 < lowest){
-            lowest = r156;
-            ret = l156;
-        }
-        if(r159 < lowest){
-            lowest = r159;
-            ret = l159;
-        }
-        if(r155 < lowest){
-            lowest = r155;
-            ret = l155;
-        }
-        if(r160 < lowest){
-            lowest = r160;
-            ret = l160;
-        }
-        if(r154 < lowest){
-            lowest = r154;
-            ret = l154;
-        }
-        if(r124 < lowest){
-            lowest = r124;
-            ret = l124;
-        }
-        if(r139 < lowest){
-            lowest = r139;
-            ret = l139;
-        }
-        if(r94 < lowest){
-            lowest = r94;
-            ret = l94;
-        }
-        if(r109 < lowest){
-            lowest = r109;
-            ret = l109;
-        }
-        if(r64 < lowest){
-            lowest = r64;
-            ret = l64;
-        }
-        if(r79 < lowest){
-            lowest = r79;
-            ret = l79;
-        }
-        if(r172 < lowest){
-            lowest = r172;
-            ret = l172;
-        }
-        if(r173 < lowest){
-            lowest = r173;
-            ret = l173;
-        }
-        if(r171 < lowest){
-            lowest = r171;
-            ret = l171;
-        }
-        if(r174 < lowest){
-            lowest = r174;
-            ret = l174;
-        }
-        if(r170 < lowest){
-            lowest = r170;
-            ret = l170;
-        }
-        if(r175 < lowest){
-            lowest = r175;
-            ret = l175;
-        }
-        if(r169 < lowest){
-            lowest = r169;
-            ret = l169;
-        }
-        if(r176 < lowest){
-            lowest = r176;
-            ret = l176;
-        }
-        if(r168 < lowest){
-            lowest = r168;
-            ret = l168;
-        }
-        if(r138 < lowest){
-            lowest = r138;
-            ret = l138;
-        }
-        if(r153 < lowest){
-            lowest = r153;
-            ret = l153;
-        }
-        if(r108 < lowest){
-            lowest = r108;
-            ret = l108;
-        }
-        if(r123 < lowest){
-            lowest = r123;
-            ret = l123;
-        }
-        if(r78 < lowest){
-            lowest = r78;
-            ret = l78;
-        }
-        if(r93 < lowest){
-            lowest = r93;
-            ret = l93;
-        }
-        if(r48 < lowest){
-            lowest = r48;
-            ret = l48;
-        }
-        if(r63 < lowest){
-            lowest = r63;
-            ret = l63;
-        }
-        if(r187 < lowest){
-            lowest = r187;
-            ret = l187;
-        }
-        if(r188 < lowest){
-            lowest = r188;
-            ret = l188;
-        }
-        if(r186 < lowest){
-            lowest = r186;
-            ret = l186;
-        }
-        if(r189 < lowest){
-            lowest = r189;
-            ret = l189;
-        }
-        if(r185 < lowest){
-            lowest = r185;
-            ret = l185;
-        }
-        if(r190 < lowest){
-            lowest = r190;
-            ret = l190;
-        }
-        if(r184 < lowest){
-            lowest = r184;
-            ret = l184;
-        }
-        if(r152 < lowest){
-            lowest = r152;
-            ret = l152;
-        }
-        if(r122 < lowest){
-            lowest = r122;
-            ret = l122;
-        }
-        if(r137 < lowest){
-            lowest = r137;
-            ret = l137;
-        }
-        if(r92 < lowest){
-            lowest = r92;
-            ret = l92;
-        }
-        if(r107 < lowest){
-            lowest = r107;
-            ret = l107;
-        }
-        if(r62 < lowest){
-            lowest = r62;
-            ret = l62;
-        }
-        if(r77 < lowest){
-            lowest = r77;
-            ret = l77;
-        }
-        return new LocInt(lowest, ret);
-    }
+
     static Direction sdir(MapLocation cur){
         //add the four dirs to cur, if any of teh four is special loc, then return opp
         MapLocation north = cur.add(Direction.NORTH);

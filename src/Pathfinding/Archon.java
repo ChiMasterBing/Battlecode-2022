@@ -22,9 +22,9 @@ public class Archon extends Robot{
 	}
 	public void run() throws GameActionException {
 		turnCount = rc.getRoundNum();
-//		if(rc.getRoundNum()>500){
-//			rc.resign();
-//		}
+		if(rc.getRoundNum()>2000){
+			rc.resign();
+		}
 		builtRobot = false;
 		if (init) {
 			init = false;
