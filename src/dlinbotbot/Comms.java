@@ -1,7 +1,5 @@
 package dlinbotbot;
 
-import java.util.*;
-
 import battlecode.common.*;
 
 public class Comms {
@@ -99,7 +97,7 @@ public class Comms {
         int arrayIndex = encLocation / 4;
         int bitIndex = 4 * (encLocation % 4);
 
-        int curVal = (rc.readSharedArray(arrayIndex) | (0b1111 << bitIndex)) ^ (0b1111 << bitIndex) ^ (message << bitIndex);
+        int curVal = (rc.readSharedArray(arrayIndex) | (0b1111 << bitIndex)) ^ ((0b1111 ^ message) << bitIndex);
 
         rc.writeSharedArray(arrayIndex, curVal);
     }
@@ -140,6 +138,19 @@ public class Comms {
         }
 
         return info;
+    }
+
+    private static final int SYMMETRY_INDEX = 63;
+    static boolean isSymmetryPossible(RobotController rc, int type) throws GameActionException {
+        return (rc.readSharedArray(SYMMETRY_INDEX) & (0b1 << type)) == 0;
+    }
+
+    // Try to use as few writes as possible per turn; this is ok
+    // for now since nothing else uses index 63, but I'll create a
+    // better function once we start storing more things
+    static void toggleSymmetryPossible(RobotController rc, int type) throws GameActionException {
+        int val = rc.readSharedArray(SYMMETRY_INDEX);
+        rc.writeSharedArray(SYMMETRY_INDEX, val ^ (0b1 << type));
     }
 }
 
