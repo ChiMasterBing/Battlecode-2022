@@ -99,7 +99,7 @@ public class Comms {
         int arrayIndex = encLocation / 4;
         int bitIndex = 4 * (encLocation % 4);
 
-        int curVal = (rc.readSharedArray(arrayIndex) | (0b1111 << bitIndex)) ^ (0b1111 << bitIndex) ^ (message << bitIndex);
+        int curVal = (rc.readSharedArray(arrayIndex) | (0b1111 << bitIndex)) ^ ((0b1111 ^ message) << bitIndex);
 
         rc.writeSharedArray(arrayIndex, curVal);
     }
@@ -140,6 +140,19 @@ public class Comms {
         }
 
         return info;
+    }
+
+    private static final int SYMMETRY_INDEX = 63;
+    static int getSymmetry(RobotController rc) throws GameActionException {
+        return rc.readSharedArray(SYMMETRY_INDEX) & 0b11;
+    }
+
+    // Try to use as few writes as possible per turn; this is ok
+    // for now since nothing else uses index 63, but I'll create a
+    // better function once we start storing more things
+    static void setSymmetry(RobotController rc, int symmetry) throws GameActionException {
+        int value = (rc.readSharedArray(SYMMETRY_INDEX) | 0b11) ^ (0b11 ^ symmetry);
+        rc.writeSharedArray(SYMMETRY_INDEX, value);
     }
 }
 

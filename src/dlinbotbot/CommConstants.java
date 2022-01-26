@@ -16,4 +16,8 @@ public class CommConstants {
     public final static int SCAN_LEAD = 0b1,
                             SCAN_ENEMY = 0b10,
                             SCAN_FRIENDLY = 0b100;
+
+    public final static int HORIZONTAL = 0b01,
+                            VERTICAL = 0b10,
+                            ROTATIONAL = 0b11;
 }
