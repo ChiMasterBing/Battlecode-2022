@@ -9,5 +9,11 @@ public class CommConstants {
             LOW = 0b010,
             VERY_LOW = 0b001,
             UNKNOWN = 0b000;
-    public final static int HAS_LEAD = 0b1000, NO_LEAD = 0b0000;
+
+    public final static int HAS_LEAD = 0b1000,
+                            NO_LEAD = 0b0000;
+
+    public final static int SCAN_LEAD = 0b1,
+                            SCAN_ENEMY = 0b10,
+                            SCAN_FRIENDLY = 0b100;
 }

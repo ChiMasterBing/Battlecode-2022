@@ -9,12 +9,15 @@ public class Archon extends Robot{
 	int curTar = 0, repairTar = -1;
 	int criticalValue = 0;
     int myID, myIndex, myHealth, myMiners;
+    int wond = 0;
 	boolean init = true, builtRobot = false;
 	String prefix;
     ArrayList<MapLocation> spawnZones, possibleArchon, myArchon;
     MapLocation home;
     RobotController rc;
-    //fix danger
+    int needed = 2;
+    boolean strategy = false;
+    boolean builderSpawned = false;
 	public Archon(RobotController rc) throws GameActionException {
 		this.rc = rc;
 	}
@@ -25,18 +28,35 @@ public class Archon extends Robot{
 			init();
 		}
 		verbose();
+		MapLocation me = rc.getLocation();
+		String nonExactCoord = Utility.numToBit(me.x/4) + Utility.numToBit(me.y/4);
+		rc.writeSharedArray(myIndex+4, Integer.parseInt(nonExactCoord + "00000000", 2));
+		
+		if (rc.readSharedArray(14) < mineCount) {
+			needed += mineCount - rc.readSharedArray(14);
+			mineCount = rc.readSharedArray(14);
+		}
+		else {
+			mineCount = rc.readSharedArray(14);
+		}
+		
+		
+		
 		if (turnCount >= 2) {
 			check();
 		}
 		if (turnCount == 2) {
+			checkRubble(34);
 			calculateArchons();
 		}
-		checkRubble();
+		if (myMiners < ((mapWidth*mapHeight)/180)/archonCount && !panic) {
+			wanderingMiner();
+		}
 	
 		RobotInfo[] enemy = rc.senseNearbyRobots(34, rc.getTeam().opponent());
 		int bad = 0;
 		for (int i=0; i<enemy.length; i++) {
-			if (enemy[i].type != RobotType.MINER && enemy[i].type != RobotType.BUILDER) {
+			if (enemy[i].type != RobotType.BUILDER) {
 				bad++;
 			}
 		}
@@ -49,28 +69,39 @@ public class Archon extends Robot{
 			panic(1);
 			panic = false;
 		}
-		if (home.x != rc.getLocation().x && home.y != rc.getLocation().y) {
-			move();
+		
+		if (myIndex == 0) {
+			processTargetting();
 		}
-		else {
-			if (mode) {
-				if (rc.canTransform()) {
-					rc.transform();
-					spawnZones = Utility.leastRubbleAround(rc, rc.getLocation());
-					mode = false;
+		if (aggroActive) {
+			aggro();
+		}
+		
+		
+		
+		if (!foundTarget) {
+			checkRubble(34);
+			if (home.x != rc.getLocation().x && home.y != rc.getLocation().y) {
+				move();
+			}
+			else {
+				if (mode) {
+					if (rc.canTransform()) {
+						rc.transform();
+						spawnZones = Utility.leastRubbleAround(rc, rc.getLocation());
+						mode = false;
+					}
 				}
 			}
 		}
 
-		if (turnCount > 1 && scouted < 4 && !panic) {
-			//scout();
-		}
 		if (turnCount == 20 && myIndex == 0) {
 			for (int i=12; i<16; i++) {
 				rc.writeSharedArray(i, 0);
 			}
 		}
-		if (true) {
+		
+		if (strategy) {
 			int danger = 0, danger2 = 0;
 			for (int i=4; i<archonCount+4; i++) {
 				String s = Comms.getIndex(rc, i);
@@ -81,21 +112,52 @@ public class Archon extends Robot{
 					danger2++;
 				}
 			}
-			rc.setIndicatorString(String.valueOf(danger));
 			if (danger == 0 || (danger2 >= 2 && myIndex == 0)) {
 				if (soldCount < 3 || panic) {
 					attack();
 				}
 				else {
-					wanderingMiner(); 
+					if (needed > 0) {
+						wanderingMiner();
+						needed--;
+					}
+					else {
+						sweep();
+					}
 				}
 			}
 		}
-		//spawnMine();
-		if (myIndex == 0) {
-			processTargetting();
+		else {
+			if (rc.getTeamLeadAmount(rc.getTeam()) > 100) {
+				if (myIndex == 0) {
+					if (!builderSpawned || rc.getTeamLeadAmount(rc.getTeam()) > 500) {
+						for (int i=0; i<spawnZones.size(); i++) {
+							Direction dir = me.directionTo(spawnZones.get(i));
+							if (rc.canBuildRobot(RobotType.BUILDER, dir)) {
+								rc.buildRobot(RobotType.BUILDER, dir);
+								builtRobot = true;
+								builderSpawned = true;
+								break;
+							}
+						}
+					}
+				}
+			}
+			if (builderSpawned) {
+				if (soldCount < 3 || panic) {
+					attack();
+				}
+				else {
+					if (needed > 0) {
+						wanderingMiner();
+						needed--;
+					}
+					else {
+						sweep();
+					}
+				}
+			}
 		}
-		
 		if (!builtRobot) {
 			repair();
 		}
@@ -117,6 +179,23 @@ public class Archon extends Robot{
 				rc.buildRobot(RobotType.MINER, dir);
 				builtRobot = true;
 				soldCount = 0;
+				myMiners++;
+				break;
+			}
+		}
+	}
+	void sweep() throws GameActionException {
+		MapLocation me = rc.getLocation();
+		for (int i=0; i<8; i++) {
+			Direction dir = me.directionTo(spawnZones.get(i));
+			if (rc.canBuildRobot(RobotType.MINER, dir)) {
+				int output;
+				output = Integer.parseInt(prefix + "00001000", 2);
+				rc.writeSharedArray(myIndex, output);
+				rc.buildRobot(RobotType.MINER, dir);
+				builtRobot = true;
+				soldCount = 0;
+				myMiners++;
 				break;
 			}
 		}
@@ -145,9 +224,121 @@ public class Archon extends Robot{
 				int current = rc.readSharedArray(8);
 				String currentBits = String.format("%16s", Integer.toBinaryString(current)).replace(" ", "0");
 				String message = "0000" + s.substring(4, 16);
-		        rc.writeSharedArray(8, Integer.parseInt(message, 2));
+		        //rc.writeSharedArray(8, Integer.parseInt(message, 2));
 			}
 		}
+	}
+	boolean foundTarget = false, arrived = false, stopped = false, set = false;
+	void aggro() throws GameActionException {
+		String s = Comms.getIndex(rc, 8);
+		if (s.substring(0, 4).equals("0011") && !arrived) {
+			foundTarget = true;
+			home = new MapLocation(Utility.bitToNum(s.substring(4, 10)), Utility.bitToNum(s.substring(10, 16)));
+			RobotInfo[] friendly = rc.senseNearbyRobots(34, rc.getTeam());
+			RobotInfo[] enemies = rc.senseNearbyRobots(34, rc.getTeam().opponent());
+			if (enemies.length > 0) {
+				stopped = true;
+				checkRubble(3);
+			}
+			else {
+				stopped = false;
+			}
+			if (Utility.distance(home, rc.getLocation()) < 8) {
+				arrived = true;
+			}
+			if (!arrived && !stopped) {
+				move();
+			}
+		}
+		if (!s.substring(0, 4).equals("0011")) {
+			arrived = false;
+			foundTarget = false;
+			set = false;
+		}
+		if (arrived || stopped) {
+			checkRubble(3);
+			if (home.x != rc.getLocation().x && home.y != rc.getLocation().y && !set) {
+				move();
+			}
+			else {
+				set = true;
+				if (mode) {
+					if (rc.canTransform()) {
+						rc.transform();
+						spawnZones = Utility.leastRubbleAround(rc, rc.getLocation());
+						mode = false;
+					}
+				}
+			}
+			if (rc.getMode() == RobotMode.TURRET) {
+				if (soldCount < 5) {
+					rc.setIndicatorString("ballin");
+					attack();
+				}
+				else {
+					sweep(); 
+				}
+			}
+		}
+	}
+	void attack() throws GameActionException {
+		MapLocation me = rc.getLocation();
+		for (int i=0; i<8; i++) {
+			Direction dir = me.directionTo(spawnZones.get(i));
+			rc.setIndicatorString(String.valueOf(rc.isActionReady()));
+			if (rc.canBuildRobot(RobotType.SAGE, dir)) {
+				int output;
+				output = Integer.parseInt(prefix + "00010000", 2);
+				rc.writeSharedArray(myIndex, output);
+				rc.buildRobot(RobotType.SAGE, dir);
+				builtRobot = true;
+				soldCount++;
+				break;
+			}
+			if (strategy || rc.getTeamLeadAmount(rc.getTeam()) > 181) {
+				if (rc.canBuildRobot(RobotType.SOLDIER, dir)) {
+					rc.buildRobot(RobotType.SOLDIER, dir);
+					int output;
+					output = Integer.parseInt(prefix + "00010000", 2);
+					rc.writeSharedArray(myIndex, output);
+					builtRobot = true;
+					soldCount++;
+					break;
+				}
+			}
+		}
+	}
+	boolean assess(RobotInfo[] friendly, RobotInfo[] enemies) {
+		int fTotal = 2, eSTotal = 0, eVTotal = 0;
+		for (int i=0; i<friendly.length; i++) {
+			if (friendly[i].type == RobotType.ARCHON) {
+				fTotal += 10;
+			}
+			else if (friendly[i].type == RobotType.SOLDIER) {
+				fTotal += 2;
+			}
+			else if (friendly[i].type == RobotType.SAGE) {
+				fTotal += 4;
+			}
+		}
+		for (int i=0; i<enemies.length; i++) {
+			if (enemies[i].type == RobotType.ARCHON) {
+				eVTotal += 5;
+			}
+			else if (enemies[i].type == RobotType.SOLDIER) {
+				eSTotal += 2;
+			}
+			else if (enemies[i].type == RobotType.SAGE) {
+				eVTotal += 4;
+			}
+		}
+		if (fTotal > (eSTotal+eVTotal/2)) {
+			return true;
+		}
+		if (eSTotal <= 2 && eVTotal > 0 && eVTotal <= 5) {
+			return true;
+		}
+		return false;
 	}
 	void panic(int par) throws GameActionException {
 		if (par == 0) {
@@ -190,10 +381,10 @@ public class Archon extends Robot{
         string.setCharAt(myIndex, nextChar);
         rc.writeSharedArray(9, Integer.parseInt(string.toString(), 2));
 	}
-	void checkRubble() throws GameActionException {
+	void checkRubble(int radius) throws GameActionException {
 		MapLocation me = rc.getLocation();
 		int myRubble = rc.senseRubble(me);
-		MapLocation[] locs = rc.getAllLocationsWithinRadiusSquared(me, 34);
+		MapLocation[] locs = rc.getAllLocationsWithinRadiusSquared(me, radius);
 		for (int i=0; i<locs.length; i++) {
 			int tempRubble = rc.senseRubble(locs[i]) + Utility.distance(locs[i],me)/2;
 			if (tempRubble < myRubble) {
@@ -247,6 +438,9 @@ public class Archon extends Robot{
 	        	rc.move(cdir);
 	            dir = cdir;
 	        }
+	        MapLocation me = rc.getLocation();
+	        String nonExactCoord = Utility.numToBit(me.x/4) + Utility.numToBit(me.y/4);
+			rc.writeSharedArray(myIndex+4, Integer.parseInt(nonExactCoord + "00000000", 2));
 		}
 	}
 	void repair() throws GameActionException {
@@ -306,33 +500,24 @@ public class Archon extends Robot{
 		}
 		
 	}
-	void attack() throws GameActionException {
-		MapLocation me = rc.getLocation();
-		for (int i=0; i<8; i++) {
-			Direction dir = me.directionTo(spawnZones.get(i));
-			if (rc.canBuildRobot(RobotType.SOLDIER, dir)) {
-				int output;
-				output = Integer.parseInt(prefix + "00010000", 2);
-				rc.writeSharedArray(myIndex, output);
-				rc.buildRobot(RobotType.SOLDIER, dir);
-				builtRobot = true;
-				soldCount++;
-				break;
-			}
-		}
-	}
+	boolean aggroActive = false;
 	void calculateArchons() throws GameActionException {
 		myArchon = new ArrayList<MapLocation>();
 		possibleArchon = new ArrayList<MapLocation>();
+		int totalDistance = 0;
 		for (int i=12; i<rc.getArchonCount()+12; i++) {
 			String s = Comms.getIndex(rc, i);
 			int aX = Utility.bitToNum(s.substring(0, 8)), aY = Utility.bitToNum(s.substring(8, 16));
 			MapLocation aPos = new MapLocation(aX, aY);
 			myArchon.add(aPos);
-			
+			totalDistance += Utility.distance(rc.getLocation(), aPos);
+	
 			possibleArchon.add(new MapLocation(mapWidth - aX, mapHeight - aY));
 			possibleArchon.add(new MapLocation(aX, mapHeight - aY));
 			possibleArchon.add(new MapLocation(mapWidth - aX, aY));
+		}
+		if (totalDistance < 10) {
+			aggroActive = true;
 		}
 		for (int i=0; i<possibleArchon.size(); i++) {
 			for (int j=i+1; j<possibleArchon.size(); j++) {
@@ -356,23 +541,39 @@ public class Archon extends Robot{
 		for (int i=0; i<8; i++) {
 			Direction dir = me.directionTo(spawnZones.get(i));
 			if (rc.canBuildRobot(RobotType.MINER, dir)) {
-				int output;
-				if (scouted == 0) {
-					output = Integer.parseInt(prefix + "00000011", 2);
-				}
-				else if (scouted == 1) {
-					output = Integer.parseInt(prefix + "00000100", 2);
-				}
-				else if (scouted == 2){
-					output = Integer.parseInt(prefix + "00000101", 2);
-				}
-				else {
-					output = Integer.parseInt(prefix + "00000110", 2);
-				}
+				int output = Integer.parseInt(prefix + "00000011", 2);
 				rc.writeSharedArray(myIndex, output);
 				scouted++;
 				rc.buildRobot(RobotType.MINER, dir);
 				builtRobot = true;
+				myMiners++;
+				break;
+			}
+		}
+	}
+	void beginMine() throws GameActionException {
+		MapLocation me = rc.getLocation();
+		for (int i=0; i<8; i++) {
+			Direction dir = me.directionTo(spawnZones.get(i));
+			if (rc.canBuildRobot(RobotType.MINER, dir)) {
+				int output = Integer.parseInt(prefix + "00000010", 2);
+				rc.writeSharedArray(myIndex, output);
+				rc.buildRobot(RobotType.MINER, dir);
+				builtRobot = true;
+				break;
+			}
+		}
+	}
+	void mine() throws GameActionException {
+		MapLocation me = rc.getLocation();
+		for (int i=0; i<8; i++) {
+			Direction dir = me.directionTo(spawnZones.get(i));
+			if (rc.canBuildRobot(RobotType.MINER, dir)) {
+				int output = Integer.parseInt(prefix + "00000010", 2);
+				rc.writeSharedArray(myIndex, output);
+				rc.buildRobot(RobotType.MINER, dir);
+				builtRobot = true;
+				myMiners++;
 				break;
 			}
 		}
@@ -389,6 +590,9 @@ public class Archon extends Robot{
 		myMiners = 0;
 		lastTurn = new char[archonCount];
 		criticalValue = (mapWidth*mapHeight)/30;
+		
+        Comms.encodeAndWrite(Comms.scan(rc, CommConstants.SCAN_ENEMY | CommConstants.SCAN_LEAD), rc);
+		
 		for (int i=0; i<4; i++) {
 			//System.out.println(rc.readSharedArray(i) + " " + i);
 			if (rc.readSharedArray(i) != 0) {
@@ -410,7 +614,7 @@ public class Archon extends Robot{
 		*/
 		spawnZones = Utility.leastRubbleAround(rc, me);
 		
-		wanderingMiner();
+		beginMine();
 		
 		String exactCoord = Utility.numToBit8(me.x) + Utility.numToBit8(me.y);
 		rc.writeSharedArray(myIndex+12, Integer.parseInt(exactCoord, 2));

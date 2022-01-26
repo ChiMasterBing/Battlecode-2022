@@ -22,21 +22,38 @@ public class Miner extends Robot{
     MapLocation me, target, nextTarget;
     boolean init = true;
     Direction dir = Direction.CENTER;
+    int lastTurnHP;
+    boolean attacked = false;
 	public Miner(RobotController rc) throws GameActionException {
 		this.rc = rc;
 	}
 	public void run() throws GameActionException {
-		if (arrived) {
-			rc.setIndicatorString("daniel cracked");
-		}
-		
 		me = rc.getLocation();
 		if (init) {
 			init = false;
 			init();
 		}
+		//RobotInfo[] enemies = rc.senseNearbyRobots(20, rc.getTeam().opponent());
+		if (wandering) {
+			int nums = rc.readSharedArray(14);
+			rc.writeSharedArray(14, nums+1);
+		}
+		if (lastTurnHP != rc.getHealth()) {
+			lastTurnHP = rc.getHealth();
+			attacked = true;
+			arrived = false;
+		}
+		else {
+			attacked = false;
+		}
 		if (!arrived) {
-			Direction cur = rc.getLocation().directionTo(target);
+			Direction cur;
+			if (!attacked) {
+				cur = rc.getLocation().directionTo(target);
+			}
+			else {
+				cur = rc.getLocation().directionTo(target).opposite();
+			}
 	        rc.setIndicatorString(dir.opposite().toString());
 	        Direction cdir;
 	        switch(cur){
@@ -69,35 +86,49 @@ public class Miner extends Robot{
 	        	rc.move(cdir);
 	            dir = cdir;
 	        }
+	        
+	        info = Comms.readAllZones(rc);
+	        roundInfoLastUpdated = rc.getRoundNum();
+
+	        lastZoneInfoLocation = rc.getLocation();
+	        Comms.encodeAndWrite(Comms.scan(rc, CommConstants.SCAN_ENEMY | CommConstants.SCAN_LEAD), rc);
+	        
 	        if (Utility.distance(target, me) <= 1) {    	
 	        	arrived = true;
 	        	if (wandering && !foundLead) {
 	        		initWander();
 	        		arrived = false;
 	        	}
+	        	MapLocation[] leadDep = rc.senseNearbyLocationsWithLead();
+	        	if (sweep) {
+	        		int maxLead = 0;
+		        	for (int i=0; i<leadDep.length; i++) {
+		        		if (rc.senseLead(leadDep[i]) > 15) {
+		        			if (rc.senseLead(leadDep[i]) > maxLead) {
+		        				maxLead = rc.senseLead(leadDep[i]);
+			        			target = leadDep[i];
+			        			foundLead = true;
+			        			task = "00000010";
+		        			}
+		        		}
+		        	}
+		        	if (foundLead != true) {
+		        		initSweep();
+		        	}
+		        }
 	        }
 	        //Information info = Comms.scan(rc, 3);
 	        //Comms.write(Comms.encode(info), rc, me);
 	        MapLocation[] leadDep = rc.senseNearbyLocationsWithLead();
 	        for (int i=0; i<leadDep.length; i++) {
 	        	if (rc.canMineLead(leadDep[i])) {
-	        		int lead = rc.senseLead(leadDep[i]); 
+	        	   int lead = rc.senseLead(leadDep[i]); 
 		           int minedCount = 0;
 		           while (rc.canMineLead(leadDep[i]) && lead-minedCount > 1) {
 		              rc.mineLead(leadDep[i]);
 		              minedCount++;
 		           }
 	        	}
-	        }
-	        if (scout) {
-		        int tLead = 0;
-	        	for (int i=0; i<leadDep.length; i++) {
-		        	tLead += rc.senseLead(leadDep[i]);
-		        }
-		        if (tLead > bestLead) {
-		        	bestLead = tLead;
-		        	nextTarget = me;
-		        }
 	        }
 	        if (wandering) {
 	        	int maxLead = 0;
@@ -113,9 +144,11 @@ public class Miner extends Robot{
 	        	}
 	        }
 	        
+	        
 	        return;
 		}
 		else { 	
+			MapLocation[] leadDeps = rc.senseNearbyLocationsWithLead(1);
 			RobotInfo[] nearbyMiners = rc.senseNearbyRobots(1, rc.getTeam());
 			int miners = 0;
 			for (int i=0; i<nearbyMiners.length; i++) {
@@ -123,7 +156,7 @@ public class Miner extends Robot{
 					miners++;	
 				}
 			}
-			if (miners >= 2) {
+			if (1.5 * leadDeps.length < miners) {
 				initWander();
 			}
 			if (task.equals("00000011") || task.equals("00000100") || task.equals("00000101") || task.equals("00000110")) {
@@ -135,14 +168,42 @@ public class Miner extends Robot{
 			}
 			else if (task.equals("00000010")) {
 				MapLocation[] leadDep = rc.senseNearbyLocationsWithLead(2);
-				rc.setIndicatorString(String.valueOf(leadDep.length));
 				if (leadDep.length == 0) { //note to self, improve this
 					MapLocation[] leadDep2 = rc.senseNearbyLocationsWithLead();
 					if (leadDep2.length > 0) {
-						Direction dir = BFSBuilder.getBestDir(rc, leadDep2[0]);
-						if (rc.canMove(dir)) {
-							rc.move(dir);
-						}
+						Direction cur = rc.getLocation().directionTo(target);
+				        rc.setIndicatorString(dir.opposite().toString());
+				        Direction cdir;
+				        switch(cur){
+				            case NORTH:
+				                cdir=BFSNorth.gbda(rc, target, dir.opposite());
+				                break;
+				            case EAST:
+				                cdir=BFSEast.gbda(rc, target, dir.opposite());
+				                break;
+				            case WEST:
+				                cdir=BFSWest.gbda(rc, target, dir.opposite());
+				                break;
+				            case SOUTH:
+				                cdir=BFSSouth.gbda(rc, target, dir.opposite());
+				                break;
+				            case NORTHEAST:
+				                cdir=BFSNorthEast.gbda(rc, target, dir.opposite());
+				                break;
+				            case NORTHWEST:
+				                cdir=BFSNorthWest.gbda(rc, target, dir.opposite());
+				                break;
+				            case SOUTHEAST:
+				                cdir=BFSSouthEast.gbda(rc, target, dir.opposite());
+				                break;
+				            default:
+				                cdir=BFSSouthWest.gbda(rc, target, dir.opposite());
+				                break;
+				        }
+				        if(cdir!=null&&rc.canMove(cdir)) {
+				        	rc.move(cdir);
+				            dir = cdir;
+				        }
 					}
 					else {
 						init0010();
@@ -213,13 +274,14 @@ public class Miner extends Robot{
 				}
 			}
 		}
-		//rc.setIndicatorString(task);
+		rc.setIndicatorString(task);
         turnCount++;
 	}
 	void init() throws GameActionException {
-		rng = new Random(rc.getRoundNum() + rc.getTeamLeadAmount(rc.getTeam().opponent()));
+		rng = new Random(rc.getID() + rc.getRoundNum() + rc.getTeamLeadAmount(rc.getTeam().opponent()));
 		int closeArchon = Integer.MAX_VALUE;
 		task = "";
+		lastTurnHP = rc.getHealth();
 		RobotInfo[] nearby = rc.senseNearbyRobots(20, rc.getTeam());
 		String myArchon = "";
 		for (int i=0; i<nearby.length; i++) {
@@ -237,23 +299,71 @@ public class Miner extends Robot{
 				break;
 			}
 		}
-		rc.setIndicatorString(task);
+		
+		lastZoneInfoLocation = rc.getLocation();
+        Comms.encodeAndWrite(Comms.scan(rc, CommConstants.SCAN_ENEMY | CommConstants.SCAN_LEAD), rc);
+
+        info = Comms.readAllZones(rc);
+        roundInfoLastUpdated = rc.getRoundNum();
+		
+		
 		switch (task) {
 			case "00000010": init0010(); break;
-			case "00000011": initScout(Direction.NORTH); break;
-			case "00000100": initScout(Direction.EAST); break;
-			case "00000101": initScout(Direction.SOUTH); break;
-			case "00000110": initScout(Direction.WEST); break;
+			case "00000011": initWander();
+			case "00000100": initMiner(); break;
+			case "00000101": initMiner(); break;
+			case "00000110": initMiner(); break;
 			case "00000111": initWander(); break;
+			case "00001000": initSweep(); break;
 			default: initWander(); break; //fix this case
 		}
 	}
 	boolean foundLead, wandering;
+	void initMiner() {
+		CommInformation targ = null;
+		role = MinerRoles.Miner;
+        boolean found = false;
+        for (int y = 0; y < info.length; y++) {
+            for (int x = 0; x < info[0].length; x++) {
+                if (info[y][x].hasLead()) {
+                    targ = info[y][x];
+                    found = true;
+                    break;
+                }
+            }
+            if (found)
+                break;
+        }
+        if (targ != null) {
+            targetLoc = new MapLocation(targ.getZoneX() * Comms.ZONE_WIDTH + Comms.ZONE_HEIGHT / 2, targ.getZoneY() * Comms.ZONE_HEIGHT + Comms.ZONE_HEIGHT / 2);
+        }
+	}
+	boolean sweep = true;
+	void initSweep() throws GameActionException {
+		arrived = false;
+		String s = Comms.getIndex(rc, 15);
+		if (rc.readSharedArray(15) == 0) {
+			initWander();
+		}
+		else {
+			MapLocation cLocation = new MapLocation(Utility.bitToNum(s.substring(4, 10)), Utility.bitToNum(s.substring(10, 16)));
+			sweep = true;
+			target = cLocation;
+			rc.setIndicatorString(target.toString());
+		}
+	}
 	void initWander() {
 		arrived = false;
 		wandering = true;
 		foundLead = false;
-		target = new MapLocation((int)(rc.getMapWidth()*rng.nextDouble()), (int)(rc.getMapHeight()*rng.nextDouble()));
+		CommInformation targ = null;
+        targ = findZoneUnknown();
+        if (targ != null) {
+            target = new MapLocation(targ.getZoneX() * Comms.ZONE_WIDTH + Comms.ZONE_WIDTH / 2, targ.getZoneY() * Comms.ZONE_HEIGHT + Comms.ZONE_HEIGHT / 2);
+        }
+        else {
+            target = new MapLocation((int)(rc.getMapWidth()*rng.nextDouble()), (int)(rc.getMapHeight()*rng.nextDouble()));       
+        }
 	}
 	boolean scout = false;
 	void initScout(Direction dir) {
@@ -273,26 +383,88 @@ public class Miner extends Robot{
 	}
 	void init0010() throws GameActionException {
 		int minDist = Integer.MAX_VALUE;
-		for (int i=63; i>=8; i--) {
-			String s = Comms.getIndex(rc, i);
-			for (int j=0; j<4; j++) {
-				String bytes = "";
-				for (int k=0; k<4; k++) {
-					bytes += s.charAt(j*4+k);
-				}
-				if (bytes.equals("0001") || bytes.equals("0002")) {
-					MapLocation tempTarget = Utility.zonePosToMapPos(Comms.getZonePosition(i, j*4));
-					int dist = Utility.distance(tempTarget, me);
-					if (dist < minDist) {
-						minDist = dist;
-						target = tempTarget;
-					}
-				}
-			}
-		}
-		//System.out.println(target.x + " " + target.y);
+		CommInformation lead = null;
+
+        for (int y = 0; y < info.length; y++) {
+            for (int x = 0; x < info[0].length; x++) {
+                if (info[y][x].hasLead()) {
+                    lead = info[y][x];
+                    MapLocation tempLoc = new MapLocation(lead.getZoneX() * Comms.ZONE_WIDTH + Comms.ZONE_WIDTH / 2,
+                            lead.getZoneY() * Comms.ZONE_HEIGHT + Comms.ZONE_HEIGHT / 2);
+                    if (Utility.distance(tempLoc, rc.getLocation()) < minDist) {
+                    	minDist = Utility.distance(tempLoc, rc.getLocation());
+                    	target = tempLoc;
+                    }
+                }
+            }
+        }
+        System.out.println(target);
+        if (target == null) {
+        	initWander();
+        }
 	}
 	double leadPerTurn(int rubble) {
 		return (50)/(10+rubble);
 	}
+	
+	CommInformation info[][];
+    MapLocation homeArchonLocation;
+    MapLocation lastZoneInfoLocation;
+    Direction followingDir;
+    int roundInfoLastUpdated;
+    MapLocation targetLoc;
+    MinerRoles role = MinerRoles.Miner;
+	private CommInformation findZoneUnknown() {
+		int iterations = 0;
+		for (int y = 0; y < info.length; y++) {
+			if (info[y][0].getDangerLevel() == CommConstants.UNKNOWN) {
+                iterations++;
+            }
+			if (info[y][info[0].length-1].getDangerLevel() == CommConstants.UNKNOWN) {
+                iterations++;
+            }
+        }
+		for (int x = 0; x < info[0].length; x++) {
+			if (info[0][x].getDangerLevel() == CommConstants.UNKNOWN) {
+                iterations++;
+            }
+			if (info[info.length-1][x].getDangerLevel() == CommConstants.UNKNOWN) {
+                iterations++;
+            }
+        }
+		iterations = Math.max((int)((iterations) * rng.nextDouble())-1, 0);
+		for (int y = 0; y < info.length; y++) {
+			if (info[y][0].getDangerLevel() == CommConstants.UNKNOWN) {
+				iterations--;
+                if (iterations <= 0) {
+                	return info[y][0];
+                }
+            }
+			if (info[y][info[0].length-1].getDangerLevel() == CommConstants.UNKNOWN) {
+				iterations--;
+                if (iterations <= 0) {
+                	return info[y][info[0].length-1];
+                }
+            }
+        }
+		for (int x = 0; x < info[0].length; x++) {
+			if (info[0][x].getDangerLevel() == CommConstants.UNKNOWN) {
+				iterations--;
+                if (iterations <= 0) {
+                	return info[0][x];
+                }
+            }
+			if (info[info.length-1][x].getDangerLevel() == CommConstants.UNKNOWN) {
+				iterations--;
+                if (iterations <= 0) {
+                	return info[info.length-1][info[0].length-1];
+                }
+            }
+        }
+        return null;
+    }
+}
+enum MinerRoles {
+    Explorer,
+    Miner
 }

@@ -66,7 +66,7 @@ public strictfp class RobotPlayer {
 	        case LABORATORY: thisRobot = new Miner(rc); break;
 	        case WATCHTOWER: thisRobot = new Miner(rc); break;
 	        case BUILDER: thisRobot = new Miner(rc); break;
-	        case SAGE: thisRobot = new Miner(rc); break;
+	        case SAGE: Sage.run(rc); break;
 	        default: thisRobot = new Miner(rc); break;
 	        	
         }
@@ -81,7 +81,13 @@ public strictfp class RobotPlayer {
             
             // Try/catch blocks stop unhandled exceptions, which cause your robot to explode.
             try {
-                thisRobot.run();
+            	switch (rc.getType()) {
+	    	        case LABORATORY: Laboratory.run(rc); break;
+	    	        case WATCHTOWER: WatchTower.run(rc); break;
+	    	        case BUILDER: Builder.run(rc); break;
+	    	        case SAGE: Sage.run(rc); break;
+	    	        default: thisRobot.run(); break;
+            	}
             } catch (GameActionException e) {
                 // Oh no! It looks like we did something illegal in the Battlecode world. You should
                 // handle GameActionExceptions judiciously, in case unexpected events occur in the game

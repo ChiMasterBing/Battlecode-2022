@@ -46,6 +46,11 @@ public class Soldier extends Robot {
             	else if (enemies[ptr].type == RobotType.SOLDIER) {
             		combat = true;
             		tempTarget = enemies[ptr].location;
+            		int current = rc.readSharedArray(15);
+        			String s = String.format("%16s", Integer.toBinaryString(current)).replace(" ", "0");
+        			String message = "0000" + Utility.numToBit6(me.x) + Utility.numToBit6(me.y);
+        			rc.writeSharedArray(15, Integer.parseInt(message, 2));
+        	       
             	}
                 rc.attack(cur);
             }
@@ -311,7 +316,6 @@ public class Soldier extends Robot {
 				break;
 			}
 		}
-		
 		switch (task) {
 			case "00010000": init0000(); break;
 			default: init0000(); break;
